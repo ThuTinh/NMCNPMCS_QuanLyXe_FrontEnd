@@ -7932,6 +7932,295 @@ export class TenantSettingsServiceProxy {
 }
 
 @Injectable()
+export class ThongTinXeServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @thongTinXeId (optional) 
+     * @sorting (optional) 
+     * @maxResultCount (optional) 
+     * @skipCount (optional) 
+     * @return Success
+     */
+    getThongTinXeByFilter(thongTinXeId: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfThongTinXeDto> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/GetThongTinXeByFilter?";
+        if (thongTinXeId !== undefined)
+            url_ += "ThongTinXeId=" + encodeURIComponent("" + thongTinXeId) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetThongTinXeByFilter(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetThongTinXeByFilter(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfThongTinXeDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfThongTinXeDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetThongTinXeByFilter(response: HttpResponseBase): Observable<PagedResultDtoOfThongTinXeDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfThongTinXeDto.fromJS(resultData200) : new PagedResultDtoOfThongTinXeDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfThongTinXeDto>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    getThongTinXeForEdit(id: number | null | undefined): Observable<ThongTinXeInput> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/GetThongTinXeForEdit?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetThongTinXeForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetThongTinXeForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<ThongTinXeInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ThongTinXeInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetThongTinXeForEdit(response: HttpResponseBase): Observable<ThongTinXeInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ThongTinXeInput.fromJS(resultData200) : new ThongTinXeInput();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ThongTinXeInput>(<any>null);
+    }
+
+    /**
+     * @input (optional) 
+     * @return Success
+     */
+    createOrEditThongTinXe(input: ThongTinXeInput | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/CreateOrEditThongTinXe";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEditThongTinXe(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEditThongTinXe(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEditThongTinXe(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deleteThongTinXe(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/DeleteThongTinXe/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteThongTinXe(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteThongTinXe(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteThongTinXe(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    getThongTinXeForView(id: number | null | undefined): Observable<ThongTinXeForViewDto> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/GetThongTinXeForView?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetThongTinXeForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetThongTinXeForView(<any>response_);
+                } catch (e) {
+                    return <Observable<ThongTinXeForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ThongTinXeForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetThongTinXeForView(response: HttpResponseBase): Observable<ThongTinXeForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ThongTinXeForViewDto.fromJS(resultData200) : new ThongTinXeForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ThongTinXeForViewDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class TimingServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -18324,6 +18613,242 @@ export interface ITenantBillingSettingsEditDto {
     legalName: string | undefined;
     address: string | undefined;
     taxVatNo: string | undefined;
+}
+
+export class PagedResultDtoOfThongTinXeDto implements IPagedResultDtoOfThongTinXeDto {
+    totalCount!: number | undefined;
+    items!: ThongTinXeDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfThongTinXeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(ThongTinXeDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfThongTinXeDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfThongTinXeDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfThongTinXeDto {
+    totalCount: number | undefined;
+    items: ThongTinXeDto[] | undefined;
+}
+
+export class ThongTinXeDto implements IThongTinXeDto {
+    thongTinXeId!: string | undefined;
+    hangSanXuat!: string | undefined;
+    theTichDongCo!: string | undefined;
+    nuocSanXuat!: string | undefined;
+    loaiNhienLieu!: string | undefined;
+    loaiXe!: string | undefined;
+    namSanXuat!: number | undefined;
+    id!: number | undefined;
+
+    constructor(data?: IThongTinXeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.thongTinXeId = data["thongTinXeId"];
+            this.hangSanXuat = data["hangSanXuat"];
+            this.theTichDongCo = data["theTichDongCo"];
+            this.nuocSanXuat = data["nuocSanXuat"];
+            this.loaiNhienLieu = data["loaiNhienLieu"];
+            this.loaiXe = data["loaiXe"];
+            this.namSanXuat = data["namSanXuat"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): ThongTinXeDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ThongTinXeDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["thongTinXeId"] = this.thongTinXeId;
+        data["hangSanXuat"] = this.hangSanXuat;
+        data["theTichDongCo"] = this.theTichDongCo;
+        data["nuocSanXuat"] = this.nuocSanXuat;
+        data["loaiNhienLieu"] = this.loaiNhienLieu;
+        data["loaiXe"] = this.loaiXe;
+        data["namSanXuat"] = this.namSanXuat;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IThongTinXeDto {
+    thongTinXeId: string | undefined;
+    hangSanXuat: string | undefined;
+    theTichDongCo: string | undefined;
+    nuocSanXuat: string | undefined;
+    loaiNhienLieu: string | undefined;
+    loaiXe: string | undefined;
+    namSanXuat: number | undefined;
+    id: number | undefined;
+}
+
+export class ThongTinXeInput implements IThongTinXeInput {
+    thongTinXeId!: string | undefined;
+    hangSanXuat!: string | undefined;
+    theTichDongCo!: string | undefined;
+    nuocSanXuat!: string | undefined;
+    loaiNhienLieu!: string | undefined;
+    loaiXe!: string | undefined;
+    namSanXuat!: number | undefined;
+    id!: number | undefined;
+
+    constructor(data?: IThongTinXeInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.thongTinXeId = data["thongTinXeId"];
+            this.hangSanXuat = data["hangSanXuat"];
+            this.theTichDongCo = data["theTichDongCo"];
+            this.nuocSanXuat = data["nuocSanXuat"];
+            this.loaiNhienLieu = data["loaiNhienLieu"];
+            this.loaiXe = data["loaiXe"];
+            this.namSanXuat = data["namSanXuat"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): ThongTinXeInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ThongTinXeInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["thongTinXeId"] = this.thongTinXeId;
+        data["hangSanXuat"] = this.hangSanXuat;
+        data["theTichDongCo"] = this.theTichDongCo;
+        data["nuocSanXuat"] = this.nuocSanXuat;
+        data["loaiNhienLieu"] = this.loaiNhienLieu;
+        data["loaiXe"] = this.loaiXe;
+        data["namSanXuat"] = this.namSanXuat;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IThongTinXeInput {
+    thongTinXeId: string | undefined;
+    hangSanXuat: string | undefined;
+    theTichDongCo: string | undefined;
+    nuocSanXuat: string | undefined;
+    loaiNhienLieu: string | undefined;
+    loaiXe: string | undefined;
+    namSanXuat: number | undefined;
+    id: number | undefined;
+}
+
+export class ThongTinXeForViewDto implements IThongTinXeForViewDto {
+    thongTinXeId!: string | undefined;
+    hangSanXuat!: string | undefined;
+    theTichDongCo!: string | undefined;
+    nuocSanXuat!: string | undefined;
+    loaiNhienLieu!: string | undefined;
+    loaiXe!: string | undefined;
+    namSanXuat!: number | undefined;
+
+    constructor(data?: IThongTinXeForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.thongTinXeId = data["thongTinXeId"];
+            this.hangSanXuat = data["hangSanXuat"];
+            this.theTichDongCo = data["theTichDongCo"];
+            this.nuocSanXuat = data["nuocSanXuat"];
+            this.loaiNhienLieu = data["loaiNhienLieu"];
+            this.loaiXe = data["loaiXe"];
+            this.namSanXuat = data["namSanXuat"];
+        }
+    }
+
+    static fromJS(data: any): ThongTinXeForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ThongTinXeForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["thongTinXeId"] = this.thongTinXeId;
+        data["hangSanXuat"] = this.hangSanXuat;
+        data["theTichDongCo"] = this.theTichDongCo;
+        data["nuocSanXuat"] = this.nuocSanXuat;
+        data["loaiNhienLieu"] = this.loaiNhienLieu;
+        data["loaiXe"] = this.loaiXe;
+        data["namSanXuat"] = this.namSanXuat;
+        return data; 
+    }
+}
+
+export interface IThongTinXeForViewDto {
+    thongTinXeId: string | undefined;
+    hangSanXuat: string | undefined;
+    theTichDongCo: string | undefined;
+    nuocSanXuat: string | undefined;
+    loaiNhienLieu: string | undefined;
+    loaiXe: string | undefined;
+    namSanXuat: number | undefined;
 }
 
 export class ListResultDtoOfNameValueDto implements IListResultDtoOfNameValueDto {

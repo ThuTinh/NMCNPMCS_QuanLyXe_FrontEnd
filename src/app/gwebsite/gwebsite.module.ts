@@ -18,6 +18,10 @@ import { DemoModelServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CustomerComponent } from './customer/customer.component';
 import { ViewCustomerModalComponent } from './customer/view-customer-modal.component';
 import { CreateOrEditCustomerModalComponent } from './customer/create-or-edit-customer-modal.component';
+import {ThongTinXeComponent} from './thong-tin-xe/thongtinxe.component';
+import {ViewThongTinXeModalComponent} from './thong-tin-xe/view-thongtinxe-modal.component';
+import { CreateOrEditThongTinXeModalComponent} from'./thong-tin-xe/create-or-edit-thongtinxe-modal.component';
+import {ThongTinXeServiceProxy}  from '@shared/service-proxies/service-proxies';
 
 @NgModule({
     imports: [
@@ -42,10 +46,13 @@ import { CreateOrEditCustomerModalComponent } from './customer/create-or-edit-cu
         MenuClientComponent, CreateOrEditMenuClientModalComponent,
         DemoModelComponent, CreateOrEditDemoModelModalComponent, ViewDemoModelModalComponent,
         CustomerComponent, CreateOrEditCustomerModalComponent, ViewCustomerModalComponent,
+        ThongTinXeComponent, CreateOrEditThongTinXeModalComponent, ViewThongTinXeModalComponent
     ],
     providers: [
         DemoModelServiceProxy,
-        CustomerServiceProxy
+        CustomerServiceProxy,
+        ThongTinXeServiceProxy
+        
     ]
 })
 export class GWebsiteModule { }

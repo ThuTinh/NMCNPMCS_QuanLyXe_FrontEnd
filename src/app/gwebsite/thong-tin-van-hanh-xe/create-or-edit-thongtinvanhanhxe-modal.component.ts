@@ -1,4 +1,4 @@
-import{Component , ElementRef, EventEmitter,Injector, Output, ViewChild} from '@angular/core';
+import{Component , ElementRef, EventEmitter,Injector, Output,Input, ViewChild} from '@angular/core';
 import{AppComponentBase} from '@shared/common/app-component-base';
 import{ModalDirective} from 'ngx-bootstrap';
 import {ThongTinVanHanhXeServiceProxy, ThongTinVanHanhXeInput} from '@shared/service-proxies/service-proxies';
@@ -16,10 +16,13 @@ export class CreateOrEditThongTinVanHanhXeModalComponent extends AppComponentBas
     @ViewChild('dataInput') dataInput:ElementRef;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
+    @Input () thongTinXeId: string;
+    
 
     saving = false;
 
     thongtinvanhanhxe: ThongTinVanHanhXeInput = new ThongTinVanHanhXeInput();
+    
     constructor(
         injector: Injector,
         private _thongTinVanHanhXeService: ThongTinVanHanhXeServiceProxy)
@@ -33,13 +36,17 @@ export class CreateOrEditThongTinVanHanhXeModalComponent extends AppComponentBas
             this._thongTinVanHanhXeService.getThongTinVanHanhXeForEdit(id).subscribe(result=>{
                 this.thongtinvanhanhxe = result;
                 this.modal.show();
+                
+               
 
             })
 
         }
 
         save():void{
+
             let input = this.thongtinvanhanhxe;
+            input.thongTinXeId = this.thongTinXeId;
             this.saving= true;
             this._thongTinVanHanhXeService.createOrEditThongTinVanHanhXe(input).subscribe(result =>{
                 this.notify.info(this.l('Saved Successfully'));

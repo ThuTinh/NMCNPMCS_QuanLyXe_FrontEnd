@@ -16,12 +16,18 @@
                 <!-- Kết thúc header -->
                 <!-- Body -->
                 <div class="modal-body">
-                            <div class = "form-group">
+                            <div class = "form-group" *ngIf="thongtinvanhanhxe.id">
                                 <label> Mã xe *</label>
-                                <input #maInput="ngModel" class = "form-control" type ="text" name = "MaXe"
-                                [(ngModel)] = "thongtinvanhanhxe.thongTinXeId" required maxlength = "15">
+                                <input #maInput="ngModel" class = "form-control" type ="text" name = "MaXe" 
+                                [(ngModel)] = "thongtinvanhanhxe.thongTinXeId" required maxlength = "15" >
                                 
                             </div>
+                            <div class = "form-group" *ngIf="!thongtinvanhanhxe.id">
+                                    <label> Mã xe *</label>
+                                    <input  class = "form-control" type ="text" name = "MaXe" value="{{thongTinXeId}}"
+                                    required maxlength = "15" disabled="true">
+                                    
+                                </div>
                           
                              <div class = "form-group">
                                     <label> Số km *</label>

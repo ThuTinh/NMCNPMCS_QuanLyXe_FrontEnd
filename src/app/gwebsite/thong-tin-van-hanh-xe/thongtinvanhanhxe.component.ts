@@ -115,6 +115,7 @@ export class ThongTinVanHanhXeComponent extends AppComponentBase
         this._activateRoute.params.subscribe((params:Params)=>{
             //this.thongTinXeId = params['ThogTinXeId']||'';
             this.thongTinXeId = id;
+          
             this.reloadList(this.thongTinXeId,null);
             
         });

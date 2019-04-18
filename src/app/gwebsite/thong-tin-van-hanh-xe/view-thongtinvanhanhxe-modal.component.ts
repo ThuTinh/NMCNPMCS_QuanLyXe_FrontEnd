@@ -1,6 +1,6 @@
 import{ThongTinVanHanhXeForViewDto, ThongTinXeForViewDto} from '../../../shared/service-proxies/service-proxies';
 import {AppComponentBase} from '@shared/common/app-component-base';
-import{AfterViewInit, Injector, Component, ViewChild} from '@angular/core';
+import{AfterViewInit, Injector, Component, ViewChild, Input} from '@angular/core';
 import {ThongTinVanHanhXeServiceProxy} from '@shared/service-proxies/service-proxies';
 import {ModalDirective} from 'ngx-bootstrap';
 
@@ -14,6 +14,7 @@ export class ViewThongTinVanHanhXeModalComponent extends AppComponentBase
 {
     thongtinvanhanhxe: ThongTinVanHanhXeForViewDto = new ThongTinVanHanhXeForViewDto();
     @ViewChild('viewModal') modal: ModalDirective;
+    
 
     
     constructor(
@@ -28,7 +29,7 @@ export class ViewThongTinVanHanhXeModalComponent extends AppComponentBase
         this._thongtinvanhanhxeService.getThongTinVanhanhXeForView(id).subscribe(result =>
             {
                 this.thongtinvanhanhxe  =result;
-                alert(this.thongtinvanhanhxe.ghiChu);
+               
                 this.modal.show();
             })
     }

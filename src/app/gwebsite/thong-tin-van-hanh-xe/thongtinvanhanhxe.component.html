@@ -82,7 +82,7 @@
                     </div>
                 </form>
                 <!-- Bắt đầu hàng 2 -->
-                <div class="row align-items-center" style="color:red">
+                <div class="row align-items-center" style="color:red; font-size:20px">
                     Thông tin chi tiết vận hành xe
 
                 </div>
@@ -179,8 +179,8 @@
             </div>
         </div>
     </div>
-    <createOrEditThongTinVanHanhXeModal #createOrEditModal (modalSave)="reloadPage()"></createOrEditThongTinVanHanhXeModal>
-  <viewThongTinVanHanhXeModal #showThongTinVanHanhXeModal></viewThongTinVanHanhXeModal>  
+    <createOrEditThongTinVanHanhXeModal #createOrEditModal (modalSave)="reloadPage()" [thongTinXeId] = "thongTinXeId"></createOrEditThongTinVanHanhXeModal>
+  <viewThongTinVanHanhXeModal #showThongTinVanHanhXeModal ></viewThongTinVanHanhXeModal>  {{thongTinXeId}}
     </div>
 </div>
     

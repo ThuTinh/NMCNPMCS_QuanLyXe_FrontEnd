@@ -18,11 +18,14 @@ import { DemoModelServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CustomerComponent } from './customer/customer.component';
 import { ViewCustomerModalComponent } from './customer/view-customer-modal.component';
 import { CreateOrEditCustomerModalComponent } from './customer/create-or-edit-customer-modal.component';
-import {ThongTinXeComponent} from './thong-tin-xe/thongtinxe.component';
-import {ViewThongTinXeModalComponent} from './thong-tin-xe/view-thongtinxe-modal.component';
-import { CreateOrEditThongTinXeModalComponent} from'./thong-tin-xe/create-or-edit-thongtinxe-modal.component';
-import {ThongTinXeServiceProxy}  from '@shared/service-proxies/service-proxies';
-
+import { ThongTinXeComponent } from './thong-tin-xe/thongtinxe.component';
+import { ViewThongTinXeModalComponent } from './thong-tin-xe/view-thongtinxe-modal.component';
+import { CreateOrEditThongTinXeModalComponent } from './thong-tin-xe/create-or-edit-thongtinxe-modal.component';
+import { ThongTinXeServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinVanHanhXeComponent } from './thong-tin-van-hanh-xe/thongtinvanhanhxe.component';
+import { ViewThongTinVanHanhXeModalComponent } from './thong-tin-van-hanh-xe/view-thongtinvanhanhxe-modal.component';
+import { CreateOrEditThongTinVanHanhXeModalComponent } from './thong-tin-van-hanh-xe/create-or-edit-thongtinvanhanhxe-modal.component';
+import { ThongTinVanHanhXeServiceProxy } from '@shared/service-proxies/service-proxies';
 @NgModule({
     imports: [
         FormsModule,
@@ -46,13 +49,16 @@ import {ThongTinXeServiceProxy}  from '@shared/service-proxies/service-proxies';
         MenuClientComponent, CreateOrEditMenuClientModalComponent,
         DemoModelComponent, CreateOrEditDemoModelModalComponent, ViewDemoModelModalComponent,
         CustomerComponent, CreateOrEditCustomerModalComponent, ViewCustomerModalComponent,
-        ThongTinXeComponent, CreateOrEditThongTinXeModalComponent, ViewThongTinXeModalComponent
+        ThongTinXeComponent, CreateOrEditThongTinXeModalComponent, ViewThongTinXeModalComponent,
+        ThongTinVanHanhXeComponent, CreateOrEditThongTinVanHanhXeModalComponent, ViewThongTinVanHanhXeModalComponent
+
     ],
     providers: [
         DemoModelServiceProxy,
         CustomerServiceProxy,
-        ThongTinXeServiceProxy
-        
+        ThongTinXeServiceProxy,
+        ThongTinVanHanhXeServiceProxy
+
     ]
 })
 export class GWebsiteModule { }

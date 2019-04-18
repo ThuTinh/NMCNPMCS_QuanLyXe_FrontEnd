@@ -9,9 +9,11 @@ import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
 import { ThongTinXeServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditThongTinXeModalComponent } from './create-or-edit-thongtinxe-modal.component';
+import {ThongTinVanHanhXeComponent} from '../thong-tin-van-hanh-xe/thongtinvanhanhxe.component';
 
 
 @Component({
+    selector: 'viewThongTinXeModal',
     templateUrl:'./thongtinxe.component.html',
     animations: [appModuleAnimation()]
 
@@ -21,7 +23,9 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
     @ViewChild('dataTable') dataTable : Table;
     @ViewChild('paginator') paginator: Paginator;
     @ViewChild('createOrEditModal') createOrEditModal : CreateOrEditThongTinXeModalComponent;
-    @ViewChild('viewThongTinXeModal') viewThongTinXeModal: ViewThongTinXeModalComponent;
+    //  @ViewChild('viewThongTinXeModal') viewThongTinXeModal: ViewThongTinXeModalComponent;
+    @ViewChild('thongTinVanHanhXeComponent') thongTinVanHanhXeComponent : ThongTinVanHanhXeComponent;
+
 
     thongTinXeId:string;
     constructor( injector: Injector, private _thongTinXeService: ThongTinXeServiceProxy, private _activateRoute: ActivatedRoute){
@@ -70,8 +74,15 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
 
     viewThongTinXe(id) : void{
        
-        var modal = this.viewThongTinXeModal;
-        modal.show(id);
+    //    var modal = this.viewThongTinXeModal;
+    //     modal.show(id);
+    }
+
+    ShowThongTinVanHanhXe(id, thongtinxeid):void
+    {
+        console.log("id + maxe:" + id + thongtinxeid);
+        var modal = this.thongTinVanHanhXeComponent;
+        modal.show(id,thongtinxeid);
     }
 
     init():void{

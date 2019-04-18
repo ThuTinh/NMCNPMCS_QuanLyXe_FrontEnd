@@ -13,7 +13,7 @@ export class ViewThongTinXeModalComponent extends AppComponentBase {
 
 thongtinxe: ThongTinXeForViewDto = new ThongTinXeForViewDto();
 @ViewChild('viewModal') modal : ModalDirective;
-
+saving=false;
 constructor( 
 injector : Injector,
 private _thongtinxeService: ThongTinXeServiceProxy

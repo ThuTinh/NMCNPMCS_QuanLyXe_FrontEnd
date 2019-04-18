@@ -1,30 +1,71 @@
+
 <div [@routerTransition]>
+        <div bsModal #showThongTinVanHanhXe="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="showThongTinVanHanhXe" aria-hidden="true" [config]="{backdrop: 'static'}">
+        
+        <button type="button" class = "close" (click)="close()" [attr.aria-label] = "l('close')">
+                <span aria-hidden="true" >&times;</span>
+            </button>
     <!-- này là bắt đầu headder -->
     <div class = "m-subheader">
+            
         <div class = "d-flex align-items-center">
             <div class = "mr-auto col-xs-6">
-                <h3 class = "m-subheader__title m-subheader__title--separator">
+                <!-- <h3 class = "m-subheader__title m-subheader__title--separator">
                     <span>{{l("Thông tin xe")}}</span>
-                </h3>
+                </h3> -->
 
             </div>
             <div class="col-xs-6 text-right">
-                <button (click)="createThongTinXe()" *ngIf="isGranted('Pages.Administration.Customer.Create')" class = "btn btn-primary"><i class = "fa fa-plus"></i>{{l("CreateNewThongTinXe")}}</button>
+                <button (click)="createThongTinVanHanhXe()" *ngIf="isGranted('Pages.Administration.Customer.Create')" class = "btn btn-primary"><i class = "fa fa-plus"></i>{{l("CreateNewThongTinVanHanh")}}</button>
             </div>
         </div>
     </div>
     <!-- Này là kết thúc 1 cái header nè -->
     <!-- Này là bắt đầu 1 cái bảng chứa dữ liệu -->
     <div class="m-content" >
+            
         <div class="m-portlet m-portlet--mobile">
             <div class="m-portlet__body">
+                   
                 <form autocomplete="off"  >
                     <div class="m-form m-form--label-align-right" id="TextsFilterForm">
                         <!-- hàng 1 -->
+
+                        <div class=" row align-items-center">
+                            <div class = "col-sm-12">
+                                    <span>Mã xe: {{thongtinxe.thongTinXeId}}</span>
+                            </div>
+                                
+                            </div>
+                            <div class=" row align-items-center">
+                              
+                                <div class="col-sm-4">
+                                        <span> Hãng sản xuất : {{thongtinxe.hangSanXuat}} </span>
+                                </div>
+                                <div class="col-sm-4">
+                                        <span> TT động cơ : {{thongtinxe.theTichDongCo}} </span>
+                                </div>
+                                <div class="col-sm-4">
+                                        <span> Nước SX : {{thongtinxe.nuocSanXuat}} </span>
+                                </div>
+                            </div>
+                                <div class = " row align-items-center">
+                                        
+                                        <div class="col-sm-4">
+                                                <span> Loại NL: {{thongtinxe.loaiNhienLieu}} </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                                <span> Loại Xe : {{thongtinxe.loaiXe}} </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                                <span> Năm SX : {{thongtinxe.namSanXuat}} </span>
+                                        </div>
+                            </div>
                         <div class="row align-items-center m--margin-bottom-10">
                             <!-- Này là cái mục refresh -->
                             <div class="col-sm-12" >                      
-                                <div class="input-group">
+                                <!-- <div class="input-group">
                                     <input [(ngModel)]="thongTinXeId" name="thongTinXeId" autoFocus class="form-control"
                                         placeholder="Nhập mã xe" type="text">
                                     <span class="input-group-btn">
@@ -32,7 +73,8 @@
                                                 class="icon-refresh"></i>
                                             {{l("Refresh")}}</button>
                                     </span>
-                                </div>            
+                                </div>             -->
+
                             </div>
                              <!-- Này kết thúc mục refresh -->
                         </div>
@@ -41,76 +83,57 @@
                 </form>
                 <!-- Bắt đầu hàng 2 -->
                 <div class="row align-items-center">
+                    Thông tin chi tiết vận hành
+
+                </div>
+                <div class="row align-items-center">
                     <!--<Primeng-TurboTable-Start>-->
                     <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                        <p-table #dataTable (onLazyLoad)="getThongTinXes($event)" [value]="primengTableHelper.records"
+                        <p-table #dataTable (onLazyLoad)="getThongTinVanHanhXes($event)" [value]="primengTableHelper.records"
                             rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
                             [responsive]="primengTableHelper.isResponsive">
                             <ng-template pTemplate="header">
                                 <!-- Bắt đầu hàng -->
                                 <tr>
                                     <!-- Bắt đầu cột -->
-                                    <th pSortableColumn="thongTinXeId">
-                                        Mã xe
-                                        <p-sortIcon field="thongTinXeId"></p-sortIcon>
+                                    <th pSortableColumn="soKm">
+                                        Số Km
+                                        <p-sortIcon field="soKm"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="hangSanXuat">
-                                        Hãng SX
+                                    <th pSortableColumn="xangTieuThu">
+                                        Xăng tiêu thụ
                                     </th>
-                                    <th pSortableColumn="theTichDongCo">
-                                        TT động cơ
-                                        <p-sortIcon field="theTichDongCo"></p-sortIcon>
+                                    <th pSortableColumn="trangThai">
+                                        Trạng thái
+                                        <p-sortIcon field="trangThai"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="nuocSanXuat">
-                                        Nước SX
-                                        <p-sortIcon field="nuocSanXuat"></p-sortIcon>
+                                    <th pSortableColumn="ghiChu">
+                                       Ghi chú
+                                        <p-sortIcon field="ghiChu"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="loaiNhienLieu">
-                                        Loại NL
-                                        <p-sortIcon field="loaiNhienLieu"></p-sortIcon>
-                                    </th>
-                                    <th pSortableColumn="loaiXe">
-                                        Loại xe
-                                        <p-sortIcon field="loaiXe"></p-sortIcon>
-                                    </th>
-                                    <th pSortableColumn="namSanXuat"  >
-                                        Năm SX
-                                        <p-sortIcon field="namSanXuat"></p-sortIcon>
-                                    </th>
-                                    <th [style.margin-right]="'10px'">{{l('Edit')}}</th>
-                                    <th>TT VH</th>
+                                    
+                                    <th>{{l('Edit')}}</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-record="$implicit">
-                                <tr >
+                                <tr>
                                     <td>
-                                        <span class="ui-column-title">Mã xe</span>
-                                        <span title="{{record.thongTinXeId}}">{{truncateString(record.thongTinXeId)}}</span>
+                                        <span class="ui-column-title">Số km</span>
+                                        <span title="{{record.soKm}}">{{truncateString(record.soKm)}}</span>
                                     </td>
                                     <td>
-                                        <span class="ui-column-title">Hãng sản xuất</span>
-                                        <span title="{{record.hangSanXuat}}">{{truncateString(record.hangSanXuat)}}</span>
+                                        <span class="ui-column-title">Xăng tiêu thụ</span>
+                                        <span title="{{record.xangTieuThu}}">{{truncateString(record.xangTieuThu)}}</span>
                                     </td>
                                     <td>
-                                        <span class="ui-column-title">Thể tích động cơ</span>
-                                        <span title="{{record.theTichDongCo}}">{{truncateString(record.theTichDongCo)}}</span>
+                                        <span class="ui-column-title">Trạng thái</span>
+                                        <span title="{{record.trangThai}}">{{truncateString(record.trangThai)}}</span>
                                     </td>
                                     <td>
                                         <span class="ui-column-title">Nước sản xuất</span>
-                                        <span title="{{record.nuocSanXuat}}">{{truncateString(record.nuocSanXuat)}}</span>
+                                        <span title="{{record.ghiChu}}">{{truncateString(record.ghiChu)}}</span>
                                     </td>
-                                    <td>
-                                        <span class="ui-column-title">Loại nhiên liệu</span>
-                                        <span title="{{record.loaiNhienLieu}}">{{truncateString(record.loaiNhienLieu)}}</span>
-                                    </td>
-                                    <td>
-                                        <span class="ui-column-title">Loại xe</span>
-                                        <span title="{{record.loaiXe}}">{{truncateString(record.loaiXe)}}</span>
-                                    </td>
-                                    <td>
-                                        <span class="ui-column-title">Năm SX</span>
-                                        <span title="{{record.namSanXuat}}">{{truncateString(record.namSanXuat)}}</span>
-                                    </td>
+                                  
                                     <td>
                                         <button
                                             class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
@@ -120,25 +143,14 @@
 
                                         <button
                                             class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-                                            (click)="deleThongTinXe(record.id)" title="{{l('Delete')}}">
+                                            (click)="deleteThongTinVanHanhXe(record.id)" title="{{l('Delete')}}">
                                             <i class="fa fa-times" [attr.aria-label]="l('Delete')"></i>
                                         </button>
                                         <button
                                             class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-                                            (click)="viewThongTinXe(record.id)" title="{{l('View')}}">
+                                            (click)="viewThongTinVanHanhXe(record.id)" title="{{l('View')}}">
                                             <i class="fa fa-eye" [attr.aria-label]="l('View')"></i>
                                         </button>
-                                       
-                                    
-                                    </td>
-                                    <td>
-                                        <button
-                                        class="btn m-btn m-btn--hover-accent  m-btn--pill"
-                                        (click)="ShowThongTinVanHanhXe(record.id ,record.thongTinXeId)" title="{{l('View')}}">
-                                        <i class="fa fa-exclamation-circle" [attr.aria-label]="l('View')"></i>
-                                        
-                                       
-                                    </button>
                                     </td>
                                 </tr>
                             </ng-template>
@@ -148,13 +160,17 @@
                         </div>
                         <div class="primeng-paging-container">
                             <p-paginator rows="{{primengTableHelper.defaultRecordsCountPerPage}}" #paginator
-                                (onPageChange)="getThongTinXes($event)"
+                                (onPageChange)="getThongTinVanHanhXes($event)"
                                 [totalRecords]="primengTableHelper.totalRecordsCount"
                                 [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
                             </p-paginator>
                             <span class="total-records-count">
                                 {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
                             </span>
+                        </div>
+                        <div class="modal-footer">
+                            <button  type="button" class="btn btn-default"
+                                (click)="close()">{{l("Close")}}</button>
                         </div>
                     </div>
                     <!--<Primeng-TurboTable-End>-->
@@ -163,8 +179,8 @@
             </div>
         </div>
     </div>
-    <createOrEditThongTinXeModal #createOrEditModal (modalSave)="reloadPage()"></createOrEditThongTinXeModal>
-    <!-- <viewThongTinXeModal #viewThongTinXeModal></viewThongTinXeModal> -->
-    <thongTinVanHanhXeModal #thongTinVanHanhXeComponent></thongTinVanHanhXeModal>
+    <createOrEditThongTinVanHanhXeModal #createOrEditModal (modalSave)="reloadPage()"></createOrEditThongTinVanHanhXeModal>
+  <!-- <viewThongTinVanHanhXeModal #showThongTinVanHanhXeModal></viewThongTinVanHanhXeModal>  -->
+    </div>
 </div>
     

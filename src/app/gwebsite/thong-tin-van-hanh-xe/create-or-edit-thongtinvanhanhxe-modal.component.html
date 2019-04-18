@@ -1,0 +1,68 @@
+<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form #editForm="ngForm" novalidate (ngSubmit)="save()">
+                   <!-- header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="thongtinvanhanhxe.id">Cập nhật Thông tin vận xe: {{thongtinvanhanhxe.thongTinXeId}}</span>
+                        <span *ngIf="!thongtinvanhanhxe.id">Tạo mới Thông tin van hanh xe</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- Kết thúc header -->
+                <!-- Body -->
+                <div class="modal-body">
+                            <div class = "form-group">
+                                <label> Mã xe *</label>
+                                <input #maInput="ngModel" class = "form-control" type ="text" name = "MaXe"
+                                [(ngModel)] = "thongtinvanhanhxe.thongTinXeId" required maxlength = "15">
+                                
+                            </div>
+                          
+                             <div class = "form-group">
+                                    <label> Số km *</label>
+                                    <input #maInput="ngModel" class = "form-control" type ="text" name = "SoKm"
+                                    [(ngModel)] = "thongtinvanhanhxe.soKm" required maxlength = "10">
+                                             
+                             </div>
+                           
+                             <div class = "form-group">
+                                    <label> Xăng tiêu thụ *</label>
+                                    <input #maInput="ngModel" class = "form-control" type ="text" name = "XangTieuThu"
+                                    [(ngModel)] = "thongtinvanhanhxe.xangTieuThu" required maxlength = "20">
+                             </div>      
+                                    
+                            
+                             <div class = "form-group">
+                                    <label> Trạng Thái *</label>
+                                    <input #maInput="ngModel" class = "form-control" type ="text" name = "TrangThai"
+                                    [(ngModel)] = "thongtinvanhanhxe.trangThai" required maxlength = "20">
+                                                     
+                             </div>
+                             <div class = "form-group">
+                                <label> Ghi chú *</label>
+                                <input #maInput="ngModel" class = "form-control" type ="text" name = "GhiChu"
+                                [(ngModel)] = "thongtinvanhanhxe.ghiChu" required maxlength = "20">
+                                                 
+                         </div>
+                            
+                </div>      
+                <!-- Kết thúc body -->
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+                <!-- Kết thúc footer -->
+
+              </form>
+        </div>
+    </div>
+</div>

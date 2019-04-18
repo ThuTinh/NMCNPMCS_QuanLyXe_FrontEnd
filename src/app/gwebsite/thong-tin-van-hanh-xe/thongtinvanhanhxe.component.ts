@@ -105,8 +105,9 @@ export class ThongTinVanHanhXeComponent extends AppComponentBase
     }
 
     viewThongTinVanHanhXe(id):void{
-      //  var modal = this.showThongTinVanHanhXeModal;
-       // modal.show();
+        console.log('view thong tin van hanh xe id :'+ id);
+       var modal = this.showThongTinVanHanhXeModal;
+       modal.show(id);
     }
 
     init(id):void{

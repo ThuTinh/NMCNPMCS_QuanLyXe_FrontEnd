@@ -28,6 +28,7 @@ export class ViewThongTinVanHanhXeModalComponent extends AppComponentBase
         this._thongtinvanhanhxeService.getThongTinVanhanhXeForView(id).subscribe(result =>
             {
                 this.thongtinvanhanhxe  =result;
+                alert(this.thongtinvanhanhxe.ghiChu);
                 this.modal.show();
             })
     }

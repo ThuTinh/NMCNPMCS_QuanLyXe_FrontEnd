@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class = "modal-header">
                 <h4 class = "modal-title">
-                    <span *ngIf = "thongtinvanhanhxe.thongTinXeId">{{l("Thông tin xe")}}:{{thongtinxe.thongTinXeId}} </span>
+                    <span *ngIf = "thongtinvanhanhxe.thongTinXeId">{{l("Thông tin xe")}}:{{thongtinvanhanhxe.thongTinXeId}} </span>
                     <span *ngIf="!thongtinvanhanhxe.thongTinXeId">{{l("Tạo mới thông tin xe")}}</span>
                 </h4>
                 <button type="button" class = "close" (click)="close()" [attr.aria-label] = "l('close')">
@@ -26,7 +26,7 @@
                     
                     <div class = "form-group">
                             <label>Ghi chú</label>
-                            <p>{{thongtinvanhanhxe.ghichu}}</p>
+                            <p>{{thongtinvanhanhxe.ghiChu}}</p>
                     </div>
                   
             </div>

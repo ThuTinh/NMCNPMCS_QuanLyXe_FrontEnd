@@ -13,7 +13,7 @@ import {ThongTinVanHanhXeComponent} from '../thong-tin-van-hanh-xe/thongtinvanha
 
 
 @Component({
-    selector: 'viewThongTinXeModal',
+    selector: 'thongTinXeModal',
     templateUrl:'./thongtinxe.component.html',
     animations: [appModuleAnimation()]
 
@@ -23,7 +23,7 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
     @ViewChild('dataTable') dataTable : Table;
     @ViewChild('paginator') paginator: Paginator;
     @ViewChild('createOrEditModal') createOrEditModal : CreateOrEditThongTinXeModalComponent;
-    //  @ViewChild('viewThongTinXeModal') viewThongTinXeModal: ViewThongTinXeModalComponent;
+     @ViewChild('viewThongTinXeModal') viewThongTinXeModal: ViewThongTinXeModalComponent;
     @ViewChild('thongTinVanHanhXeComponent') thongTinVanHanhXeComponent : ThongTinVanHanhXeComponent;
 
 
@@ -74,8 +74,8 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
 
     viewThongTinXe(id) : void{
        
-    //    var modal = this.viewThongTinXeModal;
-    //     modal.show(id);
+       var modal = this.viewThongTinXeModal;
+        modal.show(id);
     }
 
     ShowThongTinVanHanhXe(id, thongtinxeid):void

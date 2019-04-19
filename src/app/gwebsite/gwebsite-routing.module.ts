@@ -4,6 +4,8 @@ import { MenuClientComponent } from '@app/gwebsite/menu-client/menu-client.compo
 import { DemoModelComponent } from './demo-model/demo-model.component';
 import { CustomerComponent } from './customer/customer.component';
 
+import { QuanlyxeComponent } from './quanlyxe/quanlyxe.component';
+
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -31,6 +33,15 @@ import { CustomerComponent } from './customer/customer.component';
                     {
                         path: 'customer', component: CustomerComponent,
                         data: { permission: 'Pages.Administration.Customer' }
+                    },
+                ]
+            },
+            {
+                path: '',
+                children: [
+                    {
+                        path: 'quanlyxe', component: QuanlyxeComponent,
+                        data: { permission: 'Pages.Administration.Quanlyxe' }
                     },
                 ]
             }

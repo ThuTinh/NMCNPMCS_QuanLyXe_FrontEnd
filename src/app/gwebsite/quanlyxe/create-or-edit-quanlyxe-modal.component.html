@@ -1,0 +1,45 @@
+<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form #editForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="quanlyxe.id">Cập nhật xe: {{quanlyxe.name}}</span>
+                        <span *ngIf="!quanlyxe.id">Thêm</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label font = "times new roman" size = 10>Loại xe *</label>
+                        <input #nameInput="ngModel" class="form-control" type="text" name="Name"
+                            [(ngModel)]="quanlyxe.name" placeholder="Nhập Loại xe" required maxlength="64">
+                        <validation-messages [formCtrl]="nameInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Thông tin chủ sở hữu *</label>
+                        <input #addressInput="ngModel" class="form-control" type="text" name="Address"
+                            [(ngModel)]="quanlyxe.address" required maxlength="64">
+                        <validation-messages [formCtrl]="addressInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Thông tin xe*</label>
+                        <input #addressInput="ngModel" class="form-control" type="text" name="Info"
+                            [(ngModel)]="quanlyxe.info"  placeholder="Biển số, loại nhiên liệu v.v." required maxlength="64">
+                        <validation-messages [formCtrl]="infoInput"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

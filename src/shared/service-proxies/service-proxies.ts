@@ -4619,13 +4619,13 @@ export class ModelServiceProxy {
     }
 
     /**
-     * @id (optional) 
+     * @model (optional) 
      * @return Success
      */
-    getModelForEdit(id: number | null | undefined): Observable<ModelInput> {
+    getModelForEdit(model: string | null | undefined): Observable<ModelInput> {
         let url_ = this.baseUrl + "/api/Model/GetModelForEdit?";
-        if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        if (model !== undefined)
+            url_ += "model=" + encodeURIComponent("" + model) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9048,16 +9048,13 @@ export class ThongTinXeServiceProxy {
     }
 
     /**
-     * @soXe (optional) 
      * @return Success
      */
-    deleteThongTinXe(soXe: string | null | undefined, id: string): Observable<void> {
-        let url_ = this.baseUrl + "/api/ThongTinXe/DeleteThongTinXe/{id}?";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
-        if (soXe !== undefined)
-            url_ += "soXe=" + encodeURIComponent("" + soXe) + "&"; 
+    deleteThongTinXe(soxe: string): Observable<void> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/DeleteThongTinXe/{soxe}";
+        if (soxe === undefined || soxe === null)
+            throw new Error("The parameter 'soxe' must be defined.");
+        url_ = url_.replace("{soxe}", encodeURIComponent("" + soxe)); 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

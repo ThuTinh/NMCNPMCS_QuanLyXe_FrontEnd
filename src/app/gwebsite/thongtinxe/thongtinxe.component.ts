@@ -11,6 +11,7 @@ import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto } from '@sha
 import { CreateOrEditThongTinXeModalComponent } from './create-or-edit-thongtinxe-modal.component';
 import { ViewThongTinXeModalComponent } from './view-thongtinxe-modal.component'
 import { ThongTinXeViewDTO } from './dto/ThongTinXeViewDTO';
+import { ThongTinXeFilter } from './dto/ThongTInXeFilter';
 @Component({
     selector: 'thongTinXeComponent',
     templateUrl: './thongtinxe.component.html',
@@ -33,6 +34,8 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
     soXe: string;
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxes: ThongTinXeViewDTO[] = [];
+    filter: ThongTinXeFilter = new ThongTinXeFilter();
+
 
 
     constructor(
@@ -42,6 +45,11 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
         private _activatedRoute: ActivatedRoute,
     ) {
         super(injector);
+        this.filter.soXe = null;
+        this.filter.mucDichSuDung = null;
+        this.filter.model = null;
+        this.filter.namSanXuat = null;
+        this.filter.trangThaiDuyet = null;
     }
 
     /**
@@ -57,6 +65,21 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
         setTimeout(() => {
             this.init();
         });
+    }
+
+    Search(event?: LazyLoadEvent) {
+        this._thongtinxeService.getThongTinXeByFilter(this.filter.soXe, this.filter.mucDichSuDung, this.filter.model, this.filter.namSanXuat, this.filter.trangThaiDuyet, this.primengTableHelper.getSorting(this.dataTable),
+            this.primengTableHelper.getMaxResultCount(this.paginator, event),
+            this.primengTableHelper.getSkipCount(this.paginator, event),
+        ).subscribe(result => {
+
+            // this.primengTableHelper.totalRecordsCount = result.totalCount;
+            // this.primengTableHelper.records = result.items;
+            this.primengTableHelper.hideLoadingIndicator();
+        });
+
+
+
     }
 
     /**
@@ -75,16 +98,13 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
          * mặc định ban đầu lấy hết dữ liệu nên dữ liệu filter = null
          */
 
-        this.reloadList(null, event);
+        this.reloadList(event);
 
     }
 
-    reloadList(soXe, event?: LazyLoadEvent) {
+    reloadList(event?: LazyLoadEvent) {
 
-
-
-
-        this._thongtinxeService.getThongTinXeByFilter(null, null, null, null, null, this.primengTableHelper.getSorting(this.dataTable),
+        this._thongtinxeService.getThongTinXeByFilter(this.filter.soXe, this.filter.mucDichSuDung, this.filter.model, this.filter.namSanXuat, this.filter.trangThaiDuyet, this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event),
         ).subscribe(result => {
@@ -103,9 +123,12 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
                 thongtinxe.namSanXuat = item.namSanXuat;
                 thongtinxe.model = item.model;
                 thongtinxe.maTaiSan = item.maTaiSan;
+                console.log("kkk", item.model);
                 this._modelService.getModelForView(item.model).subscribe(result => {
                     thongtinxe.loaiXe = result.loaiXe;
+
                     thongtinxe.hangSanXuat = result.hangSanXuat;
+
                 });
                 this.thongtinxes.push(thongtinxe);
 
@@ -115,6 +138,11 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
 
             this.primengTableHelper.records = this.thongtinxes;
             this.primengTableHelper.hideLoadingIndicator();
+            this.filter.soXe = null;
+            this.filter.mucDichSuDung = null;
+            this.filter.model = null;
+            this.filter.namSanXuat = null;
+            this.filter.trangThaiDuyet = null;
         });
     }
 
@@ -128,7 +156,7 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
         //get params từ url để thực hiện filter
         this._activatedRoute.params.subscribe((params: Params) => {
             this.soXe = params['name'] || '';
-            this.reloadList(this.soXe, null);
+            this.reloadList(null);
         });
     }
 
@@ -138,13 +166,14 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
 
     applyFilters(): void {
         //truyền params lên url thông qua router
-        this.reloadList(this.soXe, null);
+        this.reloadList(null);
 
         if (this.paginator.getPage() !== 0) {
             this.paginator.changePage(0);
             return;
         }
     }
+
 
     //hàm show view create MenuClient
     createThongTinXe() {

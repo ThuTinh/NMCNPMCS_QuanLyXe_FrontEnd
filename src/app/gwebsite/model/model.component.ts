@@ -1,6 +1,6 @@
 
 import { AppComponentBase } from "@shared/common/app-component-base";
-import { AfterViewInit, Injector, Component, ViewChild } from "@angular/core";
+import { AfterViewInit, Injector, Component, ViewChild, Output, EventEmitter } from "@angular/core";
 import { ModalDirective } from 'ngx-bootstrap';
 import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
@@ -8,7 +8,7 @@ import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { ModelForViewDto, ModelServiceProxy } from "@shared/service-proxies/service-proxies";
+import { ModelForViewDto, ModelServiceProxy, ModelDto } from "@shared/service-proxies/service-proxies";
 
 @Component({
     selector: 'model',
@@ -16,14 +16,17 @@ import { ModelForViewDto, ModelServiceProxy } from "@shared/service-proxies/serv
     animations: [appModuleAnimation()]
 })
 
-export class ModelComponent extends AppComponentBase  {
+export class ModelComponent extends AppComponentBase {
 
-    model : ModelForViewDto = new ModelForViewDto();
+    model: ModelForViewDto = new ModelForViewDto();
     maModel: string;
     //@ViewChild('viewModal') modal: ModalDirective;
     @ViewChild('dataTable') dataTable: Table;
     @ViewChild('paginator') paginator: Paginator;
- 
+    @ViewChild('viewModal') modal: ModalDirective;
+    @Output() dlTraVe: EventEmitter<ModelDto> = new EventEmitter<ModelDto>();
+    item: ModelDto = new ModelDto();
+
 
     constructor(
         injector: Injector,
@@ -33,23 +36,19 @@ export class ModelComponent extends AppComponentBase  {
         super(injector);
     }
 
-    show(model?: string | null | undefined): void {
-        this._modelService.getModelForView(model).subscribe(result => {
-            this.model = result;
-          // this.modal.show();
-        })
+    show(): void {
+
+        this.modal.show();
     }
 
-    getModels(event ?: LazyLoadEvent)
-    {
+    getModels(event?: LazyLoadEvent) {
         //alert("aaa")
-        if(!this.paginator|| !this.dataTable)
-        {
-            return ;
+        if (!this.paginator || !this.dataTable) {
+            return;
         }
         this.primengTableHelper.showLoadingIndicator();
-        this.reloadList(null,event);
-        
+        this.reloadList(null, event);
+
     }
     applyFilters(): void {
         //truyền params lên url thông qua router
@@ -68,15 +67,18 @@ export class ModelComponent extends AppComponentBase  {
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event),
         ).subscribe(result => {
-           // alert("aaa")
+            // alert("aaa")
             this.primengTableHelper.totalRecordsCount = result.totalCount;
             this.primengTableHelper.records = result.items;
             this.primengTableHelper.hideLoadingIndicator();
-           
+
         });
     }
 
-    close() : void{
-      //  this.modal.hide();
+    close(): void {
+        this.modal.hide();
+        this.dlTraVe.emit(this.item);
+
     }
+
 }

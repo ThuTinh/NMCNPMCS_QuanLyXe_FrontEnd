@@ -20,7 +20,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 export class TaiSanComponent extends AppComponentBase implements AfterViewInit {
     taisan: TaiSanForViewDto = new TaiSanForViewDto();
     maTaiSan: string;
-    item: any;
+    item: TaiSanDto = new TaiSanDto();
     @Output() dlTraVe: EventEmitter<TaiSanDto> = new EventEmitter<TaiSanDto>();
 
     @ViewChild('viewModal') modal: ModalDirective;

@@ -16,10 +16,11 @@
                     <h4>Thông tin tài sản</h4>
                     <div class="form-group">
                         <label>Mã tài sản *</label>
-                        <input #maTaiSanInput="ngModel" class="form-control" type="text" name="maTaiSan"
-                            [(ngModel)]="taisan.maTaiSan" required maxlength="64"
+                        <input #maTaiSanInput="ngModel" [disabled]="true" class="form-control" type="text"
+                            name="maTaiSan" [(ngModel)]="taisan.maTaiSan" required maxlength="64"
                             style="display: inline-block;width: 300px">
-                        <button class="form-control" (click)="viewTaiSan.show()"
+
+                        <button class="form-control btn btn-outline-primary" (click)="viewTaiSan.show()"
                             style="display: inline-block; margin-right: 20px; width: 50px">...</button>
                     </div>
                     <div class="form-group">
@@ -86,10 +87,31 @@
                     </div>
                     <div class="form-group">
                         <label>Model *</label>
-                        <input #modelInput="ngModel" class="form-control" type="text" name="Model;"
-                            [(ngModel)]="thongtinxe.model" required maxlength="64">
-                        <validation-messages [formCtrl]="modelInput"></validation-messages>
+                        <input #modelInput="ngModel" [disabled]="true" class="form-control" type="text" name="model"
+                            [(ngModel)]="model.model" required maxlength="64"
+                            style="display: inline-block;width: 300px">
+                        <button class="form-control btn btn-outline-primary" (click)="viewModel.show()"
+                            style="display: inline-block; margin-right: 20px; width: 50px">...</button>
                     </div>
+                    <div class="form-group">
+                        <label>Loại xe *</label>
+                        <input #loaixeInput="ngModel" [disabled]="true" class="form-control" type="text" name="loaiXe"
+                            [(ngModel)]="model.loaiXe" required maxlength="64">
+                        <validation-messages [formCtrl]="loaixeInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Hãng sản xuất *</label>
+                        <input [disabled]="true" #hangsanxuatInput="ngModel" class="form-control" type="text"
+                            name="hangSanXuat" [(ngModel)]="model.hangSanXuat" required maxlength="64">
+                        <validation-messages [formCtrl]="hangsanxuatInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Định mức nhiên liệu *</label>
+                        <input #dinhMucNhienLieuInput="ngModel" class="form-control" type="text" name="dinhMucNhienLieu"
+                            [(ngModel)]="model.dinhMucNhienLieu" required maxlength="64">
+                        <validation-messages [formCtrl]="dinhMucNhienLieuInput"></validation-messages>
+                    </div>
+
                     <div class="form-group">
                         <label>Nước sản xuất *</label>
                         <input #nuocsanxuatInput="ngModel" class="form-control" type="text" name="nuocSanXuat"
@@ -219,4 +241,5 @@
         </div>
     </div>
 </div>
-<taisan #viewTaiSan (dlTraVe)="tinh()"></taisan>
+<taisan #viewTaiSan (dlTraVe)="GetTaiSan($event)"></taisan>
+<model #viewModel (dlTraVe)="GetModel($event)"></model>

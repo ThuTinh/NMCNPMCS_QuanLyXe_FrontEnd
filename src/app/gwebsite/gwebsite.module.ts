@@ -1,4 +1,4 @@
-import { CustomerServiceProxy } from './../../shared/service-proxies/service-proxies';
+import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy } from './../../shared/service-proxies/service-proxies';
 import { ViewDemoModelModalComponent } from './demo-model/view-demo-model-modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,7 +18,13 @@ import { DemoModelServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CustomerComponent } from './customer/customer.component';
 import { ViewCustomerModalComponent } from './customer/view-customer-modal.component';
 import { CreateOrEditCustomerModalComponent } from './customer/create-or-edit-customer-modal.component';
-
+import { TaiSanComponent } from './taisan/taisan.component'
+import { ModelComponent } from './model/model.component';
+import { NhaCungCapComponent } from './nhacungcap/nhacungcap.component';
+import { ThongTinXeComponent } from './thongtinxe/thongtinxe.component';
+import { CreateOrEditThongTinXeModalComponent } from './thongtinxe/create-or-edit-thongtinxe-modal.component';
+import { ViewThongTinXeModalComponent } from './thongtinxe/view-thongtinxe-modal.component';
+import { ButtonModule } from 'primeng/button';
 @NgModule({
     imports: [
         FormsModule,
@@ -36,16 +42,24 @@ import { CreateOrEditCustomerModalComponent } from './customer/create-or-edit-cu
         PrimeNgFileUploadModule,
         AutoCompleteModule,
         EditorModule,
-        InputMaskModule
+        InputMaskModule,
+        ButtonModule
+
     ],
     declarations: [
         MenuClientComponent, CreateOrEditMenuClientModalComponent,
         DemoModelComponent, CreateOrEditDemoModelModalComponent, ViewDemoModelModalComponent,
+        TaiSanComponent, ModelComponent, NhaCungCapComponent,
         CustomerComponent, CreateOrEditCustomerModalComponent, ViewCustomerModalComponent,
+        ThongTinXeComponent, CreateOrEditThongTinXeModalComponent, ViewThongTinXeModalComponent
     ],
     providers: [
         DemoModelServiceProxy,
-        CustomerServiceProxy
+        CustomerServiceProxy,
+        TaiSanServiceProxy,
+        ModelServiceProxy,
+        NhaCungCapServiceProxy,
+        ThongTinXeServiceProxy
     ]
 })
 export class GWebsiteModule { }

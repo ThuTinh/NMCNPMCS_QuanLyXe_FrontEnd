@@ -3,6 +3,10 @@ import { RouterModule } from '@angular/router';
 import { MenuClientComponent } from '@app/gwebsite/menu-client/menu-client.component';
 import { DemoModelComponent } from './demo-model/demo-model.component';
 import { CustomerComponent } from './customer/customer.component';
+import {TaiSanComponent} from './taisan/taisan.component'
+import { ModelComponent } from './model/model.component';
+import {NhaCungCapComponent} from './nhacungcap/nhacungcap.component';
+import { ThongTinXeComponent} from './thongtinxe/thongtinxe.component'
 
 @NgModule({
     imports: [
@@ -33,7 +37,31 @@ import { CustomerComponent } from './customer/customer.component';
                         data: { permission: 'Pages.Administration.Customer' }
                     },
                 ]
-            }
+
+            },
+            {
+                path: '',
+                children: [
+                    {
+                        path: 'taisan', component: TaiSanComponent,
+                       
+                    },
+                    {
+                        path: 'model', component: ModelComponent,
+                       
+                    },
+                    {
+                        path: 'nhacungcap', component: NhaCungCapComponent,
+                       
+                    },
+                    {
+                        path:'thongtinxe', component: ThongTinXeComponent,
+                    },
+                ]
+                
+            },
+           
+
         ])
     ],
     exports: [

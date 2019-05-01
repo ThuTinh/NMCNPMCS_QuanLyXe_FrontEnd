@@ -1,18 +1,18 @@
 import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { CustomerServiceProxy, CustomerInput } from '@shared/service-proxies/service-proxies';
+import { XeServiceProxy, XeInput } from '@shared/service-proxies/service-proxies';
 
 
 @Component({
-    selector: 'createOrEditCustomerModal',
-    templateUrl: './create-or-edit-customer-modal.component.html'
+    selector: 'createOrEditXeModal',
+    templateUrl: './create-or-edit-xe-modal.component.html'
 })
-export class CreateOrEditCustomerModalComponent extends AppComponentBase {
+export class CreateOrEditXeModalComponent extends AppComponentBase {
 
 
     @ViewChild('createOrEditModal') modal: ModalDirective;
-    @ViewChild('customerCombobox') customerCombobox: ElementRef;
+    @ViewChild('xeCombobox') xeCombobox: ElementRef;
     @ViewChild('iconCombobox') iconCombobox: ElementRef;
     @ViewChild('dateInput') dateInput: ElementRef;
 
@@ -24,31 +24,31 @@ export class CreateOrEditCustomerModalComponent extends AppComponentBase {
 
     saving = false;
 
-    customer: CustomerInput = new CustomerInput();
+    xe: XeInput = new XeInput();
 
     constructor(
         injector: Injector,
-        private _customerService: CustomerServiceProxy
+        private _xeService: XeServiceProxy
     ) {
         super(injector);
     }
 
-    show(customerId?: number | null | undefined): void {
+    show(xeId?: number | null | undefined): void {
         this.saving = false;
 
 
-        this._customerService.getCustomerForEdit(customerId).subscribe(result => {
-            this.customer = result;
+        this._xeService.getXeForEdit(xeId).subscribe(result => {
+            this.xe = result;
             this.modal.show();
 
         })
     }
 
     save(): void {
-        let input = this.customer;
+        let input = this.xe;
         // console.log(input);
         this.saving = true;
-        this._customerService.createOrEditCustomer(input).subscribe(result => {
+        this._xeService.createOrEditXe(input).subscribe(result => {
             this.notify.info(this.l('SavedSuccessfully'));
             this.close();
         })

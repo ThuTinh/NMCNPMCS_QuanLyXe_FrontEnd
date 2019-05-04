@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -8,24 +8,23 @@ import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
 import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto } from '@shared/service-proxies/service-proxies';
-import { CreateOrEditThongTinXeModalComponent } from './create-or-edit-thongtinxe-modal.component';
-import { ViewThongTinXeModalComponent } from './view-thongtinxe-modal.component'
 import { ThongTinXeViewDTO } from './dto/ThongTinXeViewDTO';
 import { ThongTinXeFilter } from './dto/ThongTInXeFilter';
+import { ModalDirective } from 'ngx-bootstrap';
 @Component({
-    selector: 'thongTinXeComponent',
-    templateUrl: './thongtinxe.component.html',
+    selector: 'thongTinXeModalComponent',
+    templateUrl: './thongtinxe-modal.component.html',
     animations: [appModuleAnimation()]
 })
-export class ThongTinXeComponent extends AppComponentBase implements AfterViewInit, OnInit {
+export class ThongTinXeModalComponent extends AppComponentBase implements AfterViewInit, OnInit {
 
     /**
      * @ViewChild là dùng get control và call thuộc tính, functions của control đó
      */
     @ViewChild('dataTable') dataTable: Table;
     @ViewChild('paginator') paginator: Paginator;
-    @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditThongTinXeModalComponent;
-    @ViewChild('viewCustomerModal') viewThongTinXeModal: ViewThongTinXeModalComponent;
+    @ViewChild('viewModal') modal: ModalDirective;
+
 
     /**
      * tạo các biến dể filters
@@ -35,6 +34,8 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxes: ThongTinXeViewDTO[] = [];
     filter: ThongTinXeFilter = new ThongTinXeFilter();
+    item: ThongTinXeViewDTO = new ThongTinXeViewDTO();
+    @Output() thongtinxe: EventEmitter<ThongTinXeViewDTO> = new EventEmitter<ThongTinXeViewDTO>();
 
 
 
@@ -82,6 +83,9 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
 
     }
 
+    show(): void {
+        this.modal.show();
+    }
     /**
      * Hàm get danh sách Customer
      * @param event
@@ -120,7 +124,7 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
                 thongtinxe.mucDichSuDung = item.mucDichSuDung;
                 thongtinxe.soXe = item.soXe;
                 thongtinxe.donViSuDung = item.donViSuDung;
-                console.log("Ne" + item.donViSuDung );
+                console.log("Ne" + item.donViSuDung);
                 thongtinxe.namSanXuat = item.namSanXuat;
                 thongtinxe.model = item.model;
                 thongtinxe.maTaiSan = item.maTaiSan;
@@ -177,9 +181,7 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
 
 
     //hàm show view create MenuClient
-    createThongTinXe() {
-        this.createOrEditModal.show();
-    }
+
 
     /**
      * Tạo pipe thay vì tạo từng hàm truncate như thế này
@@ -187,5 +189,9 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
      */
     truncateString(text): string {
         return abp.utils.truncateStringWithPostfix(text, 32, '...');
+    }
+    close() {
+        this.modal.hide();
+        this.thongtinxe.emit(this.item);
     }
 }

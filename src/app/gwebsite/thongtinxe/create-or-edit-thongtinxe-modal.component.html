@@ -136,12 +136,7 @@
                             [(ngModel)]="thongtinxe.mauXe" required maxlength="64">
                         <validation-messages [formCtrl]="mauxeInput"></validation-messages>
                     </div>
-                    <div class="form-group">
-                        <label>Nước sản xuất *</label>
-                        <input #nuocsanxuatInput="ngModel" class="form-control" type="text" name="nuocSanXuat"
-                            [(ngModel)]="thongtinxe.nuocSanXuat" required maxlength="64">
-                        <validation-messages [formCtrl]="nuocsanxuatInput"></validation-messages>
-                    </div>
+
                     <div class="form-group">
                         <label>Mục đích sử dụng *</label>
                         <input #mucdichsudungInput="ngModel" class="form-control" type="text" name="mucDichSuDung"
@@ -219,7 +214,7 @@
                     </div>
                     <div class="form-group">
                         <label>Tên chủ phương tiện *</label>
-                        <input #tenchuphuongtienInput="ngModel" class="form-control" type="text" name="tenchuPhuongTien"
+                        <input #tenchuphuongtienInput="ngModel" class="form-control" type="text" name="tenChuPhuongTien"
                             [(ngModel)]="thongtinxe.tenChuPhuongTien" required maxlength="64">
                         <validation-messages [formCtrl]="tenchuphuongtienInput"></validation-messages>
                     </div>

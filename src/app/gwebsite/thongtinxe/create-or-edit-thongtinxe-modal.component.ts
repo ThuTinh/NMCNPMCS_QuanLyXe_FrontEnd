@@ -57,6 +57,7 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
             this.model = model;
     }
 
+
     show(soXe?: string | null | undefined): void {
         this.saving = false;
 
@@ -77,12 +78,14 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
     }
 
     save(): void {
-        let input = this.thongtinxe;
+
         this.saving = true;
         this.thongtinxe.maTaiSan = this.taisan.maTaiSan;
         this.thongtinxe.model = this.model.model;
+        let input = this.thongtinxe;
         this._thongtinxeService.createOrEditThongTinXe(input).subscribe(result => {
             this.notify.info(this.l('SavedSuccessfully'));
+            console.log("lasao" + this.thongtinxe.donViSuDung);
             this.close();
         })
 

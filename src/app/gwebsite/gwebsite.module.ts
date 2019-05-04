@@ -1,4 +1,4 @@
-import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy } from './../../shared/service-proxies/service-proxies';
+import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy } from './../../shared/service-proxies/service-proxies';
 import { ViewDemoModelModalComponent } from './demo-model/view-demo-model-modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { ModalModule, PopoverModule, TabsModule, TooltipModule } from 'ngx-boots
 import { AutoCompleteModule, EditorModule, FileUploadModule as PrimeNgFileUploadModule, InputMaskModule, PaginatorModule } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
 import { GWebsiteRoutingModule } from './gwebsite-routing.module';
-
+import { CalendarModule } from 'primeng/calendar';
 import { MenuClientComponent, CreateOrEditMenuClientModalComponent } from './index';
 import { DemoModelComponent } from './demo-model/demo-model.component';
 import { CreateOrEditDemoModelModalComponent } from './demo-model/create-or-edit-demo-model-modal.component';
@@ -25,6 +25,10 @@ import { ThongTinXeComponent } from './thongtinxe/thongtinxe.component';
 import { CreateOrEditThongTinXeModalComponent } from './thongtinxe/create-or-edit-thongtinxe-modal.component';
 import { ViewThongTinXeModalComponent } from './thongtinxe/view-thongtinxe-modal.component';
 import { ButtonModule } from 'primeng/button';
+import { VanHanhXeComponent } from './vanhanhxe/vanhanhxe.component';
+import { CreateOrEditVanHanhXeModalComponent } from './vanhanhxe/create-or-edit-vanhanhxe-modal.component';
+import { ViewVanHanhXeModalComponent } from './vanhanhxe/view-vanhanhxe-modal.component';
+import { ThongTinXeModalComponent } from './thongtinxe/thongtinxe-modal.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -43,7 +47,8 @@ import { ButtonModule } from 'primeng/button';
         AutoCompleteModule,
         EditorModule,
         InputMaskModule,
-        ButtonModule
+        ButtonModule,
+        CalendarModule
 
     ],
     declarations: [
@@ -51,7 +56,9 @@ import { ButtonModule } from 'primeng/button';
         DemoModelComponent, CreateOrEditDemoModelModalComponent, ViewDemoModelModalComponent,
         TaiSanComponent, ModelComponent, NhaCungCapComponent,
         CustomerComponent, CreateOrEditCustomerModalComponent, ViewCustomerModalComponent,
-        ThongTinXeComponent, CreateOrEditThongTinXeModalComponent, ViewThongTinXeModalComponent
+        ThongTinXeComponent, CreateOrEditThongTinXeModalComponent, ViewThongTinXeModalComponent, ThongTinXeModalComponent,
+        VanHanhXeComponent, CreateOrEditVanHanhXeModalComponent, ViewVanHanhXeModalComponent,
+
     ],
     providers: [
         DemoModelServiceProxy,
@@ -59,7 +66,8 @@ import { ButtonModule } from 'primeng/button';
         TaiSanServiceProxy,
         ModelServiceProxy,
         NhaCungCapServiceProxy,
-        ThongTinXeServiceProxy
+        ThongTinXeServiceProxy,
+        QuanLyVanHanhServiceProxy,
     ]
 })
 export class GWebsiteModule { }

@@ -20,10 +20,9 @@ export class AppNavigationService {
                 new AppMenuItem('MenuClient', 'Pages.Administration.MenuClient', 'flaticon-menu-1', '/app/gwebsite/menu-client'),
                 new AppMenuItem('DemoModel', 'Pages.Administration.DemoModel', 'flaticon-menu-1', '/app/gwebsite/demo-model'),
                 new AppMenuItem('Customer', 'Pages.Administration.Customer', 'flaticon-menu-1', '/app/gwebsite/customer'),
-                new AppMenuItem('taisan', '', 'flaticon-menu-1', '/app/gwebsite/taisan'),
-                new AppMenuItem('model', '', 'flaticon-menu-1', '/app/gwebsite/model'),
                 new AppMenuItem('nhacungcap', '', 'flaticon-menu-1', '/app/gwebsite/nhacungcap'),
-                new AppMenuItem('Thông tin xe', '', 'flaticon-menu-1', '/app/gwebsite/thongtinxe')
+                new AppMenuItem('Thông tin xe', '', 'flaticon-menu-1', '/app/gwebsite/thongtinxe'),
+                new AppMenuItem('Vận hành xe', '', 'flaticon-menu-1', '/app/gwebsite/vanhanhxe')
 
 
             ]),

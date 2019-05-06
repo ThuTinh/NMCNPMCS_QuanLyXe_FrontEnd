@@ -24,11 +24,13 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Số xe</label>
-                                        <input #soXeInput="ngModel" class="form-control" type="text" name="soXe"
-                                            [disabled]="true" [(ngModel)]="thongtinxeDto.soXe" maxlength="64">
-                                        <button class="form-control btn btn-outline-primary"
-                                            (click)="viewThongTinXe.show()"
-                                            style="display: inline-block; margin-right: 20px; width: 50px">...</button>
+                                        <div class="d-flex ">
+                                            <input #soXeInput="ngModel" class="form-control" type="text" name="soXe"
+                                                [disabled]="true" [(ngModel)]="thongtinxeDto.soXe" maxlength="64">
+                                            <button class="form-control btn btn-outline-primary"
+                                                (click)="viewThongTinXe.show()"
+                                                style="margin-right: 20px; width: 50px">...</button>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Model</label>

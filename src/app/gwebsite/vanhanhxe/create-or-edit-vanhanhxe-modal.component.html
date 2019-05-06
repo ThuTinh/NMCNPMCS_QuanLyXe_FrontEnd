@@ -102,13 +102,14 @@
                         <validation-messages [formCtrl]="ghiChuInput"></validation-messages>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button [disabled]="saving" type="button" class="btn btn-default"
-                        (click)="close()">{{l("Cancel")}}</button>
-                    <button (click)="save()" class="btn btn-primary"><i class="fa fa-save"></i>
-                        <span>{{l("Save")}}</span></button>
-                </div>
             </form>
+
+            <div class="modal-footer">
+                <button [disabled]="saving" type="button" class="btn btn-default"
+                    (click)="close()">{{l("Cancel")}}</button>
+                <button (click)="save()" class="btn btn-primary"><i class="fa fa-save"></i>
+                    <span>{{l("Save")}}</span></button>
+            </div>
         </div>
     </div>
 </div>

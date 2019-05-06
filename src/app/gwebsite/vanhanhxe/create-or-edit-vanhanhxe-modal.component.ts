@@ -68,6 +68,7 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
 
             this.xangdinhmuc = (this.model.dinhMucNhienLieu * this.vanhanhxe.soKM) / 100;
             console.log("enter ne" + this.xangdinhmuc);
+
         }
     }
     TinhDinhMucNhienLieu(): void {

@@ -3,10 +3,10 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form #editForm="ngForm" novalidate>
-                <div class="modal-header">
-                    <h4 class="modal-title">
-                        <span *ngIf="thongtinxe.soXe">Cập nhật xe: {{ thongtinxe.soXe}}</span>
-                        <span *ngIf="!thongtinxe.soXe">Tạo mới xe</span>
+                <div class="modal-header" style="background-color: #49beb7; ">
+                    <h4 class="modal-title w-100 text-center" style = "color: #FFFFFF;   text-transform: uppercase;font-family: 'Times',Times New Roman, serif;  ">
+                        <span *ngIf="thongtinxe.soXe"><b>Cập nhật xe: {{ thongtinxe.soXe}}</b></span>
+                        <span *ngIf="!thongtinxe.soXe"><b>Tạo mới xe</b></span>
                     </h4>
                     <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
                         <span aria-hidden="true">&times;</span>

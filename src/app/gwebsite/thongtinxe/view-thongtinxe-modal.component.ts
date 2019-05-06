@@ -6,7 +6,8 @@ import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
     selector: 'viewThongTinXeModal',
-    templateUrl: './view-thongtinxe-modal.component.html'
+    templateUrl: './view-thongtinxe-modal.component.html',
+    styleUrls: ['./view-thongtinxe-component.css']
 })
 
 export class ViewThongTinXeModalComponent extends AppComponentBase {

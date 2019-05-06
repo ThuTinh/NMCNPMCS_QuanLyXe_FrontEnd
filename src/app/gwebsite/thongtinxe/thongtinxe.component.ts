@@ -15,6 +15,7 @@ import { ThongTinXeFilter } from './dto/ThongTInXeFilter';
 @Component({
     selector: 'thongTinXeComponent',
     templateUrl: './thongtinxe.component.html',
+    styleUrls: ['./thongtinxe.component.css'],
     animations: [appModuleAnimation()]
 })
 export class ThongTinXeComponent extends AppComponentBase implements AfterViewInit, OnInit {
@@ -120,7 +121,7 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
                 thongtinxe.mucDichSuDung = item.mucDichSuDung;
                 thongtinxe.soXe = item.soXe;
                 thongtinxe.donViSuDung = item.donViSuDung;
-                console.log("Ne" + item.donViSuDung );
+                console.log("Ne" + item.donViSuDung);
                 thongtinxe.namSanXuat = item.namSanXuat;
                 thongtinxe.model = item.model;
                 thongtinxe.maTaiSan = item.maTaiSan;

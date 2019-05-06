@@ -7,7 +7,8 @@ import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
 
 @Component({
     selector: 'viewVanHanhXeModal',
-    templateUrl: './view-vanhanhxe-modal.component.html'
+    templateUrl: './view-vanhanhxe-modal.component.html',
+    styleUrls: ['./view-vanhanhxe.component.css']
 })
 
 export class ViewVanHanhXeModalComponent extends AppComponentBase {

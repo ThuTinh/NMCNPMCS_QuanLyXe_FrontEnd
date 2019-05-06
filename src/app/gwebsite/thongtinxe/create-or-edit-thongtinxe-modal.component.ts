@@ -4,13 +4,13 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { ThongTinXeInput, ThongTinXeServiceProxy, TaiSanInput, TaiSanServiceProxy, TaiSanDto, ModelDto, ModelServiceProxy } from '@shared/service-proxies/service-proxies';
 import { TaiSanComponent } from '../taisan/taisan.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { viewParentEl } from '@angular/core/src/view/util';
 import { ModelComponent } from '../model/model.component';
 
 
 @Component({
     selector: 'createOrEditThongTinXeModal',
     templateUrl: './create-or-edit-thongtinxe-modal.component.html',
+    styleUrls: ['./create-or-edit-thongtinxe.component.css'],
     animations: [appModuleAnimation()]
 })
 export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {

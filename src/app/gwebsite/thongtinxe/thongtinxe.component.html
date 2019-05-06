@@ -1,6 +1,6 @@
-<div [@routerTransition] style="background: #f3f9fb">
+<div [@routerTransition]>
 
-    <div class="m-subheader ">
+    <div class="m-subheader  ">
         <div class="d-flex align-items-center">
             <div class="mr-auto col-xs-6">
                 <h3 class="m-subheader__title m-subheader__title--separator">
@@ -12,7 +12,7 @@
             </div>
             <div class="col-xs-6 text-right">
                 <button (click)="createThongTinXe()" *ngIf="isGranted('Pages.Administration.ThongTinXe.Create')"
-                    class="btn btn-primary"><i class="fa fa-plus"></i> {{l("Tạo mới thông tin xe")}}</button>
+                    class="btn btn-info "><i class="fa fa-plus"></i> {{l("Tạo mới thông tin xe")}}</button>
             </div>
         </div>
     </div>
@@ -22,8 +22,8 @@
             <div class="m-portlet__body">
                 <form autocomplete="off">
                     <div class="m-form m-form--label-align-right" id="TextsFilterForm">
-                        <div class="row align-items-center m--margin-bottom-10">
-                            <div class="col-sm-12 row">
+                        <div class="row align-items-center m--margin-bottom-10 ">
+                            <div class="col-sm-12 row ">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Số xe</label>
@@ -62,10 +62,10 @@
 
                                     <span class="input-group-btn w-100">
 
-                                        <button (click)="applyFilters()" class="btn btn-primary float-right ml-2 "
+                                        <button (click)="applyFilters()" class="btn btn-info float-right ml-2 "
                                             type="submit"><i class="icon-refresh"></i>
                                             {{l("Refresh")}}</button>
-                                        <button class="btn btn-primary float-right " (click)="reloadList($event)"><i
+                                        <button class="btn btn-info float-right " (click)="reloadList($event)"><i
                                                 class="icon-refresh"></i>
                                             {{l("Tìm kiếm")}}</button>
                                     </span>
@@ -78,24 +78,25 @@
                 <div class="row align-items-center">
                     <!--<Primeng-TurboTable-Start>-->
                     <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                        <p-table #dataTable (onLazyLoad)="getThongTinXes($event)" [value]="primengTableHelper.records"
+                        <p-table class="dinhdangchutable" #dataTable (onLazyLoad)="getThongTinXes($event)"
+                            [value]="primengTableHelper.records"
                             rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
                             [responsive]="primengTableHelper.isResponsive" [scrollable]="true">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th pSortableColumn="soXe" style="width: 150px;">
+                                    <th pSortableColumn="soXe">
                                         Số xe
                                         <p-sortIcon field="soXe"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="donViSuDung" style="width: 150px;">
+                                    <th pSortableColumn="donViSuDung">
                                         Đơn vị sử dụng
                                         <p-sortIcon field="donViSuDung"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="LoaiXe" style="width: 150px;">
+                                    <th pSortableColumn="LoaiXe">
                                         Loại xe
                                         <p-sortIcon field="LoaiXe"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="hangSanXuat" style="width: 150px;">
+                                    <th pSortableColumn="hangSanXuat">
                                         Hãng sản xuất
                                         <p-sortIcon field="hangSanXuat"></p-sortIcon>
                                     </th>
@@ -103,15 +104,15 @@
                                         Mục đích sử dụng
                                         <p-sortIcon field="mucDichSuDung"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="Model" style="width: 150px;">
+                                    <th pSortableColumn="Model">
                                         Model
                                         <p-sortIcon field="Model"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="namSanXuat" style="width: 150px;">
+                                    <th pSortableColumn="namSanXuat">
                                         Năm sản xuất
                                         <p-sortIcon field="namSanXuat"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="trangThaiDuyet" style="width: 150px;">
+                                    <th pSortableColumn="trangThaiDuyet">
                                         Trạng thái duyệt
                                         <p-sortIcon field="trangThaiDuyet"></p-sortIcon>
                                     </th>
@@ -120,20 +121,20 @@
                             </ng-template>
                             <ng-template pTemplate="body" let-record="$implicit">
                                 <tr>
-                                    <td style="width: 150px;">
+                                    <td>
                                         <span class="ui-column-title">Số xe</span>
                                         <span title="{{record.soXe}}">{{truncateString(record.soXe)}}</span>
                                     </td>
-                                    <td style="width: 150px;">
+                                    <td>
                                         <span class="ui-column-title">Đơn vị sử dụng</span>
                                         <span
                                             title="{{record.donViSuDung}}">{{truncateString(record.donViSuDung)}}</span>
                                     </td>
-                                    <td style="width: 150px;">
+                                    <td>
                                         <span class="ui-column-title">Loại xe</span>
                                         <span title="{{record.model}}">{{truncateString(record.loaiXe)}}</span>
                                     </td>
-                                    <td style="width: 150px;">
+                                    <td>
                                         <span class="ui-column-title">Hãng sản xuất</span>
                                         <span
                                             title="{{record.hangSanXuat}}">{{truncateString(record.hangSanXuat)}}</span>
@@ -143,15 +144,15 @@
                                         <span
                                             title="{{record.mucDichSuDung}}">{{truncateString(record.mucDichSuDung)}}</span>
                                     </td>
-                                    <td style="width: 150px;">
+                                    <td>
                                         <span class="ui-column-title">Model</span>
                                         <span title="{{record.model}}">{{truncateString(record.model)}}</span>
                                     </td>
-                                    <td style="width: 150px;">
+                                    <td>
                                         <span class="ui-column-title">Năm sản xuất</span>
                                         <span title="{{record.namSanXuat}}">{{truncateString(record.namSanXuat)}}</span>
                                     </td>
-                                    <td style="width: 150px;">
+                                    <td>
                                         <span class="ui-column-title">Trạng thái duyệt</span>
                                         <span title="{{record.trangThaiDuyet}">{{truncateString(record.trangThaiDuyet)}}</span>
                                     </td>

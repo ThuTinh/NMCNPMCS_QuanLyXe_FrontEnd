@@ -6,7 +6,8 @@ import { CustomerServiceProxy, CustomerInput, QuanLyVanHanhInput, QuanLyVanHanhS
 
 @Component({
     selector: 'createOrEditVanHanhXeModal',
-    templateUrl: './create-or-edit-vanhanhxe-modal.component.html'
+    templateUrl: './create-or-edit-vanhanhxe-modal.component.html',
+    styleUrls: ['./create-or-edit-vanhanhxe.component.css']
 })
 export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
 

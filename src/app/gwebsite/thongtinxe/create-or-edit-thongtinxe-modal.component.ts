@@ -5,6 +5,7 @@ import { ThongTinXeInput, ThongTinXeServiceProxy, TaiSanInput, TaiSanServiceProx
 import { TaiSanComponent } from '../taisan/taisan.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ModelComponent } from '../model/model.component';
+import moment = require('moment');
 
 
 @Component({
@@ -36,6 +37,7 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
     taisanItem: TaiSanDto = new TaiSanDto();
     model: ModelDto = new ModelDto();
     modelItem: ModelDto = new ModelDto();
+    ngaydangkibandau: Date;
 
     constructor(
         injector: Injector,
@@ -46,14 +48,15 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
         super(injector);
     }
     GetTaiSan(taisan: TaiSanDto) {
-        if (taisan.maTaiSan.length > 0) {
+        if (taisan.maTaiSan != undefined) {
+
             this.taisan = taisan;
         }
 
 
     }
     GetModel(model: ModelDto) {
-        if (model.model.length > 0)
+        if (model.model != undefined)
             this.model = model;
     }
 
@@ -63,6 +66,7 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
 
         this._thongtinxeService.getThongTinSeForEdit(soXe).subscribe(result => {
             this.thongtinxe = result;
+            this.ngaydangkibandau = result.ngayDangKiBanDau.toDate();
             this._taisanService.getTaiSanForEdit(result.maTaiSan).subscribe(kq => {
                 this.taisan = kq;
                 console.log("hix", kq);
@@ -80,6 +84,7 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
     save(): void {
 
         this.saving = true;
+        this.thongtinxe.ngayDangKiBanDau = moment(this.ngaydangkibandau);
         this.thongtinxe.maTaiSan = this.taisan.maTaiSan;
         this.thongtinxe.model = this.model.model;
         let input = this.thongtinxe;

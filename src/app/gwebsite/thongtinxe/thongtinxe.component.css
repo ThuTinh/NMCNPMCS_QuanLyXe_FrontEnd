@@ -4,11 +4,12 @@ div.dinhdangchu{
 
 }
 
-
 td, th{
     font-family: 'Times New Roman', Times, serif;
     width: 150px;
- 
-   
 
 }
+::ng-deep thead.ui-table-thead th ,button.btn-info{
+    font-family: 'Times New Roman', Times, serif !important;
+}
+

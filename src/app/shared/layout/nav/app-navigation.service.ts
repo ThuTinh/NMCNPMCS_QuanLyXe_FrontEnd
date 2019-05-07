@@ -21,11 +21,14 @@ export class AppNavigationService {
                 new AppMenuItem('DemoModel', 'Pages.Administration.DemoModel', 'flaticon-menu-1', '/app/gwebsite/demo-model'),
                 new AppMenuItem('Customer', 'Pages.Administration.Customer', 'flaticon-menu-1', '/app/gwebsite/customer'),
                 new AppMenuItem('nhacungcap', '', 'flaticon-menu-1', '/app/gwebsite/nhacungcap'),
-                new AppMenuItem('Thông tin xe', '', 'flaticon-menu-1', '/app/gwebsite/thongtinxe'),
-                new AppMenuItem('Vận hành xe', '', 'flaticon-menu-1', '/app/gwebsite/vanhanhxe')
+                new AppMenuItem('Quản lý xe', '', 'flaticon-menu-1', '', [
+                    new AppMenuItem('Thông tin xe', '', 'flaticon-menu-1', '/app/gwebsite/thongtinxe'),
+                    new AppMenuItem('Vận hành xe', '', 'flaticon-menu-1', '/app/gwebsite/vanhanhxe'),
 
-
+                ]),
             ]),
+
+
             new AppMenuItem('Systems', '', 'flaticon-layers', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('Roles', 'Pages.Administration.Roles', 'flaticon-suitcase', '/app/admin/roles'),

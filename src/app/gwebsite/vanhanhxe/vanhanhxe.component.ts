@@ -39,6 +39,7 @@ export class VanHanhXeComponent extends AppComponentBase implements AfterViewIni
     thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
 
 
+
     constructor(
         injector: Injector,
         private _vanhanhxeService: QuanLyVanHanhServiceProxy,
@@ -48,7 +49,10 @@ export class VanHanhXeComponent extends AppComponentBase implements AfterViewIni
         this.soXe = "";
         this.thongtinxeDto.soXe = "";
 
+
     }
+
+
 
     /**
      * Hàm xử lý trước khi View được init
@@ -102,6 +106,8 @@ export class VanHanhXeComponent extends AppComponentBase implements AfterViewIni
         this.reloadList(soXe, event);
 
     }
+
+
 
     reloadList(soXe: string, event?: LazyLoadEvent) {
         this.soXe = this.thongtinxeDto.soXe;

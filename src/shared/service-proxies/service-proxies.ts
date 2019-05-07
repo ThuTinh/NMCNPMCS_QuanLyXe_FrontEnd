@@ -7475,7 +7475,7 @@ export class QuanLyVanHanhServiceProxy {
      * @skipCount (optional) 
      * @return Success
      */
-    getQuanLyVanHanhsByFilter(soXe: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfQuanLyVanHanhDto> {
+    getQuanLyVanHanhsByFilter(soXe: string | null | undefined, sorting: string | null | undefined, maxResultCount?: number | null | undefined, skipCount?: number | null | undefined): Observable<PagedResultDtoOfQuanLyVanHanhDto> {
         let url_ = this.baseUrl + "/api/QuanLyVanHanh/GetQuanLyVanHanhsByFilter?";
         if (soXe !== undefined)
             url_ += "SoXe=" + encodeURIComponent("" + soXe) + "&"; 

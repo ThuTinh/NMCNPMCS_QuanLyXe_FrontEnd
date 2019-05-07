@@ -55,8 +55,7 @@
                             <div class="form-group">
                                 <label>Ngày cập nhập </label>
                                 <p-calendar #ngayCapNhapInput="ngModel" class="form-control" [showIcon]="true"
-                                    [(ngModel)]="vanhanhxe.ngayCapNhat" name="ngayCapNhap" showTime="true"
-                                    hourFormat="24">
+                                    [(ngModel)]="ngayCapNhap" name="ngayCapNhap">
                                 </p-calendar>
                                 <validation-messages [formCtrl]="ngayCapNhapInput"></validation-messages>
                             </div>
@@ -65,7 +64,7 @@
                             <div class="form-group">
                                 <label>Số km cũ </label>
                                 <input #kmCuInput="ngModel" class="form-control" type="text" name="kmCu"
-                                    [(ngModel)]="vanhanhxe.kmCu" required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="vanhanhxe.kmCu" required maxlength="64">
                                 <validation-messages [formCtrl]="kmCuInput"></validation-messages>
                             </div>
                             <div class="form-group">

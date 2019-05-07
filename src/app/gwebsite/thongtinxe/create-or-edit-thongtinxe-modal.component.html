@@ -176,9 +176,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày đăng kí ban đầu</label>
-                                        <input #ngaydangkibandauInput="ngModel" class="form-control" type="text"
-                                            name="ngayDangKiBanDau" [(ngModel)]="thongtinxe.ngayDangKiBanDau" required
-                                            maxlength="64">
+                                        <p-calendar #ngaydangkibandauInput="ngModel" class="form-control"
+                                            [showIcon]="true" [(ngModel)]="ngaydangkibandau" name="ngaydangkibandau">
+                                        </p-calendar>
                                         <validation-messages [formCtrl]="ngaydangkibandauInput"></validation-messages>
                                     </div>
                                     <div class="form-group">

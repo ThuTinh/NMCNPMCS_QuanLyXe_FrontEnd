@@ -5,7 +5,7 @@ import { ThongTinXeInput, ThongTinXeServiceProxy, TaiSanInput, TaiSanServiceProx
 import { TaiSanComponent } from '../taisan/taisan.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ModelComponent } from '../model/model.component';
-import moment = require('moment');
+import * as moment from 'moment';
 
 
 @Component({

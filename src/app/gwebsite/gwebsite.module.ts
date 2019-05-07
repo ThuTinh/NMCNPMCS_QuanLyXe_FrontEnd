@@ -29,6 +29,8 @@ import { VanHanhXeComponent } from './vanhanhxe/vanhanhxe.component';
 import { CreateOrEditVanHanhXeModalComponent } from './vanhanhxe/create-or-edit-vanhanhxe-modal.component';
 import { ViewVanHanhXeModalComponent } from './vanhanhxe/view-vanhanhxe-modal.component';
 import { ThongTinXeModalComponent } from './thongtinxe/thongtinxe-modal.component';
+
+
 @NgModule({
     imports: [
         FormsModule,
@@ -48,7 +50,8 @@ import { ThongTinXeModalComponent } from './thongtinxe/thongtinxe-modal.componen
         EditorModule,
         InputMaskModule,
         ButtonModule,
-        CalendarModule
+        CalendarModule,
+
 
     ],
     declarations: [

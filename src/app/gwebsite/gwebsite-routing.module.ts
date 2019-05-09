@@ -9,6 +9,7 @@ import { NhaCungCapComponent } from './nhacungcap/nhacungcap.component';
 import { ThongTinXeComponent } from './thongtinxe/thongtinxe.component'
 import { VanHanhXeComponent } from './vanhanhxe/vanhanhxe.component';
 import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.component';
+import { PhiDuongBoComponent } from './phiduongbo/phiduongbo.component';
 
 @NgModule({
     imports: [
@@ -57,7 +58,11 @@ import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.comp
                     },
                     {
                         path: 'thongtinbaohiem', component: ThongTinBaoHiemComponent,
+                    },
+                    {
+                        path: 'phiduongbo', component: PhiDuongBoComponent,
                     }
+
                 ]
 
             },

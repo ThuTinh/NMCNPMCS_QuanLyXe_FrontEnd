@@ -19942,7 +19942,6 @@ export interface IPhiDuongBoDTO {
     ghiChu: string | undefined;
     id: number | undefined;
 }
-
 export class PhiDuongBoInput implements IPhiDuongBoInput {
     soXe!: string | undefined;
     ngayCapNhat!: string | undefined;

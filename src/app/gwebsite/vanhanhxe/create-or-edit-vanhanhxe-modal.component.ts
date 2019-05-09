@@ -77,7 +77,7 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
                 this.vanhanhxe = new QuanLyVanHanhInput();
                 this._vanhanhxeService.getQuanLyVanHanhsByFilter(this.soXe, undefined, undefined, undefined).subscribe(kq => {
 
-                    if (kq.items == null)
+                    if (kq.totalCount === 0)
                         this.vanhanhxe.kmCu = 0;
                     else
                         this.vanhanhxe.kmCu = kq.items[kq.items.length - 1].kmMoi;
@@ -92,7 +92,7 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
             this.vanhanhxe.soKM = this.vanhanhxe.kmMoi - this.vanhanhxe.kmCu;
 
             this.xangdinhmuc = (this.model.dinhMucNhienLieu * this.vanhanhxe.soKM) / 100;
-            console.log("enter ne" + this.xangdinhmuc);
+
 
         }
     }

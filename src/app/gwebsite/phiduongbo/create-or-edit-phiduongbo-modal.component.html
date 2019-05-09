@@ -1,0 +1,90 @@
+<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form #editForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="phiDuongBo.id">Cập nhật phí đường bộ: {{phiDuongBo.soXe}}</span>
+                        <span *ngIf="!phiDuongBo.id">Tạo mới phí đường bộ</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Số xe *</label>
+                        <input #soXeInput="ngModel" type="text" name="soXe" [(ngModel)]="phiDuongBo.soXe" required
+                            class="form-control" maxlength="64">
+                        <validation-messages [formCtrl]="soXeInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày cập nhật: </label>
+                        <p-calendar #ngayCapNhatInput="ngModel" [(ngModel)]="phiDuongBo.ngayCapNhat" required
+                            maxLength="64" name="ngayCapNhat" class="form-control">
+                        </p-calendar>
+                        <validation-messages [formCtrl]="ngayCapNhatInput"></validation-messages>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày đóng phí:</label>
+                        <p-calendar [(ngModel)]="phiDuongBo.ngayDongPhi" required maxLength="64" class="form-control"
+                            name="ngayDongPhi" #ngayDongPhiInput="ngModel">
+                        </p-calendar>
+                        <validation-messages [formCtrl]="ngayDongPhiInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày hết hạn đóng phí:</label>
+                        <p-calendar [(ngModel)]="phiDuongBo.ngayHetHanDongPhi" class="form-control" required
+                            maxLength="64" #ngayHetHanDongPhiInput="ngModel" name="ngayHetHanDongPhi"></p-calendar>
+                        <validation-messages [formCtrl]="ngayHetHanDongPhiInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian sử dụng:</label>
+                        <input #thoiGianSuDungInput="ngModel" type="number" name="thoiGianSuDung" class="form-control"
+                            [(ngModel)]="phiDuongBo.thoiGianSuDung" required maxlength="64">
+                        <label> Năm </label>
+                        <validation-messages [formCtrl]="thoiGianSuDungInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Số tiền phải thanh toán </label>
+                        <input #soTienThanhToanInput="ngModel" type="number" name="soTienThanhToan" class="form-control"
+                            [(ngModel)]="phiDuongBo.soTienThanhToan" required maxlength="64">
+                        <label> Triệu Đồng </label>
+                        <validation-messages [formCtrl]="soTienThanhToanInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Công ty thu phí </label>
+                        <input #congTyThuPhiInput="ngModel" type="text" name="congTyThuPhi" class="form-control"
+                            [(ngModel)]="phiDuongBo.congTyThuPhi" required maxlength="64">
+                        <validation-messages [formCtrl]="congTyThuPhiInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Loại phí </label>
+                        <input #loaiPhiInput="ngModel" type="text" name="loaiPhi" [(ngModel)]="phiDuongBo.loaiPhi"
+                            class="form-control" required maxlength="64">
+                        <validation-messages [formCtrl]="loaiPhiInput"></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>Ghi chú </label>
+                        <input #ghiChuInput="ngModel" class="form-control" type="text" name="ghiChu"
+                            class="form-control" [(ngModel)]="phiDuongBo.ghiChu" required maxlength="64">
+                        <validation-messages [formCtrl]="ghiChuInput"></validation-messages>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
+                        {{l("Cancel")}}
+                    </button>
+                    <button type="submit" class="btn btn-info" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

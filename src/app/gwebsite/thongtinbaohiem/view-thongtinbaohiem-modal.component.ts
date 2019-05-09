@@ -1,9 +1,9 @@
-import { QuanLyVanHanhForViewDto, QuanLyVanHanhServiceProxy, ModelForViewDto, ThongTinXeForViewDto, ModelServiceProxy, ThongTinBaoHiemServiceProxy, ThongTinBaoHiemForViewDto } from './../../../shared/service-proxies/service-proxies';
+import { ModelForViewDto, ThongTinXeForViewDto, ModelServiceProxy, ThongTinBaoHiemServiceProxy, ThongTinBaoHiemForViewDto } from './../../../shared/service-proxies/service-proxies';
 import { AppComponentBase } from "@shared/common/app-component-base";
 import { AfterViewInit, Injector, Component, ViewChild, Input } from "@angular/core";
 import { ThongTinXeServiceProxy } from "@shared/service-proxies/service-proxies";
 import { ModalDirective } from 'ngx-bootstrap';
-import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
+
 
 @Component({
     selector: 'viewBaoHiemXeModal',

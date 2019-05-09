@@ -1,4 +1,4 @@
-import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy } from './../../shared/service-proxies/service-proxies';
+import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy } from './../../shared/service-proxies/service-proxies';
 import { ViewDemoModelModalComponent } from './demo-model/view-demo-model-modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -33,6 +33,9 @@ import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.comp
 import { CreateOrEditBaoHiemXeModalComponent } from './thongtinbaohiem/create-or-edit-thongtinbaohiem-modal.component';
 import { ViewBaoHiemXeModalComponent } from './thongtinbaohiem/view-thongtinbaohiem-modal.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { PhiDuongBoComponent } from './phiduongbo/phiduongbo.component';
+import { CreateOrEditPhiDuongBoModalComponent } from './phiduongbo/create-or-edit-phiduongbo-modal.component';
+import { ViewPhiDuongBoModalComponent } from './phiduongbo/view-phiduongbo-modal.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -63,7 +66,8 @@ import { DropdownModule } from 'primeng/dropdown';
         CustomerComponent, CreateOrEditCustomerModalComponent, ViewCustomerModalComponent,
         ThongTinXeComponent, CreateOrEditThongTinXeModalComponent, ViewThongTinXeModalComponent, ThongTinXeModalComponent,
         VanHanhXeComponent, CreateOrEditVanHanhXeModalComponent, ViewVanHanhXeModalComponent,
-        ThongTinBaoHiemComponent, CreateOrEditBaoHiemXeModalComponent, ViewBaoHiemXeModalComponent
+        ThongTinBaoHiemComponent, CreateOrEditBaoHiemXeModalComponent, ViewBaoHiemXeModalComponent,
+        PhiDuongBoComponent, CreateOrEditPhiDuongBoModalComponent, ViewPhiDuongBoModalComponent,
 
     ],
     providers: [
@@ -74,7 +78,8 @@ import { DropdownModule } from 'primeng/dropdown';
         NhaCungCapServiceProxy,
         ThongTinXeServiceProxy,
         QuanLyVanHanhServiceProxy,
-        ThongTinBaoHiemServiceProxy
+        ThongTinBaoHiemServiceProxy,
+        PhiDuongBoServiceProxy,
     ]
 })
 export class GWebsiteModule { }

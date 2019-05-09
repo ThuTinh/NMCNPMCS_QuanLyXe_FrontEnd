@@ -7,10 +7,9 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ModelForViewDto, ThongTinBaoHiemServiceProxy } from '@shared/service-proxies/service-proxies';
 
 import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
-import { ViewThongTinXeModalComponent } from '../thongtinxe/view-thongtinxe-modal.component';
 import { ThongTinXeModalComponent } from '../thongtinxe/thongtinxe-modal.component';
 import { ViewBaoHiemXeModalComponent } from './view-thongtinbaohiem-modal.component';
 import { CreateOrEditBaoHiemXeModalComponent } from './create-or-edit-thongtinbaohiem-modal.component';
@@ -42,8 +41,7 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
         private _activatedRoute: ActivatedRoute,
     ) {
         super(injector);
-        this.soXe = "";
-        this.thongtinxeDto.soXe = "";
+
 
 
     }
@@ -102,7 +100,7 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
 
     reloadList(soXe: string, event?: LazyLoadEvent) {
         this.soXe = this.thongtinxeDto.soXe;
-        if (this.soXe.length > 0) {
+        if (this.soXe != undefined) {
             this._baohiemxeService.getThongTinBaoHiemsByFilter(soXe, this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event),

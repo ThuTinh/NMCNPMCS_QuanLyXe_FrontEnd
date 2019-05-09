@@ -2,13 +2,15 @@
     aria-hidden="true" [config]="{backdrop: 'static'}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
+            <div class="modal-header" style="background-color:#00C5DC ;">
+                <h4 class="modal-title w-100"
+                    style=" text-transform: uppercase; font-size: 20px; text-align: center; color: #FFFFFF">
                     <!-- Thông tin chi tiết xe {{thongtinxe.soXe}} -->
                     <!-- <span *ngIf="thogtinxe.id">{{l("Cập nhập thông tin xe ")}}: {{thongtinxe.soXe}}</span>
                     <span *ngIf="!thongtinxe.id">{{l("Tạo mới thông tin xe")}}</span> -->
+                    Danh sách xe
                 </h4>
-                <button type="button" class="close" [attr.aria-label]="l('Close')">
+                <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -16,11 +18,11 @@
 
                 <div [@routerTransition]>
 
-                    <div class="m-subheader ">
+                    <!-- <div class="m-subheader ">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto col-xs-6">
                                 <h3 class="m-subheader__title m-subheader__title--separator">
-                                    <span>{{l("Thông tin xe")}}</span>
+                                    <span>{{l(" Danh sách xe ")}}</span>
                                 </h3>
                                 <span class="m-section__sub">
                                     {{l("Thông tin chi tiết")}}
@@ -28,7 +30,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="m-content">
                         <div class="m-portlet m-portlet--mobile">
@@ -79,10 +81,10 @@
                                                     <span class="input-group-btn w-100">
 
                                                         <button (click)="applyFilters()"
-                                                            class="btn btn-primary float-right ml-2 " type="submit"><i
+                                                            class="btn btn-info float-right ml-2 " type="submit"><i
                                                                 class="icon-refresh"></i>
                                                             {{l("Refresh")}}</button>
-                                                        <button class="btn btn-primary float-right "
+                                                        <button class="btn btn-info float-right "
                                                             (click)="reloadList($event)"><i class="icon-refresh"></i>
                                                             {{l("Tìm kiếm")}}</button>
                                                     </span>
@@ -206,7 +208,7 @@
         <var></var>
         <div class="modal-footer">
             <div class="d-flex justify-content-end">
-                <p-button (click)="close()" class="m-3" icon="pi pi-check" label="Close"></p-button>
+                <p-button (click)="close()" class="m-3 btn-info" icon="pi pi-check" label="Close"></p-button>
             </div>
         </div>
     </div>

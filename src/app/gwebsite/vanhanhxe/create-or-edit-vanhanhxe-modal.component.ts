@@ -2,9 +2,7 @@ import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild, Input
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
 import { QuanLyVanHanhInput, QuanLyVanHanhServiceProxy, ThongTinXeServiceProxy, ModelServiceProxy, ThongTinXeInput, ModelInput } from '@shared/service-proxies/service-proxies';
-import moment = require('moment');
-
-
+import * as moment from 'moment';
 
 
 
@@ -74,17 +72,17 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
                         })
                     }
 
-                    let day = moment(this.vanhanhxe.ngayCapNhat).format();
-                    this.ngayCapNhap = new Date(day);
+
+                    this.ngayCapNhap = result.ngayCapNhat.toDate();
 
                 })
 
             }
             else {
                 this.vanhanhxe = new QuanLyVanHanhInput();
-                this._vanhanhxeService.getQuanLyVanHanhsByFilter(this.soXe, null).subscribe(kq => {
+                this._vanhanhxeService.getQuanLyVanHanhsByFilter(this.soXe, null, null, null).subscribe(kq => {
 
-                    if (kq === null)
+                    if (kq.items.length == 0)
                         this.vanhanhxe.kmCu = 0;
                     else
                         this.vanhanhxe.kmCu = kq.items[kq.items.length - 1].kmMoi;

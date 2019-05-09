@@ -5,7 +5,7 @@ import { ThongTinXeInput, ThongTinXeServiceProxy, TaiSanInput, TaiSanServiceProx
 import { TaiSanComponent } from '../taisan/taisan.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ModelComponent } from '../model/model.component';
-import moment = require('moment');
+import * as moment from 'moment';
 
 
 @Component({
@@ -66,15 +66,14 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
 
         this._thongtinxeService.getThongTinSeForEdit(soXe).subscribe(result => {
             this.thongtinxe = result;
-            this.ngaydangkibandau = result.ngayDangKiBanDau.toDate();
+            if (result.id != undefined)
+                this.ngaydangkibandau = result.ngayDangKiBanDau.toDate();
             this._taisanService.getTaiSanForEdit(result.maTaiSan).subscribe(kq => {
                 this.taisan = kq;
                 console.log("hix", kq);
-
             });
             this._modelService.getModelForEdit(result.model).subscribe(kq2 => {
                 this.model = kq2;
-
             })
             this.modal.show();
 

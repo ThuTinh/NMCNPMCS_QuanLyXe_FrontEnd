@@ -3,12 +3,6 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
 import { QuanLyVanHanhInput, QuanLyVanHanhServiceProxy, ThongTinXeServiceProxy, ModelServiceProxy, ThongTinXeInput, ModelInput } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
-
-
-
-
-
-
 @Component({
     selector: 'createOrEditVanHanhXeModal',
     templateUrl: './create-or-edit-vanhanhxe-modal.component.html',
@@ -55,14 +49,12 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
     show(Id?: number | null | undefined, idSau?: number | null | undefined): void {
         this.saving = false;
 
-
         this._thongtinxeService.getThongTinSeForEdit(this.soXe).subscribe(kq => {
             this.thongtinxe = kq;
             this._modelService.getModelForEdit(kq.model).subscribe(kq1 => {
                 this.model = kq1;
             })
             if (Id !== -1) {
-
                 this._vanhanhxeService.getQuanLyVanHanhForEdit(Id).subscribe(result => {
                     this.vanhanhxe = result;
                     //  this.vanhanhxe.soKM = this.vanhanhxe.kmMoi - this.vanhanhxe.kmCu;
@@ -73,26 +65,20 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
                             this.vanhanhxesau = kq;
                         })
                     }
-
-                    let day = moment(this.vanhanhxe.ngayCapNhat).format();
-                    this.ngayCapNhap = new Date(day);
-
+                    this.ngayCapNhap = result.ngayCapNhat.toDate();
                 })
 
             }
             else {
                 this.vanhanhxe = new QuanLyVanHanhInput();
-                this._vanhanhxeService.getQuanLyVanHanhsByFilter(this.soXe, null).subscribe(kq => {
+                this._vanhanhxeService.getQuanLyVanHanhsByFilter(this.soXe, undefined, undefined, undefined).subscribe(kq => {
 
-                    if (kq === null)
+                    if (kq.items == null)
                         this.vanhanhxe.kmCu = 0;
                     else
                         this.vanhanhxe.kmCu = kq.items[kq.items.length - 1].kmMoi;
-
                 })
-
             }
-
             this.modal.show();
         })
     }

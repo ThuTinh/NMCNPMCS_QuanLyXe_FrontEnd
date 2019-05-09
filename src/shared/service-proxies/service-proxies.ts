@@ -7475,7 +7475,7 @@ export class QuanLyVanHanhServiceProxy {
      * @skipCount (optional) 
      * @return Success
      */
-    getQuanLyVanHanhsByFilter(soXe: string | null | undefined, sorting: string | null | undefined, maxResultCount?: number | null | undefined, skipCount?: number | null | undefined): Observable<PagedResultDtoOfQuanLyVanHanhDto> {
+    getQuanLyVanHanhsByFilter(soXe: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfQuanLyVanHanhDto> {
         let url_ = this.baseUrl + "/api/QuanLyVanHanh/GetQuanLyVanHanhsByFilter?";
         if (soXe !== undefined)
             url_ += "SoXe=" + encodeURIComponent("" + soXe) + "&"; 
@@ -20476,7 +20476,7 @@ export class QuanLyVanHanhDto implements IQuanLyVanHanhDto {
     ngayCapNhat!: moment.Moment | undefined;
     soKM!: number | undefined;
     xangTieuThu!: number | undefined;
-    trangThaiDaDuyet!: number | undefined;
+    trangThaiDaDuyet!: string | undefined;
     ghiChu!: string | undefined;
     kmMoi!: number | undefined;
     kmCu!: number | undefined;
@@ -20532,7 +20532,7 @@ export interface IQuanLyVanHanhDto {
     ngayCapNhat: moment.Moment | undefined;
     soKM: number | undefined;
     xangTieuThu: number | undefined;
-    trangThaiDaDuyet: number | undefined;
+    trangThaiDaDuyet: string | undefined;
     ghiChu: string | undefined;
     kmMoi: number | undefined;
     kmCu: number | undefined;
@@ -20544,7 +20544,7 @@ export class QuanLyVanHanhInput implements IQuanLyVanHanhInput {
     ngayCapNhat!: moment.Moment | undefined;
     soKM!: number | undefined;
     xangTieuThu!: number | undefined;
-    trangThaiDaDuyet!: number | undefined;
+    trangThaiDaDuyet!: string | undefined;
     ghiChu!: string | undefined;
     kmMoi!: number | undefined;
     kmCu!: number | undefined;
@@ -20600,7 +20600,7 @@ export interface IQuanLyVanHanhInput {
     ngayCapNhat: moment.Moment | undefined;
     soKM: number | undefined;
     xangTieuThu: number | undefined;
-    trangThaiDaDuyet: number | undefined;
+    trangThaiDaDuyet: string | undefined;
     ghiChu: string | undefined;
     kmMoi: number | undefined;
     kmCu: number | undefined;
@@ -20612,7 +20612,7 @@ export class QuanLyVanHanhForViewDto implements IQuanLyVanHanhForViewDto {
     ngayCapNhat!: moment.Moment | undefined;
     soKM!: number | undefined;
     xangTieuThu!: number | undefined;
-    trangThaiDaDuyet!: number | undefined;
+    trangThaiDaDuyet!: string | undefined;
     ghiChu!: string | undefined;
     kmMoi!: number | undefined;
     kmCu!: number | undefined;
@@ -20665,7 +20665,7 @@ export interface IQuanLyVanHanhForViewDto {
     ngayCapNhat: moment.Moment | undefined;
     soKM: number | undefined;
     xangTieuThu: number | undefined;
-    trangThaiDaDuyet: number | undefined;
+    trangThaiDaDuyet: string | undefined;
     ghiChu: string | undefined;
     kmMoi: number | undefined;
     kmCu: number | undefined;
@@ -23290,12 +23290,13 @@ export class ThongTinBaoHiemDto implements IThongTinBaoHiemDto {
     soXe!: string | undefined;
     ngayMuaBaoHiem!: moment.Moment | undefined;
     ngayHetHanBaoHiem!: moment.Moment | undefined;
-    thoiHanBaoHiem!: moment.Moment | undefined;
+    thoiHanBaoHiem!: number | undefined;
     congTyBaoHiem!: string | undefined;
     loaiBaoHiem!: string | undefined;
     soTienThanhToan!: number | undefined;
     trangThaiDuyet!: string | undefined;
     ghiChu!: string | undefined;
+    id!: number | undefined;
 
     constructor(data?: IThongTinBaoHiemDto) {
         if (data) {
@@ -23311,12 +23312,13 @@ export class ThongTinBaoHiemDto implements IThongTinBaoHiemDto {
             this.soXe = data["soXe"];
             this.ngayMuaBaoHiem = data["ngayMuaBaoHiem"] ? moment(data["ngayMuaBaoHiem"].toString()) : <any>undefined;
             this.ngayHetHanBaoHiem = data["ngayHetHanBaoHiem"] ? moment(data["ngayHetHanBaoHiem"].toString()) : <any>undefined;
-            this.thoiHanBaoHiem = data["thoiHanBaoHiem"] ? moment(data["thoiHanBaoHiem"].toString()) : <any>undefined;
+            this.thoiHanBaoHiem = data["thoiHanBaoHiem"];
             this.congTyBaoHiem = data["congTyBaoHiem"];
             this.loaiBaoHiem = data["loaiBaoHiem"];
             this.soTienThanhToan = data["soTienThanhToan"];
             this.trangThaiDuyet = data["trangThaiDuyet"];
             this.ghiChu = data["ghiChu"];
+            this.id = data["id"];
         }
     }
 
@@ -23332,12 +23334,13 @@ export class ThongTinBaoHiemDto implements IThongTinBaoHiemDto {
         data["soXe"] = this.soXe;
         data["ngayMuaBaoHiem"] = this.ngayMuaBaoHiem ? this.ngayMuaBaoHiem.toISOString() : <any>undefined;
         data["ngayHetHanBaoHiem"] = this.ngayHetHanBaoHiem ? this.ngayHetHanBaoHiem.toISOString() : <any>undefined;
-        data["thoiHanBaoHiem"] = this.thoiHanBaoHiem ? this.thoiHanBaoHiem.toISOString() : <any>undefined;
+        data["thoiHanBaoHiem"] = this.thoiHanBaoHiem;
         data["congTyBaoHiem"] = this.congTyBaoHiem;
         data["loaiBaoHiem"] = this.loaiBaoHiem;
         data["soTienThanhToan"] = this.soTienThanhToan;
         data["trangThaiDuyet"] = this.trangThaiDuyet;
         data["ghiChu"] = this.ghiChu;
+        data["id"] = this.id;
         return data; 
     }
 }
@@ -23346,19 +23349,20 @@ export interface IThongTinBaoHiemDto {
     soXe: string | undefined;
     ngayMuaBaoHiem: moment.Moment | undefined;
     ngayHetHanBaoHiem: moment.Moment | undefined;
-    thoiHanBaoHiem: moment.Moment | undefined;
+    thoiHanBaoHiem: number | undefined;
     congTyBaoHiem: string | undefined;
     loaiBaoHiem: string | undefined;
     soTienThanhToan: number | undefined;
     trangThaiDuyet: string | undefined;
     ghiChu: string | undefined;
+    id: number | undefined;
 }
 
 export class ThongTinBaoHiemInput implements IThongTinBaoHiemInput {
     soXe!: string | undefined;
     ngayMuaBaoHiem!: moment.Moment | undefined;
     ngayHetHanBaoHiem!: moment.Moment | undefined;
-    thoiHanBaoHiem!: moment.Moment | undefined;
+    thoiHanBaoHiem!: number | undefined;
     congTyBaoHiem!: string | undefined;
     loaiBaoHiem!: string | undefined;
     soTienThanhToan!: number | undefined;
@@ -23380,7 +23384,7 @@ export class ThongTinBaoHiemInput implements IThongTinBaoHiemInput {
             this.soXe = data["soXe"];
             this.ngayMuaBaoHiem = data["ngayMuaBaoHiem"] ? moment(data["ngayMuaBaoHiem"].toString()) : <any>undefined;
             this.ngayHetHanBaoHiem = data["ngayHetHanBaoHiem"] ? moment(data["ngayHetHanBaoHiem"].toString()) : <any>undefined;
-            this.thoiHanBaoHiem = data["thoiHanBaoHiem"] ? moment(data["thoiHanBaoHiem"].toString()) : <any>undefined;
+            this.thoiHanBaoHiem = data["thoiHanBaoHiem"];
             this.congTyBaoHiem = data["congTyBaoHiem"];
             this.loaiBaoHiem = data["loaiBaoHiem"];
             this.soTienThanhToan = data["soTienThanhToan"];
@@ -23402,7 +23406,7 @@ export class ThongTinBaoHiemInput implements IThongTinBaoHiemInput {
         data["soXe"] = this.soXe;
         data["ngayMuaBaoHiem"] = this.ngayMuaBaoHiem ? this.ngayMuaBaoHiem.toISOString() : <any>undefined;
         data["ngayHetHanBaoHiem"] = this.ngayHetHanBaoHiem ? this.ngayHetHanBaoHiem.toISOString() : <any>undefined;
-        data["thoiHanBaoHiem"] = this.thoiHanBaoHiem ? this.thoiHanBaoHiem.toISOString() : <any>undefined;
+        data["thoiHanBaoHiem"] = this.thoiHanBaoHiem;
         data["congTyBaoHiem"] = this.congTyBaoHiem;
         data["loaiBaoHiem"] = this.loaiBaoHiem;
         data["soTienThanhToan"] = this.soTienThanhToan;
@@ -23417,7 +23421,7 @@ export interface IThongTinBaoHiemInput {
     soXe: string | undefined;
     ngayMuaBaoHiem: moment.Moment | undefined;
     ngayHetHanBaoHiem: moment.Moment | undefined;
-    thoiHanBaoHiem: moment.Moment | undefined;
+    thoiHanBaoHiem: number | undefined;
     congTyBaoHiem: string | undefined;
     loaiBaoHiem: string | undefined;
     soTienThanhToan: number | undefined;
@@ -23430,7 +23434,7 @@ export class ThongTinBaoHiemForViewDto implements IThongTinBaoHiemForViewDto {
     soXe!: string | undefined;
     ngayMuaBaoHiem!: moment.Moment | undefined;
     ngayHetHanBaoHiem!: moment.Moment | undefined;
-    thoiHanBaoHiem!: moment.Moment | undefined;
+    thoiHanBaoHiem!: number | undefined;
     congTyBaoHiem!: string | undefined;
     loaiBaoHiem!: string | undefined;
     soTienThanhToan!: number | undefined;
@@ -23451,7 +23455,7 @@ export class ThongTinBaoHiemForViewDto implements IThongTinBaoHiemForViewDto {
             this.soXe = data["soXe"];
             this.ngayMuaBaoHiem = data["ngayMuaBaoHiem"] ? moment(data["ngayMuaBaoHiem"].toString()) : <any>undefined;
             this.ngayHetHanBaoHiem = data["ngayHetHanBaoHiem"] ? moment(data["ngayHetHanBaoHiem"].toString()) : <any>undefined;
-            this.thoiHanBaoHiem = data["thoiHanBaoHiem"] ? moment(data["thoiHanBaoHiem"].toString()) : <any>undefined;
+            this.thoiHanBaoHiem = data["thoiHanBaoHiem"];
             this.congTyBaoHiem = data["congTyBaoHiem"];
             this.loaiBaoHiem = data["loaiBaoHiem"];
             this.soTienThanhToan = data["soTienThanhToan"];
@@ -23472,7 +23476,7 @@ export class ThongTinBaoHiemForViewDto implements IThongTinBaoHiemForViewDto {
         data["soXe"] = this.soXe;
         data["ngayMuaBaoHiem"] = this.ngayMuaBaoHiem ? this.ngayMuaBaoHiem.toISOString() : <any>undefined;
         data["ngayHetHanBaoHiem"] = this.ngayHetHanBaoHiem ? this.ngayHetHanBaoHiem.toISOString() : <any>undefined;
-        data["thoiHanBaoHiem"] = this.thoiHanBaoHiem ? this.thoiHanBaoHiem.toISOString() : <any>undefined;
+        data["thoiHanBaoHiem"] = this.thoiHanBaoHiem;
         data["congTyBaoHiem"] = this.congTyBaoHiem;
         data["loaiBaoHiem"] = this.loaiBaoHiem;
         data["soTienThanhToan"] = this.soTienThanhToan;
@@ -23486,7 +23490,7 @@ export interface IThongTinBaoHiemForViewDto {
     soXe: string | undefined;
     ngayMuaBaoHiem: moment.Moment | undefined;
     ngayHetHanBaoHiem: moment.Moment | undefined;
-    thoiHanBaoHiem: moment.Moment | undefined;
+    thoiHanBaoHiem: number | undefined;
     congTyBaoHiem: string | undefined;
     loaiBaoHiem: string | undefined;
     soTienThanhToan: number | undefined;

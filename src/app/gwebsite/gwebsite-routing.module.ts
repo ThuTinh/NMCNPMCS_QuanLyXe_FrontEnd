@@ -8,6 +8,7 @@ import { ModelComponent } from './model/model.component';
 import { NhaCungCapComponent } from './nhacungcap/nhacungcap.component';
 import { ThongTinXeComponent } from './thongtinxe/thongtinxe.component'
 import { VanHanhXeComponent } from './vanhanhxe/vanhanhxe.component';
+import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.component';
 
 @NgModule({
     imports: [
@@ -53,6 +54,9 @@ import { VanHanhXeComponent } from './vanhanhxe/vanhanhxe.component';
                     },
                     {
                         path: 'vanhanhxe', component: VanHanhXeComponent,
+                    },
+                    {
+                        path: 'thongtinbaohiem', component: ThongTinBaoHiemComponent,
                     }
                 ]
 

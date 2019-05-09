@@ -11,7 +11,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 
 export class ViewCustomerModalComponent extends AppComponentBase {
 
-    customer : CustomerForViewDto = new CustomerForViewDto();
+    customer: CustomerForViewDto = new CustomerForViewDto();
     @ViewChild('viewModal') modal: ModalDirective;
 
     constructor(
@@ -28,7 +28,7 @@ export class ViewCustomerModalComponent extends AppComponentBase {
         })
     }
 
-    close() : void{
+    close(): void {
         this.modal.hide();
     }
 }

@@ -1,5 +1,5 @@
 <div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-    aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+     aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form #editForm="ngForm" novalidate (ngSubmit)="save()">
@@ -16,28 +16,32 @@
                     <div class="form-group">
                         <label>Tên khách hàng *</label>
                         <input #nameInput="ngModel" class="form-control" type="text" name="Name"
-                            [(ngModel)]="customer.name" required maxlength="64">
+                               [(ngModel)]="customer.name" required maxlength="64">
                         <validation-messages [formCtrl]="nameInput"></validation-messages>
                     </div>
                     <div class="form-group">
                         <label>Địa chỉ *</label>
                         <input #addressInput="ngModel" class="form-control" type="text" name="Address"
-                            [(ngModel)]="customer.address" required maxlength="64">
+                               [(ngModel)]="customer.address" required maxlength="64">
                         <validation-messages [formCtrl]="addressInput"></validation-messages>
                     </div>
                     <div class="form-group">
                         <label>Thông tin *</label>
                         <input #addressInput="ngModel" class="form-control" type="text" name="Info"
-                            [(ngModel)]="customer.info" required maxlength="64">
+                               [(ngModel)]="customer.info" required maxlength="64">
                         <validation-messages [formCtrl]="infoInput"></validation-messages>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default"
-                        (click)="close()">{{l("Cancel")}}</button>
+                            (click)="close()">
+                        {{l("Cancel")}}
+                    </button>
                     <button type="submit" class="btn btn-primary" [buttonBusy]="saving"
-                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
-                        <span>{{l("Save")}}</span></button>
+                            [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
                 </div>
             </form>
         </div>

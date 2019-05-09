@@ -4,16 +4,16 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto col-xs-6">
                 <h3 class="m-subheader__title m-subheader__title--separator">
-                    <span>{{l("Customer")}}</span>
+                    <span>{{l("ThongTinSuaChua")}}</span>
                 </h3>
                 <span class="m-section__sub">
-                    {{l("CustomerInfo")}}
+                    {{l("ThongTinSuaChuaInfo")}}
                 </span>
             </div>
             <div class="col-xs-6 text-right">
-                <button (click)="createCustomer()" *ngIf="isGranted('Pages.Administration.Customer.Create')"
+                <button (click)="createThongTinSuaChua()" *ngIf="isGranted('Pages.Administration.ThongTinSuaChua.Create')"
                         class="btn btn-primary">
-                    <i class="fa fa-plus"></i> {{l("CreateNewCustomer")}}
+                    <i class="fa fa-plus"></i> {{l("CreateNewThongTinSuaChua")}}
                 </button>
             </div>
         </div>
@@ -27,8 +27,8 @@
                         <div class="row align-items-center m--margin-bottom-10">
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input [(ngModel)]="customerName" name="customerName" autoFocus class="form-control"
-                                           placeholder="Nhập tên khách hàng" type="text">
+                                    <input [(ngModel)]="thongTinSuaChuaName" name="thongTinSuaChuaName" autoFocus class="form-control"
+                                           placeholder="Nhập ... muốn tìm kiếm" type="text">
                                     <span class="input-group-btn">
                                         <button (click)="applyFilters()" class="btn btn-primary" type="submit">
                                             <i class="icon-refresh"></i>
@@ -48,16 +48,33 @@
                                  [responsive]="primengTableHelper.isResponsive">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th pSortableColumn="name">
-                                        Tên khách hàng
-                                        <p-sortIcon field="name"></p-sortIcon>
+                                    <th pSortableColumn="soXe">
+                                        Số xe
+                                        <p-sortIcon field="soXe"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="address">
-                                        Địa chỉ
+                                    <th pSortableColumn="ngayCapNhat">
+                                        Ngày cập nhật
                                     </th>
-                                    <th pSortableColumn="info">
-                                        Thông tin
-                                        <p-sortIcon field="info"></p-sortIcon>
+                                    <th pSortableColumn="ngayDongPhi">
+                                        Ngày Đóng phí
+                                    </th>
+                                    <th pSortableColumn="ngayHetHanDongPhi">
+                                        Ngày hết hạn đóng phí
+                                    </th>
+                                    <th pSortableColumn="thoiGianSuDung">
+                                        Thời gian sử dụng
+                                    </th>
+                                    <th pSortableColumn="soTienThanhToan">
+                                        Số tiền thanh toán
+                                    </th>
+                                    <th pSortableColumn="congTyThuPhi">
+                                        Công ty Thu Phí
+                                    </th>
+                                    <th pSortableColumn="loaiPhi">
+                                        Loại Phí
+                                    </th>
+                                    <th pSortableColumn="ghiChu">
+                                        Ghi Chú
                                     </th>
                                     <th>{{l('Edit')}}</th>
                                 </tr>

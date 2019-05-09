@@ -1,4 +1,4 @@
-import { ViewCustomerModalComponent } from './view-customer-modal.component';
+import { ViewPhiDuongBoModalComponent } from './view-phiDuongBo-modal.component';
 import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
@@ -7,31 +7,31 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { CustomerServiceProxy } from '@shared/service-proxies/service-proxies';
-import { CreateOrEditCustomerModalComponent } from './create-or-edit-customer-modal.component';
+import { PhiDuongBoServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CreateOrEditPhiDuongBoModalComponent } from './create-or-edit-phiDuongBo-modal.component';
 
 @Component({
-    templateUrl: './customer.component.html',
+    templateUrl: './phiDuongBo.component.html',
     animations: [appModuleAnimation()]
 })
-export class CustomerComponent extends AppComponentBase implements AfterViewInit, OnInit {
+export class PhiDuongBoComponent extends AppComponentBase implements AfterViewInit, OnInit {
 
     /**
     * @ViewChild là dùng get control và call thuộc tính, functions của control đó
     */
     @ViewChild('dataTable') dataTable: Table;
     @ViewChild('paginator') paginator: Paginator;
-    @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditCustomerModalComponent;
-    @ViewChild('viewCustomerModal') viewCustomerModal: ViewCustomerModalComponent;
+    @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditPhiDuongBoModalComponent;
+    @ViewChild('viewPhiDuongBoModal') viewPhiDuongBoModal: ViewPhiDuongBoModalComponent;
 
     /**
     * tạo các biến dể filters
     */
-    customerName: string;
+    phiDuongBoName: string;
 
     constructor(
         injector: Injector,
-        private _customerService: CustomerServiceProxy,
+        private _phiDuongBoService: PhiDuongBoServiceProxy,
         private _activatedRoute: ActivatedRoute,
     ) {
         super(injector);
@@ -53,10 +53,10 @@ export class CustomerComponent extends AppComponentBase implements AfterViewInit
     }
 
     /**
-    * Hàm get danh sách Customer
+    * Hàm get danh sách PhiDuongBo
     * @param event
     */
-    getCustomers(event?: LazyLoadEvent) {
+    getPhiDuongBos(event?: LazyLoadEvent) {
         if (!this.paginator || !this.dataTable) {
             return;
         }
@@ -72,8 +72,8 @@ export class CustomerComponent extends AppComponentBase implements AfterViewInit
 
     }
 
-    reloadList(customerName, event?: LazyLoadEvent) {
-        this._customerService.getCustomersByFilter(customerName, this.primengTableHelper.getSorting(this.dataTable),
+    reloadList(phiDuongBoName, event?: LazyLoadEvent) {
+        this._phiDuongBoService.getPhiDuongBosByFilter(phiDuongBoName, this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event),
         ).subscribe(result => {
@@ -83,8 +83,8 @@ export class CustomerComponent extends AppComponentBase implements AfterViewInit
         });
     }
 
-    deleteCustomer(id): void {
-        this._customerService.deleteCustomer(id).subscribe(() => {
+    deletePhiDuongBo(id): void {
+        this._phiDuongBoService.deletePhiDuongBo(id).subscribe(() => {
             this.reloadPage();
         })
     }
@@ -92,8 +92,8 @@ export class CustomerComponent extends AppComponentBase implements AfterViewInit
     init(): void {
         //get params từ url để thực hiện filter
         this._activatedRoute.params.subscribe((params: Params) => {
-            this.customerName = params['name'] || '';
-            this.reloadList(this.customerName, null);
+            this.phiDuongBoName = params['soXe'] || '';
+            this.reloadList(this.phiDuongBoName, null);
         });
     }
 
@@ -103,7 +103,7 @@ export class CustomerComponent extends AppComponentBase implements AfterViewInit
 
     applyFilters(): void {
         //truyền params lên url thông qua router
-        this.reloadList(this.customerName, null);
+        this.reloadList(this.phiDuongBoName, null);
 
         if (this.paginator.getPage() !== 0) {
             this.paginator.changePage(0);
@@ -112,7 +112,7 @@ export class CustomerComponent extends AppComponentBase implements AfterViewInit
     }
 
     //hàm show view create MenuClient
-    createCustomer() {
+    createPhiDuongBo() {
         this.createOrEditModal.show();
     }
 

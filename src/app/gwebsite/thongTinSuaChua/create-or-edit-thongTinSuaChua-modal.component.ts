@@ -1,18 +1,18 @@
 import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { CustomerServiceProxy, CustomerInput } from '@shared/service-proxies/service-proxies';
+import { ThongTinSuaChuaServiceProxy, ThongTinSuaChuaInput } from '@shared/service-proxies/service-proxies';
 
 
 @Component({
-    selector: 'createOrEditCustomerModal',
-    templateUrl: './create-or-edit-customer-modal.component.html'
+    selector: 'createOrEditThongTinSuaChuaModal',
+    templateUrl: './create-or-edit-thongTinSuaChua-modal.component.html'
 })
-export class CreateOrEditCustomerModalComponent extends AppComponentBase {
+export class CreateOrEditThongTinSuaChuaModalComponent extends AppComponentBase {
 
 
     @ViewChild('createOrEditModal') modal: ModalDirective;
-    @ViewChild('customerCombobox') customerCombobox: ElementRef;
+    @ViewChild('thongTinSuaChuaCombobox') thongTinSuaChuaCombobox: ElementRef;
     @ViewChild('iconCombobox') iconCombobox: ElementRef;
     @ViewChild('dateInput') dateInput: ElementRef;
 
@@ -23,30 +23,30 @@ export class CreateOrEditCustomerModalComponent extends AppComponentBase {
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     saving = false;
-    customer: CustomerInput = new CustomerInput();
+    thongTinSuaChua: ThongTinSuaChuaInput = new ThongTinSuaChuaInput();
 
     constructor(
         injector: Injector,
-        private _customerService: CustomerServiceProxy
+        private _thongTinSuaChuaService: ThongTinSuaChuaServiceProxy
     ) {
         super(injector);
     }
 
-    show(customerId?: number | null | undefined): void {
+    show(thongTinSuaChuaId?: number | null | undefined): void {
         this.saving = false;
 
 
-        this._customerService.getCustomerForEdit(customerId).subscribe(result => {
-            this.customer = result;
+        this._thongTinSuaChuaService.getThongTinSuaChuaForEdit(thongTinSuaChuaId).subscribe(result => {
+            this.thongTinSuaChua = result;
             this.modal.show();
 
         })
     }
 
     save(): void {
-        let input = this.customer;
+        let input = this.thongTinSuaChua;
         this.saving = true;
-        this._customerService.createOrEditCustomer(input).subscribe(result => {
+        this._thongTinSuaChuaService.createOrEditThongTinSuaChua(input).subscribe(result => {
             this.notify.info(this.l('SavedSuccessfully'));
             this.close();
         })

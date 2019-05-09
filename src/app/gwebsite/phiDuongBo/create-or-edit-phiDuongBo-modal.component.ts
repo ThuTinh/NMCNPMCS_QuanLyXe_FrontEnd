@@ -1,18 +1,18 @@
 import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { CustomerServiceProxy, CustomerInput } from '@shared/service-proxies/service-proxies';
+import { PhiDuongBoServiceProxy, PhiDuongBoInput } from '@shared/service-proxies/service-proxies';
 
 
 @Component({
-    selector: 'createOrEditCustomerModal',
-    templateUrl: './create-or-edit-customer-modal.component.html'
+    selector: 'createOrEditPhiDuongBoModal',
+    templateUrl: './create-or-edit-phiDuongBo-modal.component.html'
 })
-export class CreateOrEditCustomerModalComponent extends AppComponentBase {
+export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
 
 
     @ViewChild('createOrEditModal') modal: ModalDirective;
-    @ViewChild('customerCombobox') customerCombobox: ElementRef;
+    @ViewChild('phiDuongBoCombobox') phiDuongBoCombobox: ElementRef;
     @ViewChild('iconCombobox') iconCombobox: ElementRef;
     @ViewChild('dateInput') dateInput: ElementRef;
 
@@ -23,30 +23,30 @@ export class CreateOrEditCustomerModalComponent extends AppComponentBase {
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     saving = false;
-    customer: CustomerInput = new CustomerInput();
+    phiDuongBo: PhiDuongBoInput = new PhiDuongBoInput();
 
     constructor(
         injector: Injector,
-        private _customerService: CustomerServiceProxy
+        private _phiDuongBoService: PhiDuongBoServiceProxy
     ) {
         super(injector);
     }
 
-    show(customerId?: number | null | undefined): void {
+    show(phiDuongBoId?: number | null | undefined): void {
         this.saving = false;
 
 
-        this._customerService.getCustomerForEdit(customerId).subscribe(result => {
-            this.customer = result;
+        this._phiDuongBoService.getPhiDuongBoForEdit(phiDuongBoId).subscribe(result => {
+            this.phiDuongBo = result;
             this.modal.show();
 
         })
     }
 
     save(): void {
-        let input = this.customer;
+        let input = this.phiDuongBo;
         this.saving = true;
-        this._customerService.createOrEditCustomer(input).subscribe(result => {
+        this._phiDuongBoService.createOrEditPhiDuongBo(input).subscribe(result => {
             this.notify.info(this.l('SavedSuccessfully'));
             this.close();
         })

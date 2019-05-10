@@ -3,12 +3,13 @@ import { RouterModule } from '@angular/router';
 import { MenuClientComponent } from '@app/gwebsite/menu-client/menu-client.component';
 import { DemoModelComponent } from './demo-model/demo-model.component';
 import { CustomerComponent } from './customer/customer.component';
-import { TaiSanComponent } from './taisan/taisan.component'
+import { TaiSanComponent } from './taisan/taisan.component';
 import { ModelComponent } from './model/model.component';
 import { NhaCungCapComponent } from './nhacungcap/nhacungcap.component';
-import { ThongTinXeComponent } from './thongtinxe/thongtinxe.component'
+import { ThongTinXeComponent } from './thongtinxe/thongtinxe.component';
 import { VanHanhXeComponent } from './vanhanhxe/vanhanhxe.component';
 import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.component';
+import { ThongTinBaoDuongComponent } from './thongtinbaoduong/thongtinbaoduong.component';
 
 @NgModule({
     imports: [
@@ -57,6 +58,9 @@ import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.comp
                     },
                     {
                         path: 'thongtinbaohiem', component: ThongTinBaoHiemComponent,
+                    },
+                    {
+                        path: 'thongtinbaoduong', component: ThongTinBaoDuongComponent,
                     }
                 ]
 

@@ -101,7 +101,7 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
     reloadList(soXe: string, event?: LazyLoadEvent) {
         this.soXe = this.thongtinxeDto.soXe;
         if (this.soXe != undefined) {
-            this._baohiemxeService.getThongTinBaoHiemsByFilter(soXe, this.primengTableHelper.getSorting(this.dataTable),
+            this._baohiemxeService.getThongTinBaoHiemsByFilter(this.soXe, this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
             ).subscribe(result => {

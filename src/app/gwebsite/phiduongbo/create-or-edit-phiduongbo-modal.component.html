@@ -13,66 +13,101 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label>Số xe *</label>
-                        <input #soXeInput="ngModel" type="text" name="soXe" [(ngModel)]="phiDuongBo.soXe" required
-                            class="form-control" maxlength="64">
-                        <validation-messages [formCtrl]="soXeInput"></validation-messages>
-                    </div>
-                    <div class="form-group">
-                        <label>Ngày cập nhật: </label>
-                        <p-calendar #ngayCapNhatInput="ngModel" [(ngModel)]="phiDuongBo.ngayCapNhat" required
-                            maxLength="64" name="ngayCapNhat" class="form-control">
-                        </p-calendar>
-                        <validation-messages [formCtrl]="ngayCapNhatInput"></validation-messages>
+                    <div class="row">
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Loại xe </label>
+                                <input #loaixeInput="ngModel" class="form-control" type="text" name="loaiXe"
+                                    [disabled]="true" [(ngModel)]="model.loaiXe " required maxlength="64">
+                                <validation-messages [formCtrl]="loaixeInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>Model </label>
+                                <input #modelInput="ngModel" class="form-control" type="text" name="model"
+                                    [disabled]="true" [(ngModel)]="thongtinxe.model" required maxlength="64">
+                                <validation-messages [formCtrl]="modelInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>Nước sản xuất </label>
+                                <input #nuocsanxuatInput="ngModel" class="form-control" type="text" name="nuocSanXuat"
+                                    [disabled]="true" [(ngModel)]="thongtinxe.nuocSanXuat" required maxlength="64">
+                                <validation-messages [formCtrl]="nuocsanxuatInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>Loại nhiên liệu </label>
+                                <input #loaiNhienLieuInput="ngModel" class="form-control" type="text"
+                                    name="loaiNhienLieu" [disabled]="true" [(ngModel)]="thongtinxe.loaiNhienLieu"
+                                    required maxlength="64">
+                                <validation-messages [formCtrl]="loaiNhienLieuInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>Đơn vị sử dụng </label>
+                                <input #donViSuDungInput="ngModel" class="form-control" type="text" name="donViSuDung"
+                                    [disabled]="true" [(ngModel)]="thongtinxe.donViSuDung" required maxlength="64">
+                                <validation-messages [formCtrl]="donViSuDungInput"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Ngày cập nhật: </label>
+                                <p-calendar #ngayCapNhatInput="ngModel" [(ngModel)]="ngayCapNhap" required
+                                    maxLength="64" name="ngayCapNhat" class="form-control">
+                                </p-calendar>
+                                <validation-messages [formCtrl]="ngayCapNhatInput"></validation-messages>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Ngày đóng phí:</label>
+                                <p-calendar [(ngModel)]="ngayDongPhi" required maxLength="64" class="form-control"
+                                    name="ngayDongPhi" #ngayDongPhiInput="ngModel">
+                                </p-calendar>
+                                <validation-messages [formCtrl]="ngayDongPhiInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>Ngày hết hạn đóng phí:</label>
+                                <p-calendar [(ngModel)]="ngayHetHan" class="form-control" required maxLength="64"
+                                    #ngayHetHanDongPhiInput="ngModel" name="ngayHetHanDongPhi">
+                                </p-calendar>
+                                <validation-messages [formCtrl]="ngayHetHanDongPhiInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>Thời gian sử dụng:</label>
+                                <input #thoiGianSuDungInput="ngModel" type="number" name="thoiGianSuDung"
+                                    class="form-control" [(ngModel)]="phiDuongBo.thoiGianSuDung" required
+                                    maxlength="64">
+                                <label> Năm </label>
+                                <validation-messages [formCtrl]="thoiGianSuDungInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>Số tiền phải thanh toán </label>
+                                <input #soTienThanhToanInput="ngModel" type="number" name="soTienThanhToan"
+                                    class="form-control" [(ngModel)]="phiDuongBo.soTienThanhToan" required
+                                    maxlength="64">
+                                <label> Triệu Đồng </label>
+                                <validation-messages [formCtrl]="soTienThanhToanInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>Công ty thu phí </label>
+                                <input #congTyThuPhiInput="ngModel" type="text" name="congTyThuPhi" class="form-control"
+                                    [(ngModel)]="phiDuongBo.congTyThuPhi" required maxlength="64">
+                                <validation-messages [formCtrl]="congTyThuPhiInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>Loại phí </label>
+                                <input #loaiPhiInput="ngModel" type="text" name="loaiPhi"
+                                    [(ngModel)]="phiDuongBo.loaiPhi" class="form-control" required maxlength="64">
+                                <validation-messages [formCtrl]="loaiPhiInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>Ghi chú </label>
+                                <input #ghiChuInput="ngModel" class="form-control" type="text" name="ghiChu"
+                                    class="form-control" [(ngModel)]="phiDuongBo.ghiChu" required maxlength="64">
+                                <validation-messages [formCtrl]="ghiChuInput"></validation-messages>
+                            </div>
+                        </div>
 
                     </div>
-                    <div class="form-group">
-                        <label>Ngày đóng phí:</label>
-                        <p-calendar [(ngModel)]="phiDuongBo.ngayDongPhi" required maxLength="64" class="form-control"
-                            name="ngayDongPhi" #ngayDongPhiInput="ngModel">
-                        </p-calendar>
-                        <validation-messages [formCtrl]="ngayDongPhiInput"></validation-messages>
-                    </div>
-                    <div class="form-group">
-                        <label>Ngày hết hạn đóng phí:</label>
-                        <p-calendar [(ngModel)]="phiDuongBo.ngayHetHanDongPhi" class="form-control" required
-                            maxLength="64" #ngayHetHanDongPhiInput="ngModel" name="ngayHetHanDongPhi"></p-calendar>
-                        <validation-messages [formCtrl]="ngayHetHanDongPhiInput"></validation-messages>
-                    </div>
-                    <div class="form-group">
-                        <label>Thời gian sử dụng:</label>
-                        <input #thoiGianSuDungInput="ngModel" type="number" name="thoiGianSuDung" class="form-control"
-                            [(ngModel)]="phiDuongBo.thoiGianSuDung" required maxlength="64">
-                        <label> Năm </label>
-                        <validation-messages [formCtrl]="thoiGianSuDungInput"></validation-messages>
-                    </div>
-                    <div class="form-group">
-                        <label>Số tiền phải thanh toán </label>
-                        <input #soTienThanhToanInput="ngModel" type="number" name="soTienThanhToan" class="form-control"
-                            [(ngModel)]="phiDuongBo.soTienThanhToan" required maxlength="64">
-                        <label> Triệu Đồng </label>
-                        <validation-messages [formCtrl]="soTienThanhToanInput"></validation-messages>
-                    </div>
-                    <div class="form-group">
-                        <label>Công ty thu phí </label>
-                        <input #congTyThuPhiInput="ngModel" type="text" name="congTyThuPhi" class="form-control"
-                            [(ngModel)]="phiDuongBo.congTyThuPhi" required maxlength="64">
-                        <validation-messages [formCtrl]="congTyThuPhiInput"></validation-messages>
-                    </div>
-                    <div class="form-group">
-                        <label>Loại phí </label>
-                        <input #loaiPhiInput="ngModel" type="text" name="loaiPhi" [(ngModel)]="phiDuongBo.loaiPhi"
-                            class="form-control" required maxlength="64">
-                        <validation-messages [formCtrl]="loaiPhiInput"></validation-messages>
-                    </div>
-                    <div class="form-group">
-                        <label>Ghi chú </label>
-                        <input #ghiChuInput="ngModel" class="form-control" type="text" name="ghiChu"
-                            class="form-control" [(ngModel)]="phiDuongBo.ghiChu" required maxlength="64">
-                        <validation-messages [formCtrl]="ghiChuInput"></validation-messages>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">

@@ -4,16 +4,15 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto col-xs-6">
                 <h3 class="m-subheader__title m-subheader__title--separator">
-                    <span>{{l("PhiDuongBo")}}</span>
+                    <span>{{l("Thông tin phí đường bộ")}}</span>
                 </h3>
-
             </div>
-            <div class="col-xs-6 text-right">
+            <!-- <div class="col-xs-6 text-right">
                 <button (click)="createPhiDuongBo()" *ngIf="isGranted('Pages.Administration.PhiDuongBo.Create')"
                     class="btn btn-primary">
                     <i class="fa fa-plus"></i> {{l("CreateNewPhiDuongBo")}}
                 </button>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -23,8 +22,8 @@
                 <form autocomplete="off">
                     <div class="m-form m-form--label-align-right" id="TextsFilterForm">
                         <div class="row align-items-center m--margin-bottom-10">
-                            <div class="col-sm-12">
-                                <div class="input-group">
+
+                            <!-- <div class="input-group">
                                     <input [(ngModel)]="phiDuongBoName" name="phiDuongBoName" autoFocus
                                         class="form-control" placeholder="Nhập ... muốn tìm kiếm" type="text">
                                     <span class="input-group-btn">
@@ -33,7 +32,66 @@
                                             {{l("Làm mới")}}
                                         </button>
                                     </span>
+                                </div> -->
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Số xe</label>
+                                    <div class="d-flex ">
+                                        <input #soXeInput="ngModel" class="form-control" type="text" name="soXe"
+                                            [disabled]="true" [(ngModel)]="thongtinxeDto.soXe" maxlength="64">
+                                        <button class="form-control btn btn-outline-primary"
+                                            (click)="viewThongTinXe.show()"
+                                            style="margin-right: 20px; width: 50px">...</button>
+                                    </div>
                                 </div>
+                                <div class="form-group">
+                                    <label>Model</label>
+                                    <input [disabled]="true" #modelInput="ngModel" class="form-control" type="text"
+                                        name="model" [(ngModel)]="thongtinxeDto.model" maxlength="64">
+                                </div>
+                                <div class="form-group">
+                                    <label>Đơn vị sử dụng </label>
+                                    <input [disabled]="true" #donvisudungInput="ngModel" class="form-control"
+                                        type="text" name="donViSuDung" [(ngModel)]="thongtinxeDto.mucDichSuDung"
+                                        maxlength="64">
+                                </div>
+                                <div class="form-group">
+                                    <label>Mục đích sử dụng </label>
+                                    <input [disabled]="true" #mucdichsudungInput="ngModel" class="form-control"
+                                        type="text" name="mucDichSuDung" [(ngModel)]="thongtinxeDto.mucDichSuDung"
+                                        maxlength="64">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Năm sản xuất</label>
+                                    <input [disabled]="true" #namSanxuatInput="ngModel" class="form-control" type="text"
+                                        name="namSanXuat" [(ngModel)]="thongtinxeDto.namSanXuat" maxlength="64">
+                                </div>
+                                <div class="form-group">
+                                    <label>Hãng sản xuất</label>
+                                    <input [disabled]="true" #hangSanXuatInput="ngModel" class="form-control"
+                                        type="text" name="trangThaiDuyet" [(ngModel)]="thongtinxeDto.hangSanXuat"
+                                        maxlength="64">
+                                </div>
+                                <div class="form-group">
+                                    <label>Loại xe</label>
+                                    <input [disabled]="true" #loaiXeInput="ngModel" class="form-control" type="text"
+                                        name="loaiXe" [(ngModel)]="thongtinxeDto.loaiXe" maxlength="64">
+                                </div>
+                                <div class="form-group">
+                                    <label>Trạng thái duyệt </label>
+                                    <input [disabled]="true" #trangthaiduyetInput="ngModel" class="form-control"
+                                        type="text" name="trangThaiDuyet" [(ngModel)]="thongtinxeDto.trangThaiDuyet"
+                                        maxlength="64">
+                                </div>
+                            </div>
+                            <div class="input-group w-100">
+                                <span class="input-group-btn w-100">
+                                    <button *ngIf="soXe!=undefined" class="btn btn-info float-right "
+                                        (click)="createOrEditModal.show(-1)"><i class="icon-refresh"></i>
+                                        {{l("Thêm mới")}}</button>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -43,7 +101,7 @@
                     <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                         <p-table #dataTable (onLazyLoad)="getPhiDuongBos($event)" [value]="primengTableHelper.records"
                             rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
-                            [responsive]="primengTableHelper.isResponsive">
+                            [scrollable]="true" [responsive]="primengTableHelper.isResponsive">
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th pSortableColumn="soXe" style="width: 200px;">
@@ -162,6 +220,8 @@
             </div>
         </div>
     </div>
-    <createOrEditPhiDuongBoModal #createOrEditModal (modalSave)="reloadPage()"></createOrEditPhiDuongBoModal>
+    <createOrEditPhiDuongBoModal #createOrEditModal (modalSave)="reloadPage()" [soXe]="soXe">
+    </createOrEditPhiDuongBoModal>
     <viewPhiDuongBoModal #viewPhiDuongBoModal></viewPhiDuongBoModal>
+    <thongTinXeModalComponent #viewThongTinXe (thongtinxe)="getThongTinXe($event)"></thongTinXeModalComponent>
 </div>

@@ -7,8 +7,10 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { PhiDuongBoServiceProxy } from '@shared/service-proxies/service-proxies';
+import { PhiDuongBoServiceProxy, ThongTinXeForViewDto, ModelForViewDto } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditPhiDuongBoModalComponent } from './create-or-edit-phiDuongBo-modal.component';
+import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
+import { ThongTinXeModalComponent } from '../thongtinxe/thongtinxe-modal.component';
 
 @Component({
     templateUrl: './phiduongbo.component.html',
@@ -24,11 +26,15 @@ export class PhiDuongBoComponent extends AppComponentBase implements AfterViewIn
     @ViewChild('paginator') paginator: Paginator;
     @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditPhiDuongBoModalComponent;
     @ViewChild('viewPhiDuongBoModal') viewPhiDuongBoModal: ViewPhiDuongBoModalComponent;
-
+    @ViewChild('viewThongTinXe') viewThongTinXe: ThongTinXeModalComponent;
     /**
     * tạo các biến dể filters
     */
-    phiDuongBoName: string;
+
+    thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
+    soXe: string;
+    model: ModelForViewDto = new ModelForViewDto();
+
 
     constructor(
         injector: Injector,
@@ -69,19 +75,32 @@ export class PhiDuongBoComponent extends AppComponentBase implements AfterViewIn
                     * mặc định ban đầu lấy hết dữ liệu nên dữ liệu filter = null
                     */
 
-        this.reloadList(null, event);
+        this.reloadList(event);
 
     }
 
-    reloadList(phiDuongBoName, event?: LazyLoadEvent) {
-        this._phiDuongBoService.getPhiDuongBosByFilter(phiDuongBoName, undefined, undefined, undefined, this.primengTableHelper.getSorting(this.dataTable),
-            this.primengTableHelper.getMaxResultCount(this.paginator, event),
-            this.primengTableHelper.getSkipCount(this.paginator, event),
-        ).subscribe(result => {
-            this.primengTableHelper.totalRecordsCount = result.totalCount;
-            this.primengTableHelper.records = result.items;
-            this.primengTableHelper.hideLoadingIndicator();
-        });
+    reloadList(event?: LazyLoadEvent) {
+        this.soXe = this.thongtinxeDto.soXe;
+        if (this.soXe != undefined) {
+            this._phiDuongBoService.getPhiDuongBosByFilter(this.soXe, undefined, undefined, undefined, this.primengTableHelper.getSorting(this.dataTable),
+                this.primengTableHelper.getMaxResultCount(this.paginator, event),
+                this.primengTableHelper.getSkipCount(this.paginator, event),
+            ).subscribe(result => {
+                this.primengTableHelper.totalRecordsCount = result.totalCount;
+                this.primengTableHelper.records = result.items;
+
+            });
+
+        }
+        this.primengTableHelper.hideLoadingIndicator();
+
+    }
+
+    getThongTinXe(item: ThongTinXeViewDTO) {
+        this.thongtinxeDto = item;
+        this.soXe = item.soXe;
+        this.reloadList(null);
+
     }
 
     deletePhiDuongBo(id): void {
@@ -93,8 +112,8 @@ export class PhiDuongBoComponent extends AppComponentBase implements AfterViewIn
     init(): void {
         //get params từ url để thực hiện filter
         this._activatedRoute.params.subscribe((params: Params) => {
-            this.phiDuongBoName = params['soXe'] || '';
-            this.reloadList(this.phiDuongBoName, null);
+            this.soXe = params['soXe'] || '';
+            this.reloadList(null);
         });
     }
 
@@ -104,13 +123,14 @@ export class PhiDuongBoComponent extends AppComponentBase implements AfterViewIn
 
     applyFilters(): void {
         //truyền params lên url thông qua router
-        this.reloadList(this.phiDuongBoName, null);
+        this.reloadList(null);
 
         if (this.paginator.getPage() !== 0) {
             this.paginator.changePage(0);
             return;
         }
     }
+
 
     //hàm show view create MenuClient
     createPhiDuongBo() {

@@ -21,10 +21,12 @@ export class AppNavigationService {
                 new AppMenuItem('DemoModel', 'Pages.Administration.DemoModel', 'flaticon-menu-1', '/app/gwebsite/demo-model'),
                 new AppMenuItem('Customer', 'Pages.Administration.Customer', 'flaticon-menu-1', '/app/gwebsite/customer'),
                 new AppMenuItem('nhacungcap', '', 'flaticon-menu-1', '/app/gwebsite/nhacungcap'),
+                new AppMenuItem('coquandangkiem', '', 'flaticon-menu-1', '/app/gwebsite/coquandangkiem'),
                 new AppMenuItem('Quản lý xe', '', 'flaticon-menu-1', '', [
                     new AppMenuItem('Thông tin xe', '', 'flaticon-menu-1', '/app/gwebsite/thongtinxe'),
                     new AppMenuItem('Vận hành xe', '', 'flaticon-menu-1', '/app/gwebsite/vanhanhxe'),
                     new AppMenuItem('Bảo hiểm xe', '', 'flaticon-menu-1', '/app/gwebsite/thongtinbaohiem'),
+                    new AppMenuItem('Đăng kiểm xe', '', 'flaticon-menu-1', '/app/gwebsite/thongtindangkiem'),
 
                 ]),
             ]),

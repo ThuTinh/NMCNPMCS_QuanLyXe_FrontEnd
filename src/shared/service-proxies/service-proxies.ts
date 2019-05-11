@@ -1537,6 +1537,295 @@ export class CommonLookupServiceProxy {
 }
 
 @Injectable()
+export class CoQuanDangKiemServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @maCoQuanDangKiem (optional) 
+     * @sorting (optional) 
+     * @maxResultCount (optional) 
+     * @skipCount (optional) 
+     * @return Success
+     */
+    getCoQuanDangKiemsByFilter(maCoQuanDangKiem: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfCoQuanDangKiemDto> {
+        let url_ = this.baseUrl + "/api/CoQuanDangKiem/GetCoQuanDangKiemsByFilter?";
+        if (maCoQuanDangKiem !== undefined)
+            url_ += "maCoQuanDangKiem=" + encodeURIComponent("" + maCoQuanDangKiem) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCoQuanDangKiemsByFilter(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCoQuanDangKiemsByFilter(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfCoQuanDangKiemDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfCoQuanDangKiemDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCoQuanDangKiemsByFilter(response: HttpResponseBase): Observable<PagedResultDtoOfCoQuanDangKiemDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfCoQuanDangKiemDto.fromJS(resultData200) : new PagedResultDtoOfCoQuanDangKiemDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfCoQuanDangKiemDto>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    getCoQuanDangKiemForEdit(id: number | null | undefined): Observable<CoQuanDangKiemInput> {
+        let url_ = this.baseUrl + "/api/CoQuanDangKiem/GetCoQuanDangKiemForEdit?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCoQuanDangKiemForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCoQuanDangKiemForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CoQuanDangKiemInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CoQuanDangKiemInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCoQuanDangKiemForEdit(response: HttpResponseBase): Observable<CoQuanDangKiemInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CoQuanDangKiemInput.fromJS(resultData200) : new CoQuanDangKiemInput();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CoQuanDangKiemInput>(<any>null);
+    }
+
+    /**
+     * @input (optional) 
+     * @return Success
+     */
+    createOrEditCoQuanDangKiem(input: CoQuanDangKiemInput | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/CoQuanDangKiem/CreateOrEditCoQuanDangKiem";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEditCoQuanDangKiem(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEditCoQuanDangKiem(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEditCoQuanDangKiem(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deleteCoQuanDangKiem(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/CoQuanDangKiem/DeleteCoQuanDangKiem/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteCoQuanDangKiem(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteCoQuanDangKiem(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteCoQuanDangKiem(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    getCoQuanDangKiemForView(id: number | null | undefined): Observable<CoQuanDangKiemForViewDto> {
+        let url_ = this.baseUrl + "/api/CoQuanDangKiem/GetCoQuanDangKiemForView?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCoQuanDangKiemForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCoQuanDangKiemForView(<any>response_);
+                } catch (e) {
+                    return <Observable<CoQuanDangKiemForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CoQuanDangKiemForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCoQuanDangKiemForView(response: HttpResponseBase): Observable<CoQuanDangKiemForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CoQuanDangKiemForViewDto.fromJS(resultData200) : new CoQuanDangKiemForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CoQuanDangKiemForViewDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class CustomerServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -14379,6 +14668,266 @@ export class GetDefaultEditionNameOutput implements IGetDefaultEditionNameOutput
 
 export interface IGetDefaultEditionNameOutput {
     name: string | undefined;
+}
+
+export class PagedResultDtoOfCoQuanDangKiemDto implements IPagedResultDtoOfCoQuanDangKiemDto {
+    totalCount!: number | undefined;
+    items!: CoQuanDangKiemDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfCoQuanDangKiemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(CoQuanDangKiemDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfCoQuanDangKiemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfCoQuanDangKiemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfCoQuanDangKiemDto {
+    totalCount: number | undefined;
+    items: CoQuanDangKiemDto[] | undefined;
+}
+
+export class CoQuanDangKiemDto implements ICoQuanDangKiemDto {
+    maCoQuanDangKiem!: string | undefined;
+    tenCoQuanDangKiem!: string | undefined;
+    diaChi!: string | undefined;
+    email!: string | undefined;
+    maSoThue!: string | undefined;
+    soDienThoai!: string | undefined;
+    nguoiLienHe!: string | undefined;
+    hoatDong!: boolean | undefined;
+    ghiChu!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICoQuanDangKiemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.maCoQuanDangKiem = data["maCoQuanDangKiem"];
+            this.tenCoQuanDangKiem = data["tenCoQuanDangKiem"];
+            this.diaChi = data["diaChi"];
+            this.email = data["email"];
+            this.maSoThue = data["maSoThue"];
+            this.soDienThoai = data["soDienThoai"];
+            this.nguoiLienHe = data["nguoiLienHe"];
+            this.hoatDong = data["hoatDong"];
+            this.ghiChu = data["ghiChu"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CoQuanDangKiemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CoQuanDangKiemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["maCoQuanDangKiem"] = this.maCoQuanDangKiem;
+        data["tenCoQuanDangKiem"] = this.tenCoQuanDangKiem;
+        data["diaChi"] = this.diaChi;
+        data["email"] = this.email;
+        data["maSoThue"] = this.maSoThue;
+        data["soDienThoai"] = this.soDienThoai;
+        data["nguoiLienHe"] = this.nguoiLienHe;
+        data["hoatDong"] = this.hoatDong;
+        data["ghiChu"] = this.ghiChu;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICoQuanDangKiemDto {
+    maCoQuanDangKiem: string | undefined;
+    tenCoQuanDangKiem: string | undefined;
+    diaChi: string | undefined;
+    email: string | undefined;
+    maSoThue: string | undefined;
+    soDienThoai: string | undefined;
+    nguoiLienHe: string | undefined;
+    hoatDong: boolean | undefined;
+    ghiChu: string | undefined;
+    id: number | undefined;
+}
+
+export class CoQuanDangKiemInput implements ICoQuanDangKiemInput {
+    maCoQuanDangKiem!: string | undefined;
+    tenCoQuanDangKiem!: string | undefined;
+    diaChi!: string | undefined;
+    email!: string | undefined;
+    maSoThue!: string | undefined;
+    soDienThoai!: string | undefined;
+    nguoiLienHe!: string | undefined;
+    hoatDong!: boolean | undefined;
+    ghiChu!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICoQuanDangKiemInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.maCoQuanDangKiem = data["maCoQuanDangKiem"];
+            this.tenCoQuanDangKiem = data["tenCoQuanDangKiem"];
+            this.diaChi = data["diaChi"];
+            this.email = data["email"];
+            this.maSoThue = data["maSoThue"];
+            this.soDienThoai = data["soDienThoai"];
+            this.nguoiLienHe = data["nguoiLienHe"];
+            this.hoatDong = data["hoatDong"];
+            this.ghiChu = data["ghiChu"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CoQuanDangKiemInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CoQuanDangKiemInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["maCoQuanDangKiem"] = this.maCoQuanDangKiem;
+        data["tenCoQuanDangKiem"] = this.tenCoQuanDangKiem;
+        data["diaChi"] = this.diaChi;
+        data["email"] = this.email;
+        data["maSoThue"] = this.maSoThue;
+        data["soDienThoai"] = this.soDienThoai;
+        data["nguoiLienHe"] = this.nguoiLienHe;
+        data["hoatDong"] = this.hoatDong;
+        data["ghiChu"] = this.ghiChu;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICoQuanDangKiemInput {
+    maCoQuanDangKiem: string | undefined;
+    tenCoQuanDangKiem: string | undefined;
+    diaChi: string | undefined;
+    email: string | undefined;
+    maSoThue: string | undefined;
+    soDienThoai: string | undefined;
+    nguoiLienHe: string | undefined;
+    hoatDong: boolean | undefined;
+    ghiChu: string | undefined;
+    id: number | undefined;
+}
+
+export class CoQuanDangKiemForViewDto implements ICoQuanDangKiemForViewDto {
+    maCoQuanDangKiem!: string | undefined;
+    tenCoQuanDangKiem!: string | undefined;
+    diaChi!: string | undefined;
+    email!: string | undefined;
+    maSoThue!: string | undefined;
+    soDienThoai!: string | undefined;
+    nguoiLienHe!: string | undefined;
+    hoatDong!: boolean | undefined;
+    ghiChu!: string | undefined;
+
+    constructor(data?: ICoQuanDangKiemForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.maCoQuanDangKiem = data["maCoQuanDangKiem"];
+            this.tenCoQuanDangKiem = data["tenCoQuanDangKiem"];
+            this.diaChi = data["diaChi"];
+            this.email = data["email"];
+            this.maSoThue = data["maSoThue"];
+            this.soDienThoai = data["soDienThoai"];
+            this.nguoiLienHe = data["nguoiLienHe"];
+            this.hoatDong = data["hoatDong"];
+            this.ghiChu = data["ghiChu"];
+        }
+    }
+
+    static fromJS(data: any): CoQuanDangKiemForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CoQuanDangKiemForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["maCoQuanDangKiem"] = this.maCoQuanDangKiem;
+        data["tenCoQuanDangKiem"] = this.tenCoQuanDangKiem;
+        data["diaChi"] = this.diaChi;
+        data["email"] = this.email;
+        data["maSoThue"] = this.maSoThue;
+        data["soDienThoai"] = this.soDienThoai;
+        data["nguoiLienHe"] = this.nguoiLienHe;
+        data["hoatDong"] = this.hoatDong;
+        data["ghiChu"] = this.ghiChu;
+        return data; 
+    }
+}
+
+export interface ICoQuanDangKiemForViewDto {
+    maCoQuanDangKiem: string | undefined;
+    tenCoQuanDangKiem: string | undefined;
+    diaChi: string | undefined;
+    email: string | undefined;
+    maSoThue: string | undefined;
+    soDienThoai: string | undefined;
+    nguoiLienHe: string | undefined;
+    hoatDong: boolean | undefined;
+    ghiChu: string | undefined;
 }
 
 export class PagedResultDtoOfCustomerDto implements IPagedResultDtoOfCustomerDto {

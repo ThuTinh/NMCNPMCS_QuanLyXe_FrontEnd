@@ -6,9 +6,11 @@ import { CustomerComponent } from './customer/customer.component';
 import { TaiSanComponent } from './taisan/taisan.component'
 import { ModelComponent } from './model/model.component';
 import { NhaCungCapComponent } from './nhacungcap/nhacungcap.component';
+import { CoQuanDangKiemComponent } from './coquandangkiem/coquandangkiem.component';
 import { ThongTinXeComponent } from './thongtinxe/thongtinxe.component'
 import { VanHanhXeComponent } from './vanhanhxe/vanhanhxe.component';
 import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.component';
+import { ThongTinDangKiemComponent } from './thongtindangkiem/thongtindangkiem.component';
 
 @NgModule({
     imports: [
@@ -50,6 +52,10 @@ import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.comp
 
                     },
                     {
+                        path: 'coquandangkiem', component: CoQuanDangKiemComponent,
+
+                    },
+                    {
                         path: 'thongtinxe', component: ThongTinXeComponent,
                     },
                     {
@@ -57,6 +63,9 @@ import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.comp
                     },
                     {
                         path: 'thongtinbaohiem', component: ThongTinBaoHiemComponent,
+                    },
+                    {
+                        path: 'thongtindangkiem', component: ThongTinDangKiemComponent,
                     }
                 ]
 

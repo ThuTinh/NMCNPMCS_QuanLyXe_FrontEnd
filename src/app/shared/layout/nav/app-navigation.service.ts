@@ -27,6 +27,7 @@ export class AppNavigationService {
                     new AppMenuItem('Bảo hiểm xe', '', 'flaticon-menu-1', '/app/gwebsite/thongtinbaohiem'),
                     new AppMenuItem('Phí đường bộ', '', 'flaticon-menu-1', '/app/gwebsite/phiduongbo'),
                     new AppMenuItem('Thông tin bảo dưỡng', '', 'flaticon-menu-1', '/app/gwebsite/thongtinbaoduong'),
+                    new AppMenuItem('Thông tin đăng kiểm', '', 'flaticon-menu-1', '/app/gwebsite/thongtindangkiem'),
 
                 ]),
             ]),

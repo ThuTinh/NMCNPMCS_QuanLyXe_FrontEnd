@@ -1,4 +1,4 @@
-import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy, ThongTinBaoDuongServiceProxy } from './../../shared/service-proxies/service-proxies';
+import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy, ThongTinBaoDuongServiceProxy, ThongTinDangKiemServiceProxy } from './../../shared/service-proxies/service-proxies';
 import { ViewDemoModelModalComponent } from './demo-model/view-demo-model-modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -39,6 +39,9 @@ import { ViewPhiDuongBoModalComponent } from './phiduongbo/view-phiduongbo-modal
 import { ViewThongTinBaoDuongModalComponent } from './thongtinbaoduong/view-thongtinbaoduong-modal.component';
 import { CreateOrEditThongTinBaoDuongModalComponent } from './thongtinbaoduong/create-or-edit-thongtinbaoduong-modal.component';
 import { ThongTinBaoDuongComponent } from './thongtinbaoduong/thongtinbaoduong.component';
+import { ViewDangKiemXeModalComponent } from './thongtindangkiem/view-thongtindangkiem-modal.component';
+import { CreateOrEditDangKiemXeModalComponent } from './thongtindangkiem/create-or-edit-thongtindangkiem-modal.component';
+import { ThongTinDangKiemComponent } from './thongtindangkiem/thongtindangkiem.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -71,7 +74,8 @@ import { ThongTinBaoDuongComponent } from './thongtinbaoduong/thongtinbaoduong.c
         VanHanhXeComponent, CreateOrEditVanHanhXeModalComponent, ViewVanHanhXeModalComponent,
         ThongTinBaoHiemComponent, CreateOrEditBaoHiemXeModalComponent, ViewBaoHiemXeModalComponent,
         PhiDuongBoComponent, CreateOrEditPhiDuongBoModalComponent, ViewPhiDuongBoModalComponent,
-        ThongTinBaoDuongComponent, CreateOrEditThongTinBaoDuongModalComponent, ViewThongTinBaoDuongModalComponent
+        ThongTinBaoDuongComponent, CreateOrEditThongTinBaoDuongModalComponent, ViewThongTinBaoDuongModalComponent,
+        ThongTinDangKiemComponent, CreateOrEditDangKiemXeModalComponent, ViewDangKiemXeModalComponent
 
     ],
     providers: [
@@ -84,7 +88,8 @@ import { ThongTinBaoDuongComponent } from './thongtinbaoduong/thongtinbaoduong.c
         QuanLyVanHanhServiceProxy,
         ThongTinBaoHiemServiceProxy,
         PhiDuongBoServiceProxy,
-        ThongTinBaoDuongServiceProxy
+        ThongTinBaoDuongServiceProxy,
+        ThongTinDangKiemServiceProxy
     ]
 })
 export class GWebsiteModule { }

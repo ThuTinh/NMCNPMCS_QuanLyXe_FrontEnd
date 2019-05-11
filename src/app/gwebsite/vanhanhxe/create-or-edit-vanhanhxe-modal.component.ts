@@ -67,9 +67,10 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
                     if (idSau !== -1) {
                         this._vanhanhxeService.getQuanLyVanHanhForEdit(idSau).subscribe(kq => {
                             this.vanhanhxesau = kq;
+                            this.ngayCapNhap = result.ngayCapNhat.toDate();
                         })
                     }
-                    this.ngayCapNhap = result.ngayCapNhat.toDate();
+
                 })
 
             }
@@ -132,5 +133,6 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
     close(): void {
         this.modal.hide();
         this.modalSave.emit(null);
+        this.ngayCapNhap = null;
     }
 }

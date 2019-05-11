@@ -51,8 +51,11 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
             })
             this._baohiemxeService.getThongTinBaoHiemForEdit(Id).subscribe(result => {
                 this.baohiemxe = result;
-                this.ngayMua = result.ngayMuaBaoHiem.toDate();
-                this.ngayHetHan = result.ngayHetHanBaoHiem.toDate();
+                if (Id != -1) {
+                    this.ngayMua = result.ngayMuaBaoHiem.toDate();
+                    this.ngayHetHan = result.ngayHetHanBaoHiem.toDate();
+                }
+
             })
 
             this._nhacungcapService.getNhaCungCapsByFilter(undefined, undefined, undefined, undefined).subscribe(kq => {
@@ -90,6 +93,8 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
     close(): void {
         this.modal.hide();
         this.arrCongTyBaoHiem = [];
+        this.ngayMua = null;
+        this.ngayHetHan = null;
         this.modalSave.emit(null);
     }
 }

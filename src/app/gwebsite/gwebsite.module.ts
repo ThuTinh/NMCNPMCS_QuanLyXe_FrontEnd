@@ -1,4 +1,4 @@
-import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy } from './../../shared/service-proxies/service-proxies';
+import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy, ThongTinBaoDuongServiceProxy } from './../../shared/service-proxies/service-proxies';
 import { ViewDemoModelModalComponent } from './demo-model/view-demo-model-modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -36,6 +36,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PhiDuongBoComponent } from './phiduongbo/phiduongbo.component';
 import { CreateOrEditPhiDuongBoModalComponent } from './phiduongbo/create-or-edit-phiduongbo-modal.component';
 import { ViewPhiDuongBoModalComponent } from './phiduongbo/view-phiduongbo-modal.component';
+import { ViewThongTinBaoDuongModalComponent } from './thongtinbaoduong/view-thongtinbaoduong-modal.component';
+import { CreateOrEditThongTinBaoDuongModalComponent } from './thongtinbaoduong/create-or-edit-thongtinbaoduong-modal.component';
+import { ThongTinBaoDuongComponent } from './thongtinbaoduong/thongtinbaoduong.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -68,6 +71,7 @@ import { ViewPhiDuongBoModalComponent } from './phiduongbo/view-phiduongbo-modal
         VanHanhXeComponent, CreateOrEditVanHanhXeModalComponent, ViewVanHanhXeModalComponent,
         ThongTinBaoHiemComponent, CreateOrEditBaoHiemXeModalComponent, ViewBaoHiemXeModalComponent,
         PhiDuongBoComponent, CreateOrEditPhiDuongBoModalComponent, ViewPhiDuongBoModalComponent,
+        ThongTinBaoDuongComponent, CreateOrEditThongTinBaoDuongModalComponent, ViewThongTinBaoDuongModalComponent
 
     ],
     providers: [
@@ -80,6 +84,7 @@ import { ViewPhiDuongBoModalComponent } from './phiduongbo/view-phiduongbo-modal
         QuanLyVanHanhServiceProxy,
         ThongTinBaoHiemServiceProxy,
         PhiDuongBoServiceProxy,
+        ThongTinBaoDuongServiceProxy
     ]
 })
 export class GWebsiteModule { }

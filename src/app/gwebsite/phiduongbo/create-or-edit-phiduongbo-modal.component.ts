@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild, Input
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
 import { PhiDuongBoServiceProxy, PhiDuongBoInput, ThongTinXeInput, ModelInput, ModelServiceProxy, ThongTinXeServiceProxy } from "@shared/service-proxies/service-proxies";
-import moment = require('moment');
+import * as moment from 'moment';
 
 
 @Component({
@@ -54,31 +54,33 @@ export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
             })
             this._phiDuongBoService.getPhiDuongBoForEdit(phiDuongBoId).subscribe(result => {
                 this.phiDuongBo = result;
-                if(phiDuongBoId!=-1)
-                {
-                    alert("sdf");
-                if(result.ngayCapNhat!= undefined)
-                     this.ngayCapNhap = new Date(result.ngayCapNhat);
-                if(result.ngayDongPhi!=undefined)
-                     this.ngayDongPhi = new Date(result.ngayDongPhi);
-                 if(result.ngayHetHanDongPhi!=undefined)    
-                     this.ngayHetHan = new Date(result.ngayHetHanDongPhi);
+                if (phiDuongBoId != -1) {
+
+                    if (result.ngayCapNhat != undefined)
+                        this.ngayCapNhap = new Date(result.ngayCapNhat);
+                    if (result.ngayDongPhi != undefined)
+                        this.ngayDongPhi = new Date(result.ngayDongPhi);
+                    if (result.ngayHetHanDongPhi != undefined)
+                        this.ngayHetHan = new Date(result.ngayHetHanDongPhi);
 
                 }
-              
+
 
             })
             this.modal.show();
         })
     }
     save(): void {
-        
-        this.phiDuongBo.ngayCapNhat = moment(this.ngayCapNhap, "MM-DD-YYYY");
-        this.phiDuongBo.ngayDongPhi = moment(this.ngayDongPhi, "MM-DD-YYYY");
-        this.phiDuongBo.ngayHetHanDongPhi = moment(this.ngayHetHan, "MM-DD-YYYY");
-        this.ngayCapNhap = null;
-        this.ngayDongPhi = null;
-        this.ngayHetHan  = null;
+
+        if (this.ngayCapNhap != null)
+            this.phiDuongBo.ngayCapNhat = this.ngayCapNhap.toLocaleDateString();
+        if (this.ngayDongPhi != null)
+            this.phiDuongBo.ngayDongPhi = this.ngayDongPhi.toLocaleDateString();
+        if (this.ngayHetHan != null)
+            this.phiDuongBo.ngayHetHanDongPhi = this.ngayHetHan.toLocaleDateString();
+
+
+
         this.phiDuongBo.soXe = this.soXe;
         let input = this.phiDuongBo;
         this.saving = true;
@@ -89,7 +91,13 @@ export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
     }
 
     close(): void {
+        this.ngayCapNhap = null;
+        this.ngayHetHan = null;
+        this.ngayDongPhi = null;
         this.modal.hide();
         this.modalSave.emit(null);
     }
+
+
+
 }

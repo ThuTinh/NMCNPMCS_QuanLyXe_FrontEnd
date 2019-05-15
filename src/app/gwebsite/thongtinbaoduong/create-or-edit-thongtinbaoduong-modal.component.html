@@ -6,7 +6,7 @@
                 <div class="modal-header" style=" background-color: #00C5DC">
                     <h4 class="modal-title text-center w-100"
                         style="color: #ffffff; font-size: 30; text-transform: uppercase ; font-weight: 100">
-                        <span *ngIf="thongtinbaoduong.id">Cập nhật thông tin bảo dưỡng: {{thongtinbaoduong.soXe}}</span>
+                        <span *ngIf="thongtinbaoduong.id">Cập nhật thông tin bảo dưỡng: {{thongtinbaoduong.id}}</span>
                         <span *ngIf="!thongtinbaoduong.id">Tạo mới thông tin bảo dưỡng</span>
                     </h4>
                     <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">

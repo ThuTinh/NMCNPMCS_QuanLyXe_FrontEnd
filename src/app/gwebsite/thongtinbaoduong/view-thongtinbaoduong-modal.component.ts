@@ -1,6 +1,6 @@
 import { ThongTinBaoDuongForViewDto } from '../../../shared/service-proxies/service-proxies';
 import { AppComponentBase } from "@shared/common/app-component-base";
-import { AfterViewInit, Injector, Component, ViewChild } from "@angular/core";
+import { AfterViewInit, Injector, Component, ViewChild, Input } from "@angular/core";
 import { ThongTinBaoDuongServiceProxy } from "@shared/service-proxies/service-proxies";
 import { ModalDirective } from 'ngx-bootstrap';
 
@@ -12,6 +12,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 export class ViewThongTinBaoDuongModalComponent extends AppComponentBase {
 
     thongtinbaoduong: ThongTinBaoDuongForViewDto = new ThongTinBaoDuongForViewDto();
+    @Input() soXe: string;
     @ViewChild('viewModal') modal: ModalDirective;
 
     constructor(

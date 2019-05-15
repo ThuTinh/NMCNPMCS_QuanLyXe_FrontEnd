@@ -1,7 +1,7 @@
-import { Component, ElementRef, EventEmitter, Injector, Output, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Injector, Output, AfterViewInit, ViewChild, Input } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { ThongTinBaoDuongServiceProxy, ThongTinBaoDuongInput } from '@shared/service-proxies/service-proxies';
+import { ThongTinBaoDuongServiceProxy, ThongTinBaoDuongInput, ThongTinXeInput, ModelInput, ModelServiceProxy, ThongTinXeServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 
 @Component({
@@ -21,17 +21,23 @@ export class CreateOrEditThongTinBaoDuongModalComponent extends AppComponentBase
      * @Output dùng để public event cho component khác xử lý
      */
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
+    @Input() soXe: string;
 
     saving = false;
     ngayBaoDuong: Date;
     ngayBaoDuongTiepTheo: Date;
+    thongtinxe: ThongTinXeInput = new ThongTinXeInput();
+    model: ModelInput = new ModelInput();
+    check: boolean = false;
 
 
     thongtinbaoduong: ThongTinBaoDuongInput = new ThongTinBaoDuongInput();
 
     constructor(
         injector: Injector,
-        private _thongtinbaoduongService: ThongTinBaoDuongServiceProxy
+        private _thongtinbaoduongService: ThongTinBaoDuongServiceProxy,
+        private _thongtinxeService: ThongTinXeServiceProxy,
+        private _modelService: ModelServiceProxy
     ) {
         super(injector);
     }
@@ -48,24 +54,38 @@ export class CreateOrEditThongTinBaoDuongModalComponent extends AppComponentBase
     // }
     show(thongtinbaoduongId?: number | null | undefined): void {
         this.saving = false;
+        this._thongtinxeService.getThongTinSeForEdit(this.soXe).subscribe(kq => {
+            this.thongtinxe = kq;
+            if (this.thongtinxe.trangThaiDuyet === "Đã duyệt")
+                this.check = true;
+            this._modelService.getModelForEdit(kq.model).subscribe(kq1 => {
+                this.model = kq1;
+            })
+            this._thongtinbaoduongService.getThongTinBaoDuongForEdit(thongtinbaoduongId).subscribe(result => {
+                this.thongtinbaoduong = result;
+                if (thongtinbaoduongId != -1) {
+                    this.ngayBaoDuong = result.ngayBaoDuong.toDate();
+                    this.ngayBaoDuongTiepTheo = result.ngayBaoDuongTiepTheo.toDate();
+                    console.log("testNgayBaoDuong", this.ngayBaoDuong);
+                }
 
-
-        this._thongtinbaoduongService.getThongTinBaoDuongForEdit(thongtinbaoduongId).subscribe(result => {
-            this.thongtinbaoduong = result;
-            if (thongtinbaoduongId != -1) {
-                this.ngayBaoDuong = result.ngayBaoDuong.toDate();
-                this.ngayBaoDuongTiepTheo = result.ngayBaoDuongTiepTheo.toDate();
-                console.log("testNgayBaoDuong", this.ngayBaoDuong);
-            }
-            this.modal.show();
-
+            })
         })
+        this.modal.show();
+
+
+
+
     }
 
     save(): void {
+        if (this.check)
+            this.thongtinbaoduong.trangThaiDuyet = "Đã duyệt";
+        else
+            this.thongtinbaoduong.trangThaiDuyet = "Chưa duyệt";
+        this.thongtinbaoduong.soXe = this.soXe;
         this.thongtinbaoduong.ngayBaoDuong = moment(this.ngayBaoDuong);
         this.thongtinbaoduong.ngayBaoDuongTiepTheo = moment(this.ngayBaoDuongTiepTheo);
-
         let input = this.thongtinbaoduong;
         console.log(input);
         this.saving = true;

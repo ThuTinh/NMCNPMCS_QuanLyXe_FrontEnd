@@ -28,6 +28,7 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
     arrCongTyBaoHiem: string[] = [];
     ngayMua: Date;
     ngayHetHan: Date;
+    check: boolean = false;
     @Input() soXe: string;
 
 
@@ -46,6 +47,8 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
         this.saving = false;
         this._thongtinxeService.getThongTinSeForEdit(this.soXe).subscribe(kq => {
             this.thongtinxe = kq;
+            if (this.thongtinxe.trangThaiDuyet === "Đã duyệt")
+                this.check = true;
             this._modelService.getModelForEdit(kq.model).subscribe(kq1 => {
                 this.model = kq1;
             })
@@ -75,9 +78,17 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
 
     save(): void {
 
+        if (this.check)
+            this.baohiemxe.trangThaiDuyet = "Đã duyệt";
+        else
+            this.baohiemxe.trangThaiDuyet = "Chưa duyệt";
+
         this.baohiemxe.soXe = this.soXe;
-        this.baohiemxe.ngayMuaBaoHiem = moment(this.ngayMua);
-        this.baohiemxe.ngayHetHanBaoHiem = moment(this.ngayHetHan);
+        // this.baohiemxe.ngayMuaBaoHiem = moment(this.ngayMua);
+        // this.baohiemxe.ngayHetHanBaoHiem = moment(this.ngayHetHan);
+        // alert(this.baohiemxe.ngayHetHanBaoHiem.diff(this.baohiemxe.ngayMuaBaoHiem, 'month'));
+
+
         let input = this.baohiemxe;
         console.log("ahihihi", this.baohiemxe.congTyBaoHiem);
         this.saving = true;
@@ -88,6 +99,16 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
         })
 
 
+    }
+    ChonNgayMua(): void {
+        this.baohiemxe.ngayMuaBaoHiem = moment(this.ngayMua);
+
+        this.baohiemxe.thoiHanBaoHiem = this.baohiemxe.ngayHetHanBaoHiem.diff(this.baohiemxe.ngayMuaBaoHiem, 'month');
+
+    }
+    ChonNgayHetHan(): void {
+        this.baohiemxe.ngayHetHanBaoHiem = moment(this.ngayHetHan);
+        this.baohiemxe.thoiHanBaoHiem = this.baohiemxe.ngayHetHanBaoHiem.diff(this.baohiemxe.ngayMuaBaoHiem, 'month');
     }
 
     close(): void {

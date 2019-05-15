@@ -33,6 +33,7 @@ export class ThongTinXeModalComponent extends AppComponentBase implements AfterV
     soXe: string;
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxes: ThongTinXeViewDTO[] = [];
+    lsSoXe: string[] = [];
     filter: ThongTinXeFilter = new ThongTinXeFilter();
     item: ThongTinXeViewDTO = new ThongTinXeViewDTO();
     @Output() thongtinxe: EventEmitter<ThongTinXeViewDTO> = new EventEmitter<ThongTinXeViewDTO>();
@@ -128,6 +129,7 @@ export class ThongTinXeModalComponent extends AppComponentBase implements AfterV
                 thongtinxe.namSanXuat = item.namSanXuat;
                 thongtinxe.model = item.model;
                 thongtinxe.maTaiSan = item.maTaiSan;
+                this.lsSoXe.push(item.soXe);
                 console.log("kkk", item.model);
                 this._modelService.getModelForView(item.model).subscribe(result => {
                     thongtinxe.loaiXe = result.loaiXe;

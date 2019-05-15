@@ -1,4 +1,4 @@
-import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy, ThongTinBaoDuongServiceProxy, ThongTinDangKiemServiceProxy } from './../../shared/service-proxies/service-proxies';
+import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy, ThongTinBaoDuongServiceProxy, ThongTinDangKiemServiceProxy, ThietBiKemTheoServiceProxy } from './../../shared/service-proxies/service-proxies';
 import { ViewDemoModelModalComponent } from './demo-model/view-demo-model-modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -33,6 +33,7 @@ import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.comp
 import { CreateOrEditBaoHiemXeModalComponent } from './thongtinbaohiem/create-or-edit-thongtinbaohiem-modal.component';
 import { ViewBaoHiemXeModalComponent } from './thongtinbaohiem/view-thongtinbaohiem-modal.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
 import { PhiDuongBoComponent } from './phiduongbo/phiduongbo.component';
 import { CreateOrEditPhiDuongBoModalComponent } from './phiduongbo/create-or-edit-phiduongbo-modal.component';
 import { ViewPhiDuongBoModalComponent } from './phiduongbo/view-phiduongbo-modal.component';
@@ -62,7 +63,10 @@ import { ThongTinDangKiemComponent } from './thongtindangkiem/thongtindangkiem.c
         InputMaskModule,
         ButtonModule,
         CalendarModule,
-        DropdownModule
+        DropdownModule,
+        CheckboxModule
+
+
 
     ],
     declarations: [
@@ -89,7 +93,8 @@ import { ThongTinDangKiemComponent } from './thongtindangkiem/thongtindangkiem.c
         ThongTinBaoHiemServiceProxy,
         PhiDuongBoServiceProxy,
         ThongTinBaoDuongServiceProxy,
-        ThongTinDangKiemServiceProxy
+        ThongTinDangKiemServiceProxy,
+        ThietBiKemTheoServiceProxy
     ]
 })
 export class GWebsiteModule { }

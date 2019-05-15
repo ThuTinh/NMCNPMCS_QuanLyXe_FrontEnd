@@ -25,7 +25,7 @@
                     <div class="m-form m-form--label-align-right" id="TextsFilterForm">
                         <div class="row align-items-center m--margin-bottom-10">
                             <div class="col-sm-12">
-                                <div class="input-group">
+                                <!-- <div class="input-group">
                                     <input [(ngModel)]="thongtinbaoduongSoXe" name="thongtinbaoduongSoXe" autoFocus
                                         class="form-control" placeholder="Nhập số xe" type="text">
                                     <span class="input-group-btn">
@@ -33,7 +33,75 @@
                                                 class="icon-refresh"></i>
                                             {{l("Refresh")}}</button>
                                     </span>
+                                </div> -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Số xe</label>
+                                            <div class="d-flex ">
+                                                <input #soXeInput="ngModel" class="form-control" type="text" name="soXe"
+                                                    [disabled]="true" [(ngModel)]="thongtinxeDto.soXe" maxlength="64">
+                                                <button class="form-control btn btn-outline-primary"
+                                                    (click)="viewThongTinXe.show()"
+                                                    style="margin-right: 20px; width: 50px">...</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Model</label>
+                                            <input [disabled]="true" #modelInput="ngModel" class="form-control"
+                                                type="text" name="model" [(ngModel)]="thongtinxeDto.model"
+                                                maxlength="64">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Đơn vị sử dụng </label>
+                                            <input [disabled]="true" #donvisudungInput="ngModel" class="form-control"
+                                                type="text" name="donViSuDung" [(ngModel)]="thongtinxeDto.mucDichSuDung"
+                                                maxlength="64">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Mục đích sử dụng </label>
+                                            <input [disabled]="true" #mucdichsudungInput="ngModel" class="form-control"
+                                                type="text" name="mucDichSuDung"
+                                                [(ngModel)]="thongtinxeDto.mucDichSuDung" maxlength="64">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Năm sản xuất</label>
+                                            <input [disabled]="true" #namSanxuatInput="ngModel" class="form-control"
+                                                type="text" name="namSanXuat" [(ngModel)]="thongtinxeDto.namSanXuat"
+                                                maxlength="64">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Hãng sản xuất</label>
+                                            <input [disabled]="true" #hangSanXuatInput="ngModel" class="form-control"
+                                                type="text" name="trangThaiDuyet"
+                                                [(ngModel)]="thongtinxeDto.hangSanXuat" maxlength="64">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Loại xe</label>
+                                            <input [disabled]="true" #loaiXeInput="ngModel" class="form-control"
+                                                type="text" name="loaiXe" [(ngModel)]="thongtinxeDto.loaiXe"
+                                                maxlength="64">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Trạng thái duyệt </label>
+                                            <input [disabled]="true" #trangthaiduyetInput="ngModel" class="form-control"
+                                                type="text" name="trangThaiDuyet"
+                                                [(ngModel)]="thongtinxeDto.trangThaiDuyet" maxlength="64">
+                                        </div>
+                                    </div>
                                 </div>
+
+
+                                <div class="input-group w-100">
+                                    <span class="input-group-btn w-100">
+                                        <button *ngIf="soXe!=undefined" class="btn btn-info float-right "
+                                            (click)="createThongTinBaoDuong()"><i class="icon-refresh"></i>
+                                            {{l("Thêm mới")}}</button>
+                                    </span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -44,69 +112,69 @@
                         <p-table #dataTable (onLazyLoad)="getThongTinBaoDuongs($event)"
                             [value]="primengTableHelper.records"
                             rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
-                            [responsive]="primengTableHelper.isResponsive">
+                            [responsive]="primengTableHelper.isResponsive" [scrollable]="true">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th pSortableColumn="soXe">
+                                    <th pSortableColumn="soXe" style="width: 170px;">
                                         Số xe
                                     </th>
-                                    <th pSortableColumn="ngayBaoDuong">
+                                    <th pSortableColumn="ngayBaoDuong" style="width: 170px;">
                                         Ngày bảo dưỡng
                                         <p-sortIcon field="ngayBaoDuong"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="ngayBaoDuongTiepTheo">
+                                    <th pSortableColumn="ngayBaoDuongTiepTheo" style="width: 170px;">
                                         Ngày bảo dưỡng tiếp theo
                                         <p-sortIcon field="ngayBaoDuongTiepTheo"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="soTienThanhToan">
+                                    <th pSortableColumn="soTienThanhToan" style="width: 170px;">
                                         Số tiền thanh toán
                                         <p-sortIcon field="soTienThanhToan"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="hangMucBaoDuong">
+                                    <th pSortableColumn="hangMucBaoDuong" style="width: 170px;">
                                         Hạng mục bảo dưỡng
                                     </th>
-                                    <th pSortableColumn="donVibaoDuong">
+                                    <th pSortableColumn="donVibaoDuong" style="width: 170px;">
                                         Đơn vị bảo dưỡng
                                     </th>
-                                    <th pSortableColumn="trangThaiDuyet">
+                                    <th pSortableColumn="trangThaiDuyet" style="width: 170px;">
                                         Trạng thái duyệt
                                     </th>
-                                    <th>{{l('Edit')}}</th>
+                                    <th style="width: 170px;">{{l('Edit')}}</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-record="$implicit">
                                 <tr>
-                                    <td>
+                                    <td style="width: 170px;">
                                         <span class="ui-column-title">Số xe</span>
                                         <span title="{{record.soXe}}">{{truncateString(record.soXe)}}</span>
                                     </td>
-                                    <td>
+                                    <td style="width: 170px;">
                                         <span class="ui-column-title">Ngày bảo dưỡng</span>
                                         <span
                                             title="{{record.address}}">{{truncateString(record.ngayBaoDuong)|date}}</span>
                                     </td>
-                                    <td>
+                                    <td style="width: 170px;">
                                         <span class="ui-column-title">Ngày bảo dưỡng tiếp theo</span>
                                         <span
                                             title="{{record.info}}">{{truncateString(record.ngayBaoDuongTiepTheo)|date}}</span>
                                     </td>
-                                    <td>
+                                    <td style="width: 170px;">
                                         <span class="ui-column-title">Số tiền thanh toán</span>
                                         <span title="{{record.info}}">{{truncateString(record.soTienThanhToan)}}</span>
                                     </td>
-                                    <td>
+                                    <td style="width: 170px;">
                                         <span class="ui-column-title">Hạng mục bảo dưỡng</span>
                                         <span title="{{record.info}}">{{truncateString(record.hangMucBaoDuong)}}</span>
                                     </td>
-                                    <td>
+                                    <td style="width: 170px;">
                                         <span class="ui-column-title">Đơn vị bảo dưỡng</span>
                                         <span title="{{record.info}}">{{truncateString(record.donViBaoDuong)}}</span>
                                     </td>
-                                    <td>
+                                    <td style="width: 170px;">
                                         <span class="ui-column-title">Trạng thái duyệt</span>
                                         <span title="{{record.info}}">{{truncateString(record.trangThaiDuyet)}}</span>
                                     </td>
-                                    <td>
+                                    <td style="width: 170px;">
                                         <button
                                             class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
                                             (click)="createOrEditModal.show(record.id)" title="{{l('Edit')}}">
@@ -147,7 +215,8 @@
             </div>
         </div>
     </div>
-    <createOrEditThongTinBaoDuongModal #createOrEditModal (modalSave)="reloadPage()">
+    <createOrEditThongTinBaoDuongModal #createOrEditModal (modalSave)="reloadPage()" [soXe]="thongtinxeDto.soXe">
     </createOrEditThongTinBaoDuongModal>
-    <viewThongTinBaoDuongModal #viewThongTinBaoDuongModal></viewThongTinBaoDuongModal>
+    <viewThongTinBaoDuongModal #viewThongTinBaoDuongModal [soXe]="thongtinxeDto.soXe"></viewThongTinBaoDuongModal>
+    <thongTinXeModalComponent #viewThongTinXe (thongtinxe)="getThongTinXe($event)"></thongTinXeModalComponent>
 </div>

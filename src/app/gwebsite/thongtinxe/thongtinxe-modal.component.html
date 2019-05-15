@@ -41,6 +41,11 @@
                                             <div class="col-sm-12 row">
                                                 <div class="col-6">
                                                     <div class="form-group">
+                                                        <!-- <label>Số xe</label>
+                                                        <p-dropdown [options]="lsSoXe" [(ngModel)]="filter.soXe"
+                                                            class="form-control" name="soXe1" placeholder="Số xe..."
+                                                            [filter]="false">
+                                                        </p-dropdown> -->
                                                         <label>Số xe</label>
                                                         <input #soXeInput="ngModel" class="form-control" type="text"
                                                             name="soXe" [(ngModel)]="filter.soXe" maxlength="64">
@@ -208,7 +213,7 @@
         <var></var>
         <div class="modal-footer">
             <div class="d-flex justify-content-end">
-                <p-button (click)="close()" class="m-3 btn-info" icon="pi pi-check" label="Close"></p-button>
+                <p-button (click)="close()" class="m-3 ui-button-info" icon="pi pi-check" label="Close"></p-button>
             </div>
         </div>
     </div>

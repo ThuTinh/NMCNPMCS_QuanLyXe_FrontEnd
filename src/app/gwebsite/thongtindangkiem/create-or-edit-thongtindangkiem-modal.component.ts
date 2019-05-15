@@ -28,6 +28,7 @@ export class CreateOrEditDangKiemXeModalComponent extends AppComponentBase {
     // arrCoQuanDangKiem: string[] = [];
     ngayDangKiem: Date;
     ngayHetHanDangKiem: Date;
+    check: boolean = false;
     @Input() soXe: string;
 
 
@@ -46,6 +47,8 @@ export class CreateOrEditDangKiemXeModalComponent extends AppComponentBase {
         this.saving = false;
         this._thongtinxeService.getThongTinSeForEdit(this.soXe).subscribe(kq => {
             this.thongtinxe = kq;
+            if (this.thongtinxe.trangThaiDuyet === "Đã duyệt")
+                this.check = true;
             this._modelService.getModelForEdit(kq.model).subscribe(kq1 => {
                 this.model = kq1;
             })
@@ -69,14 +72,15 @@ export class CreateOrEditDangKiemXeModalComponent extends AppComponentBase {
             // })
 
         })
-
-
-
         this.modal.show();
     }
 
     save(): void {
 
+        if (this.check)
+            this.dangkiemxe.trangThaiDuyet = "Đã duyệt";
+        else
+            this.dangkiemxe.trangThaiDuyet = "Chưa duyệt";
         this.dangkiemxe.soXe = this.soXe;
         if (this.ngayDangKiem != null)
             this.dangkiemxe.ngayDangKiem = moment(this.ngayDangKiem);

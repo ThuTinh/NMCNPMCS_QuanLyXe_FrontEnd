@@ -17,6 +17,12 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
+                                <label>Số Xe </label>
+                                <input #soxeInput="ngModel" class="form-control" type="text" name="soXe"
+                                    [disabled]="true" [(ngModel)]="thongtinxe.soXe " required maxlength="64">
+                                <validation-messages [formCtrl]="soxeInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
                                 <label>Loại xe </label>
                                 <input #loaixeInput="ngModel" class="form-control" type="text" name="loaiXe"
                                     [disabled]="true" [(ngModel)]="model.loaiXe " required maxlength="64">
@@ -62,29 +68,30 @@
                                     name="ngayMuaBaoHiem" [(ngModel)]="baohiemxe.ngayMuaBaoHiem" required
                                     maxlength="64">
                                 <validation-messages [formCtrl]="ngayMuaBaoHiemInput"></validation-messages> -->
-                            <div class="form-group">
-                                <label>Ngày mua bảo hiểm </label>
-                                <p-calendar #ngayMuaBaoHiemInput="ngModel" class="form-control" [showIcon]="true"
-                                    [(ngModel)]="ngayMua" name="ngayMuaBaoHiem">
+
+                            <div>
+                                <p>Ngày mua bảo hiểm </p>
+                                <p-calendar [showIcon]="true" class="form-group" [(ngModel)]="ngayMua"
+                                    (onSelect)="ChonNgayMua()" name="ngayMuaBaoHiem">
                                 </p-calendar>
-                                <validation-messages [formCtrl]="ngayMuaBaoHiemInput"></validation-messages>
+                                <!-- </div> -->
                             </div>
-                            <!-- </div> -->
-                            <div class="form-group">
-                                <label>Ngày hết hạn bảo hiểm </label>
+                            <div>
+                                <p>Ngày hết hạn bảo hiểm </p>
                                 <!-- <input #ngayHetHanBaoHiemInput="ngModel" class="form-control" type="text"
                                     name="ngayHetHanBaoHiem" [(ngModel)]="baohiemxe.ngayHetHanBaoHiem" required
                                     maxlength="64"> -->
-                                <p-calendar #ngayHetHanBaoHiemInput="ngModel" class="form-control" [showIcon]="true"
-                                    [(ngModel)]="ngayHetHan" name="ngayHetHanBaoHiem">
+                                <p-calendar #ngayHetHanBaoHiemInput="ngModel" class="form-group" [showIcon]="true"
+                                    (onSelect)="ChonNgayHetHan()" [(ngModel)]="ngayHetHan" name="ngayHetHanBaoHiem">
                                 </p-calendar>
-                                <validation-messages [formCtrl]="ngayHetHanBaoHiemInput"></validation-messages>
+                                <p *ngIf="ngayHetHan<ngayMua" style="color: red; font-size: 10px"><i>Ngày hết hạn phải
+                                        lớn hơn ngày mua bảo hiểm </i></p>
                             </div>
                             <div class="form-group">
                                 <label>Thời hạn bảo hiểm (tháng)</label>
                                 <input #thoiHanBaoHiemInput="ngModel" class="form-control" type="text"
                                     name="thoiHanBaoHiem" [(ngModel)]="baohiemxe.thoiHanBaoHiem" required
-                                    maxlength="64">
+                                    [disabled]="true" maxlength="64">
                                 <validation-messages [formCtrl]="thoiHanBaoHiemInput"></validation-messages>
                             </div>
                             <div class="form-group">
@@ -127,12 +134,19 @@
                                 <validation-messages [formCtrl]="soTienThanhToanInput"></validation-messages>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Trạng thái duyệt </label>
                                 <input #trangThaiDuyetInput="ngModel" class="form-control" type="text"
                                     name="trangThaiDuyet" [(ngModel)]="baohiemxe.trangThaiDuyet" required
                                     maxlength="64">
                                 <validation-messages [formCtrl]="trangThaiDuyetInput"></validation-messages>
+                            </div> -->
+                            <div class="form-group">
+                                <label class="mr-3">Trạng thái duyệt:
+                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet"
+                                        [(ngModel)]="check" required maxlength="64"> Đã
+                                    duyệt
+                                </label>
                             </div>
                             <div class="form-group">
                                 <label>Ghi chú </label>

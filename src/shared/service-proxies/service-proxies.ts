@@ -6536,16 +6536,16 @@ export class PhiDuongBoServiceProxy {
      * @skipCount (optional) 
      * @return Success
      */
-    getPhiDuongBosByFilter(soXe: string | null | undefined, ngayCapNhat: string | null | undefined, ngayDongPhi: string | null | undefined, congTyThuPhi: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfPhiDuongBoDTO> {
+    getPhiDuongBosByFilter(soXe: string | null | undefined, ngayCapNhat: moment.Moment | null | undefined, ngayDongPhi: moment.Moment | null | undefined, congTyThuPhi: moment.Moment | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfPhiDuongBoDTO> {
         let url_ = this.baseUrl + "/api/PhiDuongBo/GetPhiDuongBosByFilter?";
         if (soXe !== undefined)
             url_ += "soXe=" + encodeURIComponent("" + soXe) + "&"; 
         if (ngayCapNhat !== undefined)
-            url_ += "ngayCapNhat=" + encodeURIComponent("" + ngayCapNhat) + "&"; 
+            url_ += "ngayCapNhat=" + encodeURIComponent(ngayCapNhat ? "" + ngayCapNhat.toJSON() : "") + "&"; 
         if (ngayDongPhi !== undefined)
-            url_ += "ngayDongPhi=" + encodeURIComponent("" + ngayDongPhi) + "&"; 
+            url_ += "ngayDongPhi=" + encodeURIComponent(ngayDongPhi ? "" + ngayDongPhi.toJSON() : "") + "&"; 
         if (congTyThuPhi !== undefined)
-            url_ += "congTyThuPhi=" + encodeURIComponent("" + congTyThuPhi) + "&"; 
+            url_ += "congTyThuPhi=" + encodeURIComponent(congTyThuPhi ? "" + congTyThuPhi.toJSON() : "") + "&"; 
         if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount !== undefined)
@@ -9678,6 +9678,295 @@ export class TenantSettingsServiceProxy {
 }
 
 @Injectable()
+export class ThietBiKemTheoServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @soXe (optional) 
+     * @sorting (optional) 
+     * @maxResultCount (optional) 
+     * @skipCount (optional) 
+     * @return Success
+     */
+    getThietBiKemTheosByFilter(soXe: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfThietBiKemTheoDto> {
+        let url_ = this.baseUrl + "/api/ThietBiKemTheo/GetThietBiKemTheosByFilter?";
+        if (soXe !== undefined)
+            url_ += "soXe=" + encodeURIComponent("" + soXe) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetThietBiKemTheosByFilter(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetThietBiKemTheosByFilter(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfThietBiKemTheoDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfThietBiKemTheoDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetThietBiKemTheosByFilter(response: HttpResponseBase): Observable<PagedResultDtoOfThietBiKemTheoDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfThietBiKemTheoDto.fromJS(resultData200) : new PagedResultDtoOfThietBiKemTheoDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfThietBiKemTheoDto>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    getThietBiKemTheoForEdit(id: number | null | undefined): Observable<ThietBiKemTheoInput> {
+        let url_ = this.baseUrl + "/api/ThietBiKemTheo/GetThietBiKemTheoForEdit?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetThietBiKemTheoForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetThietBiKemTheoForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<ThietBiKemTheoInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ThietBiKemTheoInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetThietBiKemTheoForEdit(response: HttpResponseBase): Observable<ThietBiKemTheoInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ThietBiKemTheoInput.fromJS(resultData200) : new ThietBiKemTheoInput();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ThietBiKemTheoInput>(<any>null);
+    }
+
+    /**
+     * @input (optional) 
+     * @return Success
+     */
+    createOrEditThietBiKemTheo(input: ThietBiKemTheoInput | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/ThietBiKemTheo/CreateOrEditThietBiKemTheo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEditThietBiKemTheo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEditThietBiKemTheo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEditThietBiKemTheo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deleteThietBiKemTheo(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/ThietBiKemTheo/DeleteThietBiKemTheo/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteThietBiKemTheo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteThietBiKemTheo(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteThietBiKemTheo(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    getThietBiKemTheoForView(id: number | null | undefined): Observable<ThietBiKemTheoForViewDto> {
+        let url_ = this.baseUrl + "/api/ThietBiKemTheo/GetThietBiKemTheoForView?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetThietBiKemTheoForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetThietBiKemTheoForView(<any>response_);
+                } catch (e) {
+                    return <Observable<ThietBiKemTheoForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ThietBiKemTheoForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetThietBiKemTheoForView(response: HttpResponseBase): Observable<ThietBiKemTheoForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ThietBiKemTheoForViewDto.fromJS(resultData200) : new ThietBiKemTheoForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ThietBiKemTheoForViewDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class ThongTinBaoDuongServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -10565,14 +10854,14 @@ export class ThongTinSuaChuaServiceProxy {
      * @skipCount (optional) 
      * @return Success
      */
-    getThongTinSuaChuasByFilter(soXe: string | null | undefined, ngaySuaChua: string | null | undefined, chiPhiSuaChua: string | null | undefined, trangThaiDuyet: boolean | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfThongTinSuaChuaDTO> {
+    getThongTinSuaChuasByFilter(soXe: string | null | undefined, ngaySuaChua: moment.Moment | null | undefined, chiPhiSuaChua: moment.Moment | null | undefined, trangThaiDuyet: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfThongTinSuaChuaDTO> {
         let url_ = this.baseUrl + "/api/ThongTinSuaChua/GetThongTinSuaChuasByFilter?";
         if (soXe !== undefined)
             url_ += "soXe=" + encodeURIComponent("" + soXe) + "&"; 
         if (ngaySuaChua !== undefined)
-            url_ += "ngaySuaChua=" + encodeURIComponent("" + ngaySuaChua) + "&"; 
+            url_ += "ngaySuaChua=" + encodeURIComponent(ngaySuaChua ? "" + ngaySuaChua.toJSON() : "") + "&"; 
         if (chiPhiSuaChua !== undefined)
-            url_ += "chiPhiSuaChua=" + encodeURIComponent("" + chiPhiSuaChua) + "&"; 
+            url_ += "chiPhiSuaChua=" + encodeURIComponent(chiPhiSuaChua ? "" + chiPhiSuaChua.toJSON() : "") + "&"; 
         if (trangThaiDuyet !== undefined)
             url_ += "trangThaiDuyet=" + encodeURIComponent("" + trangThaiDuyet) + "&"; 
         if (sorting !== undefined)
@@ -19873,11 +20162,11 @@ export interface IPagedResultDtoOfPhiDuongBoDTO {
 
 export class PhiDuongBoDTO implements IPhiDuongBoDTO {
     soXe!: string | undefined;
-    ngayCapNhat!: string | undefined;
-    ngayDongPhi!: string | undefined;
-    ngayHetHanDongPhi!: string | undefined;
-    thoiGianSuDung!: string | undefined;
-    soTienThanhToan!: string | undefined;
+    ngayCapNhat!: moment.Moment | undefined;
+    ngayDongPhi!: moment.Moment | undefined;
+    ngayHetHanDongPhi!: moment.Moment | undefined;
+    thoiGianSuDung!: number | undefined;
+    soTienThanhToan!: number | undefined;
     congTyThuPhi!: string | undefined;
     loaiPhi!: string | undefined;
     ghiChu!: string | undefined;
@@ -19895,9 +20184,9 @@ export class PhiDuongBoDTO implements IPhiDuongBoDTO {
     init(data?: any) {
         if (data) {
             this.soXe = data["soXe"];
-            this.ngayCapNhat = data["ngayCapNhat"];
-            this.ngayDongPhi = data["ngayDongPhi"];
-            this.ngayHetHanDongPhi = data["ngayHetHanDongPhi"];
+            this.ngayCapNhat = data["ngayCapNhat"] ? moment(data["ngayCapNhat"].toString()) : <any>undefined;
+            this.ngayDongPhi = data["ngayDongPhi"] ? moment(data["ngayDongPhi"].toString()) : <any>undefined;
+            this.ngayHetHanDongPhi = data["ngayHetHanDongPhi"] ? moment(data["ngayHetHanDongPhi"].toString()) : <any>undefined;
             this.thoiGianSuDung = data["thoiGianSuDung"];
             this.soTienThanhToan = data["soTienThanhToan"];
             this.congTyThuPhi = data["congTyThuPhi"];
@@ -19917,9 +20206,9 @@ export class PhiDuongBoDTO implements IPhiDuongBoDTO {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["soXe"] = this.soXe;
-        data["ngayCapNhat"] = this.ngayCapNhat;
-        data["ngayDongPhi"] = this.ngayDongPhi;
-        data["ngayHetHanDongPhi"] = this.ngayHetHanDongPhi;
+        data["ngayCapNhat"] = this.ngayCapNhat ? this.ngayCapNhat.toISOString() : <any>undefined;
+        data["ngayDongPhi"] = this.ngayDongPhi ? this.ngayDongPhi.toISOString() : <any>undefined;
+        data["ngayHetHanDongPhi"] = this.ngayHetHanDongPhi ? this.ngayHetHanDongPhi.toISOString() : <any>undefined;
         data["thoiGianSuDung"] = this.thoiGianSuDung;
         data["soTienThanhToan"] = this.soTienThanhToan;
         data["congTyThuPhi"] = this.congTyThuPhi;
@@ -19932,11 +20221,11 @@ export class PhiDuongBoDTO implements IPhiDuongBoDTO {
 
 export interface IPhiDuongBoDTO {
     soXe: string | undefined;
-    ngayCapNhat: string | undefined;
-    ngayDongPhi: string | undefined;
-    ngayHetHanDongPhi: string | undefined;
-    thoiGianSuDung: string | undefined;
-    soTienThanhToan: string | undefined;
+    ngayCapNhat: moment.Moment | undefined;
+    ngayDongPhi: moment.Moment | undefined;
+    ngayHetHanDongPhi: moment.Moment | undefined;
+    thoiGianSuDung: number | undefined;
+    soTienThanhToan: number | undefined;
     congTyThuPhi: string | undefined;
     loaiPhi: string | undefined;
     ghiChu: string | undefined;
@@ -19945,11 +20234,11 @@ export interface IPhiDuongBoDTO {
 
 export class PhiDuongBoInput implements IPhiDuongBoInput {
     soXe!: string | undefined;
-    ngayCapNhat!: string | undefined;
-    ngayDongPhi!: string | undefined;
-    ngayHetHanDongPhi!: string | undefined;
-    thoiGianSuDung!: string | undefined;
-    soTienThanhToan!: string | undefined;
+    ngayCapNhat!: moment.Moment | undefined;
+    ngayDongPhi!: moment.Moment | undefined;
+    ngayHetHanDongPhi!: moment.Moment | undefined;
+    thoiGianSuDung!: number | undefined;
+    soTienThanhToan!: number | undefined;
     congTyThuPhi!: string | undefined;
     loaiPhi!: string | undefined;
     ghiChu!: string | undefined;
@@ -19967,9 +20256,9 @@ export class PhiDuongBoInput implements IPhiDuongBoInput {
     init(data?: any) {
         if (data) {
             this.soXe = data["soXe"];
-            this.ngayCapNhat = data["ngayCapNhat"];
-            this.ngayDongPhi = data["ngayDongPhi"];
-            this.ngayHetHanDongPhi = data["ngayHetHanDongPhi"];
+            this.ngayCapNhat = data["ngayCapNhat"] ? moment(data["ngayCapNhat"].toString()) : <any>undefined;
+            this.ngayDongPhi = data["ngayDongPhi"] ? moment(data["ngayDongPhi"].toString()) : <any>undefined;
+            this.ngayHetHanDongPhi = data["ngayHetHanDongPhi"] ? moment(data["ngayHetHanDongPhi"].toString()) : <any>undefined;
             this.thoiGianSuDung = data["thoiGianSuDung"];
             this.soTienThanhToan = data["soTienThanhToan"];
             this.congTyThuPhi = data["congTyThuPhi"];
@@ -19989,9 +20278,9 @@ export class PhiDuongBoInput implements IPhiDuongBoInput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["soXe"] = this.soXe;
-        data["ngayCapNhat"] = this.ngayCapNhat;
-        data["ngayDongPhi"] = this.ngayDongPhi;
-        data["ngayHetHanDongPhi"] = this.ngayHetHanDongPhi;
+        data["ngayCapNhat"] = this.ngayCapNhat ? this.ngayCapNhat.toISOString() : <any>undefined;
+        data["ngayDongPhi"] = this.ngayDongPhi ? this.ngayDongPhi.toISOString() : <any>undefined;
+        data["ngayHetHanDongPhi"] = this.ngayHetHanDongPhi ? this.ngayHetHanDongPhi.toISOString() : <any>undefined;
         data["thoiGianSuDung"] = this.thoiGianSuDung;
         data["soTienThanhToan"] = this.soTienThanhToan;
         data["congTyThuPhi"] = this.congTyThuPhi;
@@ -20004,11 +20293,11 @@ export class PhiDuongBoInput implements IPhiDuongBoInput {
 
 export interface IPhiDuongBoInput {
     soXe: string | undefined;
-    ngayCapNhat: string | undefined;
-    ngayDongPhi: string | undefined;
-    ngayHetHanDongPhi: string | undefined;
-    thoiGianSuDung: string | undefined;
-    soTienThanhToan: string | undefined;
+    ngayCapNhat: moment.Moment | undefined;
+    ngayDongPhi: moment.Moment | undefined;
+    ngayHetHanDongPhi: moment.Moment | undefined;
+    thoiGianSuDung: number | undefined;
+    soTienThanhToan: number | undefined;
     congTyThuPhi: string | undefined;
     loaiPhi: string | undefined;
     ghiChu: string | undefined;
@@ -20017,11 +20306,11 @@ export interface IPhiDuongBoInput {
 
 export class PhiDuongBoForViewDTO implements IPhiDuongBoForViewDTO {
     soXe!: string | undefined;
-    ngayCapNhat!: string | undefined;
-    ngayDongPhi!: string | undefined;
-    ngayHetHanDongPhi!: string | undefined;
-    thoiGianSuDung!: string | undefined;
-    soTienThanhToan!: string | undefined;
+    ngayCapNhat!: moment.Moment | undefined;
+    ngayDongPhi!: moment.Moment | undefined;
+    ngayHetHanDongPhi!: moment.Moment | undefined;
+    thoiGianSuDung!: number | undefined;
+    soTienThanhToan!: number | undefined;
     congTyThuPhi!: string | undefined;
     loaiPhi!: string | undefined;
     ghiChu!: string | undefined;
@@ -20038,9 +20327,9 @@ export class PhiDuongBoForViewDTO implements IPhiDuongBoForViewDTO {
     init(data?: any) {
         if (data) {
             this.soXe = data["soXe"];
-            this.ngayCapNhat = data["ngayCapNhat"];
-            this.ngayDongPhi = data["ngayDongPhi"];
-            this.ngayHetHanDongPhi = data["ngayHetHanDongPhi"];
+            this.ngayCapNhat = data["ngayCapNhat"] ? moment(data["ngayCapNhat"].toString()) : <any>undefined;
+            this.ngayDongPhi = data["ngayDongPhi"] ? moment(data["ngayDongPhi"].toString()) : <any>undefined;
+            this.ngayHetHanDongPhi = data["ngayHetHanDongPhi"] ? moment(data["ngayHetHanDongPhi"].toString()) : <any>undefined;
             this.thoiGianSuDung = data["thoiGianSuDung"];
             this.soTienThanhToan = data["soTienThanhToan"];
             this.congTyThuPhi = data["congTyThuPhi"];
@@ -20059,9 +20348,9 @@ export class PhiDuongBoForViewDTO implements IPhiDuongBoForViewDTO {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["soXe"] = this.soXe;
-        data["ngayCapNhat"] = this.ngayCapNhat;
-        data["ngayDongPhi"] = this.ngayDongPhi;
-        data["ngayHetHanDongPhi"] = this.ngayHetHanDongPhi;
+        data["ngayCapNhat"] = this.ngayCapNhat ? this.ngayCapNhat.toISOString() : <any>undefined;
+        data["ngayDongPhi"] = this.ngayDongPhi ? this.ngayDongPhi.toISOString() : <any>undefined;
+        data["ngayHetHanDongPhi"] = this.ngayHetHanDongPhi ? this.ngayHetHanDongPhi.toISOString() : <any>undefined;
         data["thoiGianSuDung"] = this.thoiGianSuDung;
         data["soTienThanhToan"] = this.soTienThanhToan;
         data["congTyThuPhi"] = this.congTyThuPhi;
@@ -20073,11 +20362,11 @@ export class PhiDuongBoForViewDTO implements IPhiDuongBoForViewDTO {
 
 export interface IPhiDuongBoForViewDTO {
     soXe: string | undefined;
-    ngayCapNhat: string | undefined;
-    ngayDongPhi: string | undefined;
-    ngayHetHanDongPhi: string | undefined;
-    thoiGianSuDung: string | undefined;
-    soTienThanhToan: string | undefined;
+    ngayCapNhat: moment.Moment | undefined;
+    ngayDongPhi: moment.Moment | undefined;
+    ngayHetHanDongPhi: moment.Moment | undefined;
+    thoiGianSuDung: number | undefined;
+    soTienThanhToan: number | undefined;
     congTyThuPhi: string | undefined;
     loaiPhi: string | undefined;
     ghiChu: string | undefined;
@@ -23002,6 +23291,206 @@ export interface ITenantBillingSettingsEditDto {
     taxVatNo: string | undefined;
 }
 
+export class PagedResultDtoOfThietBiKemTheoDto implements IPagedResultDtoOfThietBiKemTheoDto {
+    totalCount!: number | undefined;
+    items!: ThietBiKemTheoDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfThietBiKemTheoDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(ThietBiKemTheoDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfThietBiKemTheoDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfThietBiKemTheoDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfThietBiKemTheoDto {
+    totalCount: number | undefined;
+    items: ThietBiKemTheoDto[] | undefined;
+}
+
+export class ThietBiKemTheoDto implements IThietBiKemTheoDto {
+    soXe!: string | undefined;
+    thietBiKemTheo!: string | undefined;
+    soLuong!: number | undefined;
+    dienGiai!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: IThietBiKemTheoDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.soXe = data["soXe"];
+            this.thietBiKemTheo = data["thietBiKemTheo"];
+            this.soLuong = data["soLuong"];
+            this.dienGiai = data["dienGiai"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): ThietBiKemTheoDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ThietBiKemTheoDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["soXe"] = this.soXe;
+        data["thietBiKemTheo"] = this.thietBiKemTheo;
+        data["soLuong"] = this.soLuong;
+        data["dienGiai"] = this.dienGiai;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IThietBiKemTheoDto {
+    soXe: string | undefined;
+    thietBiKemTheo: string | undefined;
+    soLuong: number | undefined;
+    dienGiai: string | undefined;
+    id: number | undefined;
+}
+
+export class ThietBiKemTheoInput implements IThietBiKemTheoInput {
+    soXe!: string | undefined;
+    thietBiKemTheo!: string | undefined;
+    soLuong!: number | undefined;
+    dienGiai!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: IThietBiKemTheoInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.soXe = data["soXe"];
+            this.thietBiKemTheo = data["thietBiKemTheo"];
+            this.soLuong = data["soLuong"];
+            this.dienGiai = data["dienGiai"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): ThietBiKemTheoInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ThietBiKemTheoInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["soXe"] = this.soXe;
+        data["thietBiKemTheo"] = this.thietBiKemTheo;
+        data["soLuong"] = this.soLuong;
+        data["dienGiai"] = this.dienGiai;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IThietBiKemTheoInput {
+    soXe: string | undefined;
+    thietBiKemTheo: string | undefined;
+    soLuong: number | undefined;
+    dienGiai: string | undefined;
+    id: number | undefined;
+}
+
+export class ThietBiKemTheoForViewDto implements IThietBiKemTheoForViewDto {
+    soXe!: string | undefined;
+    thietBiKemTheo!: string | undefined;
+    soLuong!: number | undefined;
+    dienGiai!: string | undefined;
+
+    constructor(data?: IThietBiKemTheoForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.soXe = data["soXe"];
+            this.thietBiKemTheo = data["thietBiKemTheo"];
+            this.soLuong = data["soLuong"];
+            this.dienGiai = data["dienGiai"];
+        }
+    }
+
+    static fromJS(data: any): ThietBiKemTheoForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ThietBiKemTheoForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["soXe"] = this.soXe;
+        data["thietBiKemTheo"] = this.thietBiKemTheo;
+        data["soLuong"] = this.soLuong;
+        data["dienGiai"] = this.dienGiai;
+        return data; 
+    }
+}
+
+export interface IThietBiKemTheoForViewDto {
+    soXe: string | undefined;
+    thietBiKemTheo: string | undefined;
+    soLuong: number | undefined;
+    dienGiai: string | undefined;
+}
+
 export class PagedResultDtoOfThongTinBaoDuongDto implements IPagedResultDtoOfThongTinBaoDuongDto {
     totalCount!: number | undefined;
     items!: ThongTinBaoDuongDto[] | undefined;
@@ -23057,7 +23546,7 @@ export class ThongTinBaoDuongDto implements IThongTinBaoDuongDto {
     soTienThanhToan!: number | undefined;
     hangMucBaoDuong!: string | undefined;
     donViBaoDuong!: string | undefined;
-    trangThaiDuyet!: number | undefined;
+    trangThaiDuyet!: string | undefined;
     id!: number | undefined;
 
     constructor(data?: IThongTinBaoDuongDto) {
@@ -23110,7 +23599,7 @@ export interface IThongTinBaoDuongDto {
     soTienThanhToan: number | undefined;
     hangMucBaoDuong: string | undefined;
     donViBaoDuong: string | undefined;
-    trangThaiDuyet: number | undefined;
+    trangThaiDuyet: string | undefined;
     id: number | undefined;
 }
 
@@ -23121,7 +23610,7 @@ export class ThongTinBaoDuongInput implements IThongTinBaoDuongInput {
     soTienThanhToan!: number | undefined;
     hangMucBaoDuong!: string | undefined;
     donViBaoDuong!: string | undefined;
-    trangThaiDuyet!: number | undefined;
+    trangThaiDuyet!: string | undefined;
     id!: number | undefined;
 
     constructor(data?: IThongTinBaoDuongInput) {
@@ -23174,7 +23663,7 @@ export interface IThongTinBaoDuongInput {
     soTienThanhToan: number | undefined;
     hangMucBaoDuong: string | undefined;
     donViBaoDuong: string | undefined;
-    trangThaiDuyet: number | undefined;
+    trangThaiDuyet: string | undefined;
     id: number | undefined;
 }
 
@@ -23185,7 +23674,7 @@ export class ThongTinBaoDuongForViewDto implements IThongTinBaoDuongForViewDto {
     soTienThanhToan!: number | undefined;
     hangMucBaoDuong!: string | undefined;
     donViBaoDuong!: string | undefined;
-    trangThaiDuyet!: number | undefined;
+    trangThaiDuyet!: string | undefined;
 
     constructor(data?: IThongTinBaoDuongForViewDto) {
         if (data) {
@@ -23235,7 +23724,7 @@ export interface IThongTinBaoDuongForViewDto {
     soTienThanhToan: number | undefined;
     hangMucBaoDuong: string | undefined;
     donViBaoDuong: string | undefined;
-    trangThaiDuyet: number | undefined;
+    trangThaiDuyet: string | undefined;
 }
 
 export class PagedResultDtoOfThongTinBaoHiemDto implements IPagedResultDtoOfThongTinBaoHiemDto {
@@ -23550,7 +24039,7 @@ export class ThongTinDangKiemDto implements IThongTinDangKiemDto {
     soXe!: string | undefined;
     ngayDangKiem!: moment.Moment | undefined;
     ngayHetHanDangKiem!: moment.Moment | undefined;
-    thoiHanDangKiem!: moment.Moment | undefined;
+    thoiHanDangKiem!: number | undefined;
     coQuanDangKiem!: string | undefined;
     trangThaiDuyet!: string | undefined;
     ghiChu!: string | undefined;
@@ -23570,7 +24059,7 @@ export class ThongTinDangKiemDto implements IThongTinDangKiemDto {
             this.soXe = data["soXe"];
             this.ngayDangKiem = data["ngayDangKiem"] ? moment(data["ngayDangKiem"].toString()) : <any>undefined;
             this.ngayHetHanDangKiem = data["ngayHetHanDangKiem"] ? moment(data["ngayHetHanDangKiem"].toString()) : <any>undefined;
-            this.thoiHanDangKiem = data["thoiHanDangKiem"] ? moment(data["thoiHanDangKiem"].toString()) : <any>undefined;
+            this.thoiHanDangKiem = data["thoiHanDangKiem"];
             this.coQuanDangKiem = data["coQuanDangKiem"];
             this.trangThaiDuyet = data["trangThaiDuyet"];
             this.ghiChu = data["ghiChu"];
@@ -23590,7 +24079,7 @@ export class ThongTinDangKiemDto implements IThongTinDangKiemDto {
         data["soXe"] = this.soXe;
         data["ngayDangKiem"] = this.ngayDangKiem ? this.ngayDangKiem.toISOString() : <any>undefined;
         data["ngayHetHanDangKiem"] = this.ngayHetHanDangKiem ? this.ngayHetHanDangKiem.toISOString() : <any>undefined;
-        data["thoiHanDangKiem"] = this.thoiHanDangKiem ? this.thoiHanDangKiem.toISOString() : <any>undefined;
+        data["thoiHanDangKiem"] = this.thoiHanDangKiem;
         data["coQuanDangKiem"] = this.coQuanDangKiem;
         data["trangThaiDuyet"] = this.trangThaiDuyet;
         data["ghiChu"] = this.ghiChu;
@@ -23603,7 +24092,7 @@ export interface IThongTinDangKiemDto {
     soXe: string | undefined;
     ngayDangKiem: moment.Moment | undefined;
     ngayHetHanDangKiem: moment.Moment | undefined;
-    thoiHanDangKiem: moment.Moment | undefined;
+    thoiHanDangKiem: number | undefined;
     coQuanDangKiem: string | undefined;
     trangThaiDuyet: string | undefined;
     ghiChu: string | undefined;
@@ -23614,7 +24103,7 @@ export class ThongTinDangKiemInput implements IThongTinDangKiemInput {
     soXe!: string | undefined;
     ngayDangKiem!: moment.Moment | undefined;
     ngayHetHanDangKiem!: moment.Moment | undefined;
-    thoiHanDangKiem!: moment.Moment | undefined;
+    thoiHanDangKiem!: number | undefined;
     coQuanDangKiem!: string | undefined;
     trangThaiDuyet!: string | undefined;
     ghiChu!: string | undefined;
@@ -23634,7 +24123,7 @@ export class ThongTinDangKiemInput implements IThongTinDangKiemInput {
             this.soXe = data["soXe"];
             this.ngayDangKiem = data["ngayDangKiem"] ? moment(data["ngayDangKiem"].toString()) : <any>undefined;
             this.ngayHetHanDangKiem = data["ngayHetHanDangKiem"] ? moment(data["ngayHetHanDangKiem"].toString()) : <any>undefined;
-            this.thoiHanDangKiem = data["thoiHanDangKiem"] ? moment(data["thoiHanDangKiem"].toString()) : <any>undefined;
+            this.thoiHanDangKiem = data["thoiHanDangKiem"];
             this.coQuanDangKiem = data["coQuanDangKiem"];
             this.trangThaiDuyet = data["trangThaiDuyet"];
             this.ghiChu = data["ghiChu"];
@@ -23654,7 +24143,7 @@ export class ThongTinDangKiemInput implements IThongTinDangKiemInput {
         data["soXe"] = this.soXe;
         data["ngayDangKiem"] = this.ngayDangKiem ? this.ngayDangKiem.toISOString() : <any>undefined;
         data["ngayHetHanDangKiem"] = this.ngayHetHanDangKiem ? this.ngayHetHanDangKiem.toISOString() : <any>undefined;
-        data["thoiHanDangKiem"] = this.thoiHanDangKiem ? this.thoiHanDangKiem.toISOString() : <any>undefined;
+        data["thoiHanDangKiem"] = this.thoiHanDangKiem;
         data["coQuanDangKiem"] = this.coQuanDangKiem;
         data["trangThaiDuyet"] = this.trangThaiDuyet;
         data["ghiChu"] = this.ghiChu;
@@ -23667,7 +24156,7 @@ export interface IThongTinDangKiemInput {
     soXe: string | undefined;
     ngayDangKiem: moment.Moment | undefined;
     ngayHetHanDangKiem: moment.Moment | undefined;
-    thoiHanDangKiem: moment.Moment | undefined;
+    thoiHanDangKiem: number | undefined;
     coQuanDangKiem: string | undefined;
     trangThaiDuyet: string | undefined;
     ghiChu: string | undefined;
@@ -23678,7 +24167,7 @@ export class ThongTinDangKiemForViewDto implements IThongTinDangKiemForViewDto {
     soXe!: string | undefined;
     ngayDangKiem!: moment.Moment | undefined;
     ngayHetHanDangKiem!: moment.Moment | undefined;
-    thoiHanDangKiem!: moment.Moment | undefined;
+    thoiHanDangKiem!: number | undefined;
     coQuanDangKiem!: string | undefined;
     trangThaiDuyet!: string | undefined;
     ghiChu!: string | undefined;
@@ -23697,7 +24186,7 @@ export class ThongTinDangKiemForViewDto implements IThongTinDangKiemForViewDto {
             this.soXe = data["soXe"];
             this.ngayDangKiem = data["ngayDangKiem"] ? moment(data["ngayDangKiem"].toString()) : <any>undefined;
             this.ngayHetHanDangKiem = data["ngayHetHanDangKiem"] ? moment(data["ngayHetHanDangKiem"].toString()) : <any>undefined;
-            this.thoiHanDangKiem = data["thoiHanDangKiem"] ? moment(data["thoiHanDangKiem"].toString()) : <any>undefined;
+            this.thoiHanDangKiem = data["thoiHanDangKiem"];
             this.coQuanDangKiem = data["coQuanDangKiem"];
             this.trangThaiDuyet = data["trangThaiDuyet"];
             this.ghiChu = data["ghiChu"];
@@ -23716,7 +24205,7 @@ export class ThongTinDangKiemForViewDto implements IThongTinDangKiemForViewDto {
         data["soXe"] = this.soXe;
         data["ngayDangKiem"] = this.ngayDangKiem ? this.ngayDangKiem.toISOString() : <any>undefined;
         data["ngayHetHanDangKiem"] = this.ngayHetHanDangKiem ? this.ngayHetHanDangKiem.toISOString() : <any>undefined;
-        data["thoiHanDangKiem"] = this.thoiHanDangKiem ? this.thoiHanDangKiem.toISOString() : <any>undefined;
+        data["thoiHanDangKiem"] = this.thoiHanDangKiem;
         data["coQuanDangKiem"] = this.coQuanDangKiem;
         data["trangThaiDuyet"] = this.trangThaiDuyet;
         data["ghiChu"] = this.ghiChu;
@@ -23728,7 +24217,7 @@ export interface IThongTinDangKiemForViewDto {
     soXe: string | undefined;
     ngayDangKiem: moment.Moment | undefined;
     ngayHetHanDangKiem: moment.Moment | undefined;
-    thoiHanDangKiem: moment.Moment | undefined;
+    thoiHanDangKiem: number | undefined;
     coQuanDangKiem: string | undefined;
     trangThaiDuyet: string | undefined;
     ghiChu: string | undefined;
@@ -23784,11 +24273,11 @@ export interface IPagedResultDtoOfThongTinSuaChuaDTO {
 
 export class ThongTinSuaChuaDTO implements IThongTinSuaChuaDTO {
     soXe!: string | undefined;
-    ngaySuaChua!: string | undefined;
-    ngayDuKienSuaXong!: string | undefined;
-    chiPhiSuaChua!: string | undefined;
+    ngaySuaChua!: moment.Moment | undefined;
+    ngayDuKienSuaXong!: moment.Moment | undefined;
+    chiPhiSuaChua!: number | undefined;
     noiDungSuaChuaThucTe!: string | undefined;
-    trangThaiDuyet!: boolean | undefined;
+    trangThaiDuyet!: string | undefined;
     ghiChu!: string | undefined;
     id!: number | undefined;
 
@@ -23804,8 +24293,8 @@ export class ThongTinSuaChuaDTO implements IThongTinSuaChuaDTO {
     init(data?: any) {
         if (data) {
             this.soXe = data["soXe"];
-            this.ngaySuaChua = data["ngaySuaChua"];
-            this.ngayDuKienSuaXong = data["ngayDuKienSuaXong"];
+            this.ngaySuaChua = data["ngaySuaChua"] ? moment(data["ngaySuaChua"].toString()) : <any>undefined;
+            this.ngayDuKienSuaXong = data["ngayDuKienSuaXong"] ? moment(data["ngayDuKienSuaXong"].toString()) : <any>undefined;
             this.chiPhiSuaChua = data["chiPhiSuaChua"];
             this.noiDungSuaChuaThucTe = data["noiDungSuaChuaThucTe"];
             this.trangThaiDuyet = data["trangThaiDuyet"];
@@ -23824,8 +24313,8 @@ export class ThongTinSuaChuaDTO implements IThongTinSuaChuaDTO {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["soXe"] = this.soXe;
-        data["ngaySuaChua"] = this.ngaySuaChua;
-        data["ngayDuKienSuaXong"] = this.ngayDuKienSuaXong;
+        data["ngaySuaChua"] = this.ngaySuaChua ? this.ngaySuaChua.toISOString() : <any>undefined;
+        data["ngayDuKienSuaXong"] = this.ngayDuKienSuaXong ? this.ngayDuKienSuaXong.toISOString() : <any>undefined;
         data["chiPhiSuaChua"] = this.chiPhiSuaChua;
         data["noiDungSuaChuaThucTe"] = this.noiDungSuaChuaThucTe;
         data["trangThaiDuyet"] = this.trangThaiDuyet;
@@ -23837,22 +24326,22 @@ export class ThongTinSuaChuaDTO implements IThongTinSuaChuaDTO {
 
 export interface IThongTinSuaChuaDTO {
     soXe: string | undefined;
-    ngaySuaChua: string | undefined;
-    ngayDuKienSuaXong: string | undefined;
-    chiPhiSuaChua: string | undefined;
+    ngaySuaChua: moment.Moment | undefined;
+    ngayDuKienSuaXong: moment.Moment | undefined;
+    chiPhiSuaChua: number | undefined;
     noiDungSuaChuaThucTe: string | undefined;
-    trangThaiDuyet: boolean | undefined;
+    trangThaiDuyet: string | undefined;
     ghiChu: string | undefined;
     id: number | undefined;
 }
 
 export class ThongTinSuaChuaInput implements IThongTinSuaChuaInput {
     soXe!: string | undefined;
-    ngaySuaChua!: string | undefined;
-    ngayDuKienSuaXong!: string | undefined;
-    chiPhiSuaChua!: string | undefined;
+    ngaySuaChua!: moment.Moment | undefined;
+    ngayDuKienSuaXong!: moment.Moment | undefined;
+    chiPhiSuaChua!: number | undefined;
     noiDungSuaChuaThucTe!: string | undefined;
-    trangThaiDuyet!: boolean | undefined;
+    trangThaiDuyet!: string | undefined;
     ghiChu!: string | undefined;
     id!: number | undefined;
 
@@ -23868,8 +24357,8 @@ export class ThongTinSuaChuaInput implements IThongTinSuaChuaInput {
     init(data?: any) {
         if (data) {
             this.soXe = data["soXe"];
-            this.ngaySuaChua = data["ngaySuaChua"];
-            this.ngayDuKienSuaXong = data["ngayDuKienSuaXong"];
+            this.ngaySuaChua = data["ngaySuaChua"] ? moment(data["ngaySuaChua"].toString()) : <any>undefined;
+            this.ngayDuKienSuaXong = data["ngayDuKienSuaXong"] ? moment(data["ngayDuKienSuaXong"].toString()) : <any>undefined;
             this.chiPhiSuaChua = data["chiPhiSuaChua"];
             this.noiDungSuaChuaThucTe = data["noiDungSuaChuaThucTe"];
             this.trangThaiDuyet = data["trangThaiDuyet"];
@@ -23888,8 +24377,8 @@ export class ThongTinSuaChuaInput implements IThongTinSuaChuaInput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["soXe"] = this.soXe;
-        data["ngaySuaChua"] = this.ngaySuaChua;
-        data["ngayDuKienSuaXong"] = this.ngayDuKienSuaXong;
+        data["ngaySuaChua"] = this.ngaySuaChua ? this.ngaySuaChua.toISOString() : <any>undefined;
+        data["ngayDuKienSuaXong"] = this.ngayDuKienSuaXong ? this.ngayDuKienSuaXong.toISOString() : <any>undefined;
         data["chiPhiSuaChua"] = this.chiPhiSuaChua;
         data["noiDungSuaChuaThucTe"] = this.noiDungSuaChuaThucTe;
         data["trangThaiDuyet"] = this.trangThaiDuyet;
@@ -23901,22 +24390,22 @@ export class ThongTinSuaChuaInput implements IThongTinSuaChuaInput {
 
 export interface IThongTinSuaChuaInput {
     soXe: string | undefined;
-    ngaySuaChua: string | undefined;
-    ngayDuKienSuaXong: string | undefined;
-    chiPhiSuaChua: string | undefined;
+    ngaySuaChua: moment.Moment | undefined;
+    ngayDuKienSuaXong: moment.Moment | undefined;
+    chiPhiSuaChua: number | undefined;
     noiDungSuaChuaThucTe: string | undefined;
-    trangThaiDuyet: boolean | undefined;
+    trangThaiDuyet: string | undefined;
     ghiChu: string | undefined;
     id: number | undefined;
 }
 
 export class ThongTinSuaChuaForViewDTO implements IThongTinSuaChuaForViewDTO {
     soXe!: string | undefined;
-    ngaySuaChua!: string | undefined;
-    ngayDuKienSuaXong!: string | undefined;
-    chiPhiSuaChua!: string | undefined;
+    ngaySuaChua!: moment.Moment | undefined;
+    ngayDuKienSuaXong!: moment.Moment | undefined;
+    chiPhiSuaChua!: number | undefined;
     noiDungSuaChuaThucTe!: string | undefined;
-    trangThaiDuyet!: boolean | undefined;
+    trangThaiDuyet!: string | undefined;
     ghiChu!: string | undefined;
 
     constructor(data?: IThongTinSuaChuaForViewDTO) {
@@ -23931,8 +24420,8 @@ export class ThongTinSuaChuaForViewDTO implements IThongTinSuaChuaForViewDTO {
     init(data?: any) {
         if (data) {
             this.soXe = data["soXe"];
-            this.ngaySuaChua = data["ngaySuaChua"];
-            this.ngayDuKienSuaXong = data["ngayDuKienSuaXong"];
+            this.ngaySuaChua = data["ngaySuaChua"] ? moment(data["ngaySuaChua"].toString()) : <any>undefined;
+            this.ngayDuKienSuaXong = data["ngayDuKienSuaXong"] ? moment(data["ngayDuKienSuaXong"].toString()) : <any>undefined;
             this.chiPhiSuaChua = data["chiPhiSuaChua"];
             this.noiDungSuaChuaThucTe = data["noiDungSuaChuaThucTe"];
             this.trangThaiDuyet = data["trangThaiDuyet"];
@@ -23950,8 +24439,8 @@ export class ThongTinSuaChuaForViewDTO implements IThongTinSuaChuaForViewDTO {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["soXe"] = this.soXe;
-        data["ngaySuaChua"] = this.ngaySuaChua;
-        data["ngayDuKienSuaXong"] = this.ngayDuKienSuaXong;
+        data["ngaySuaChua"] = this.ngaySuaChua ? this.ngaySuaChua.toISOString() : <any>undefined;
+        data["ngayDuKienSuaXong"] = this.ngayDuKienSuaXong ? this.ngayDuKienSuaXong.toISOString() : <any>undefined;
         data["chiPhiSuaChua"] = this.chiPhiSuaChua;
         data["noiDungSuaChuaThucTe"] = this.noiDungSuaChuaThucTe;
         data["trangThaiDuyet"] = this.trangThaiDuyet;
@@ -23962,11 +24451,11 @@ export class ThongTinSuaChuaForViewDTO implements IThongTinSuaChuaForViewDTO {
 
 export interface IThongTinSuaChuaForViewDTO {
     soXe: string | undefined;
-    ngaySuaChua: string | undefined;
-    ngayDuKienSuaXong: string | undefined;
-    chiPhiSuaChua: string | undefined;
+    ngaySuaChua: moment.Moment | undefined;
+    ngayDuKienSuaXong: moment.Moment | undefined;
+    chiPhiSuaChua: number | undefined;
     noiDungSuaChuaThucTe: string | undefined;
-    trangThaiDuyet: boolean | undefined;
+    trangThaiDuyet: string | undefined;
     ghiChu: string | undefined;
 }
 
@@ -24033,10 +24522,10 @@ export class ThongTinXeDto implements IThongTinXeDto {
     coLopSuDung!: string | undefined;
     kieuDongCo!: string | undefined;
     loaiHopSo!: string | undefined;
-    theTichDongCo!: string | undefined;
-    chieuDai!: string | undefined;
-    chieuCao!: string | undefined;
-    chieuNgang!: string | undefined;
+    theTichDongCo!: number | undefined;
+    chieuDai!: number | undefined;
+    chieuCao!: number | undefined;
+    chieuNgang!: number | undefined;
     trangThaiDuyet!: string | undefined;
     donViSuDung!: string | undefined;
     tenChuPhuongTien!: string | undefined;
@@ -24128,10 +24617,10 @@ export interface IThongTinXeDto {
     coLopSuDung: string | undefined;
     kieuDongCo: string | undefined;
     loaiHopSo: string | undefined;
-    theTichDongCo: string | undefined;
-    chieuDai: string | undefined;
-    chieuCao: string | undefined;
-    chieuNgang: string | undefined;
+    theTichDongCo: number | undefined;
+    chieuDai: number | undefined;
+    chieuCao: number | undefined;
+    chieuNgang: number | undefined;
     trangThaiDuyet: string | undefined;
     donViSuDung: string | undefined;
     tenChuPhuongTien: string | undefined;
@@ -24153,10 +24642,10 @@ export class ThongTinXeForViewDto implements IThongTinXeForViewDto {
     coLopSuDung!: string | undefined;
     kieuDongCo!: string | undefined;
     loaiHopSo!: string | undefined;
-    theTichDongCo!: string | undefined;
-    chieuDai!: string | undefined;
-    chieuCao!: string | undefined;
-    chieuNgang!: string | undefined;
+    theTichDongCo!: number | undefined;
+    chieuDai!: number | undefined;
+    chieuCao!: number | undefined;
+    chieuNgang!: number | undefined;
     trangThaiDuyet!: string | undefined;
     donViSuDung!: string | undefined;
     tenChuPhuongTien!: string | undefined;
@@ -24245,10 +24734,10 @@ export interface IThongTinXeForViewDto {
     coLopSuDung: string | undefined;
     kieuDongCo: string | undefined;
     loaiHopSo: string | undefined;
-    theTichDongCo: string | undefined;
-    chieuDai: string | undefined;
-    chieuCao: string | undefined;
-    chieuNgang: string | undefined;
+    theTichDongCo: number | undefined;
+    chieuDai: number | undefined;
+    chieuCao: number | undefined;
+    chieuNgang: number | undefined;
     trangThaiDuyet: string | undefined;
     donViSuDung: string | undefined;
     tenChuPhuongTien: string | undefined;
@@ -24269,10 +24758,10 @@ export class ThongTinXeInput implements IThongTinXeInput {
     coLopSuDung!: string | undefined;
     kieuDongCo!: string | undefined;
     loaiHopSo!: string | undefined;
-    theTichDongCo!: string | undefined;
-    chieuDai!: string | undefined;
-    chieuCao!: string | undefined;
-    chieuNgang!: string | undefined;
+    theTichDongCo!: number | undefined;
+    chieuDai!: number | undefined;
+    chieuCao!: number | undefined;
+    chieuNgang!: number | undefined;
     trangThaiDuyet!: string | undefined;
     donViSuDung!: string | undefined;
     tenChuPhuongTien!: string | undefined;
@@ -24364,10 +24853,10 @@ export interface IThongTinXeInput {
     coLopSuDung: string | undefined;
     kieuDongCo: string | undefined;
     loaiHopSo: string | undefined;
-    theTichDongCo: string | undefined;
-    chieuDai: string | undefined;
-    chieuCao: string | undefined;
-    chieuNgang: string | undefined;
+    theTichDongCo: number | undefined;
+    chieuDai: number | undefined;
+    chieuCao: number | undefined;
+    chieuNgang: number | undefined;
     trangThaiDuyet: string | undefined;
     donViSuDung: string | undefined;
     tenChuPhuongTien: string | undefined;

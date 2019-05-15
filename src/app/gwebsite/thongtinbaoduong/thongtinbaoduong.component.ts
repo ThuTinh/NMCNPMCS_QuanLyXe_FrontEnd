@@ -7,8 +7,10 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { ThongTinBaoDuongServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinBaoDuongServiceProxy, ModelForViewDto } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditThongTinBaoDuongModalComponent } from './create-or-edit-thongtinbaoduong-modal.component';
+import { ThongTinXeModalComponent } from '../thongtinxe/thongtinxe-modal.component';
+import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
 
 @Component({
     templateUrl: './thongtinbaoduong.component.html',
@@ -23,11 +25,16 @@ export class ThongTinBaoDuongComponent extends AppComponentBase implements After
     @ViewChild('paginator') paginator: Paginator;
     @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditThongTinBaoDuongModalComponent;
     @ViewChild('viewThongTinBaoDuongModal') viewThongTinBaoDuongModal: ViewThongTinBaoDuongModalComponent;
+    @ViewChild('viewThongTinXe') viewThongTinXe: ThongTinXeModalComponent;
 
     /**
      * tạo các biến dể filters
      */
     thongtinbaoduongSoXe: string;
+    soXe: string;
+    model: ModelForViewDto = new ModelForViewDto();
+    thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
+
 
     constructor(
         injector: Injector,
@@ -72,15 +79,25 @@ export class ThongTinBaoDuongComponent extends AppComponentBase implements After
 
     }
 
+    getThongTinXe(item: ThongTinXeViewDTO) {
+        this.thongtinxeDto = item;
+        this.soXe = item.soXe;
+        this.reloadList(this.soXe, null);
+    }
+
     reloadList(thongtinbaoduongSoXe, event?: LazyLoadEvent) {
-        this._thongtinbaoduongService.getThongTinBaoDuongsByFilter(thongtinbaoduongSoXe, this.primengTableHelper.getSorting(this.dataTable),
-            this.primengTableHelper.getMaxResultCount(this.paginator, event),
-            this.primengTableHelper.getSkipCount(this.paginator, event),
-        ).subscribe(result => {
-            this.primengTableHelper.totalRecordsCount = result.totalCount;
-            this.primengTableHelper.records = result.items;
-            this.primengTableHelper.hideLoadingIndicator();
-        });
+        this.soXe = this.thongtinxeDto.soXe;
+        if (this.soXe != undefined) {
+            this._thongtinbaoduongService.getThongTinBaoDuongsByFilter(thongtinbaoduongSoXe, this.primengTableHelper.getSorting(this.dataTable),
+                this.primengTableHelper.getMaxResultCount(this.paginator, event),
+                this.primengTableHelper.getSkipCount(this.paginator, event),
+            ).subscribe(result => {
+                this.primengTableHelper.totalRecordsCount = result.totalCount;
+                this.primengTableHelper.records = result.items;
+            });
+
+        }
+        this.primengTableHelper.hideLoadingIndicator();
     }
 
     deleteThongTinBaoDuong(id): void {

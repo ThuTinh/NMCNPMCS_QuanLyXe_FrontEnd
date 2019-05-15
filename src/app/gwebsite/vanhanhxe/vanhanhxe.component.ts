@@ -38,17 +38,12 @@ export class VanHanhXeComponent extends AppComponentBase implements AfterViewIni
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
 
-
-
     constructor(
         injector: Injector,
         private _vanhanhxeService: QuanLyVanHanhServiceProxy,
         private _activatedRoute: ActivatedRoute,
     ) {
         super(injector);
-
-
-
     }
 
 

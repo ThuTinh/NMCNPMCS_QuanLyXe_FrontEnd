@@ -62,28 +62,24 @@
                                     name="ngayMuaDangKiem" [(ngModel)]="dangkiemxe.ngayMuaDangKiem" required
                                     maxlength="64">
                                 <validation-messages [formCtrl]="ngayMuaDangKiemInput"></validation-messages> -->
-                            <div class="form-group">
-                                <label>Ngày đăng kiểm </label>
-                                <p-calendar #ngayDangKiemInput="ngModel" class="form-control" [showIcon]="true"
-                                    [(ngModel)]="ngayDangKiem" name="ngayDangKiem">
+                            <div>
+                                <p>Ngày đăng kiểm </p>
+                                <p-calendar class="form-group" [showIcon]="true" [(ngModel)]="ngayDangKiem"
+                                    name="ngayDangKiem">
                                 </p-calendar>
-                                <validation-messages [formCtrl]="ngayDangKiemInput"></validation-messages>
+
                             </div>
                             <!-- </div> -->
-                            <div class="form-group">
-                                <label>Ngày hết hạn đăng kiểm </label>
-                                <!-- <input #ngayHetHanDangKiemInput="ngModel" class="form-control" type="text"
-                                    name="ngayHetHanDangKiem" [(ngModel)]="dangkiemxe.ngayHetHanDangKiem" required
-                                    maxlength="64"> -->
-                                <p-calendar #ngayHetHanDangKiemInput="ngModel" class="form-control" [showIcon]="true"
-                                    [(ngModel)]="ngayHetHanDangKiem" name="ngayHetHanDangKiem">
+                            <div>
+                                <p>Ngày hết hạn đăng kiểm </p>
+                                <p-calendar class="form-group" [showIcon]="true" [(ngModel)]="ngayHetHanDangKiem"
+                                    name="ngayHetHanDangKiem">
                                 </p-calendar>
-                                <validation-messages [formCtrl]="ngayHetHanDangKiemInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Thời hạn đăng kiểm (tháng)</label>
-                                <input class="form-control" type="text" [disabled]="true" name="thoiHanDangKiem"
-                                    required maxlength="64">
+                                <input class="form-control" type="text" name="thoiHanDangKiem"
+                                    [(ngModel)]="dangkiemxe.thoiHanDangKiem" required maxlength="64">
                                 <!-- <validation-messages [formCtrl]="thoiHanDangKiemInput"></validation-messages> -->
                             </div>
                             <div class="form-group">
@@ -114,12 +110,19 @@
                                 </select> -->
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Trạng thái duyệt </label>
                                 <input #trangThaiDuyetInput="ngModel" class="form-control" type="text"
                                     name="trangThaiDuyet" [(ngModel)]="dangkiemxe.trangThaiDuyet" required
                                     maxlength="64">
                                 <validation-messages [formCtrl]="trangThaiDuyetInput"></validation-messages>
+                            </div> -->
+                            <div class="form-group">
+                                <label class="mr-3">Trạng thái duyệt:
+                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet"
+                                        [(ngModel)]="check" required maxlength="64"> Đã
+                                    duyệt
+                                </label>
                             </div>
                             <div class="form-group">
                                 <label>Ghi chú </label>

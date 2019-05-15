@@ -57,11 +57,11 @@ export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
                 if (phiDuongBoId != -1) {
 
                     if (result.ngayCapNhat != undefined)
-                        this.ngayCapNhap = new Date(result.ngayCapNhat);
+                        this.ngayCapNhap = result.ngayCapNhat.toDate()
                     if (result.ngayDongPhi != undefined)
-                        this.ngayDongPhi = new Date(result.ngayDongPhi);
+                        this.ngayDongPhi = result.ngayDongPhi.toDate();
                     if (result.ngayHetHanDongPhi != undefined)
-                        this.ngayHetHan = new Date(result.ngayHetHanDongPhi);
+                        this.ngayHetHan = result.ngayHetHanDongPhi.toDate();
 
                 }
 
@@ -72,15 +72,9 @@ export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
     }
     save(): void {
 
-        if (this.ngayCapNhap != null)
-            this.phiDuongBo.ngayCapNhat = this.ngayCapNhap.toLocaleDateString();
-        if (this.ngayDongPhi != null)
-            this.phiDuongBo.ngayDongPhi = this.ngayDongPhi.toLocaleDateString();
-        if (this.ngayHetHan != null)
-            this.phiDuongBo.ngayHetHanDongPhi = this.ngayHetHan.toLocaleDateString();
-
-
-
+        this.phiDuongBo.ngayCapNhat = moment(this.ngayCapNhap);
+        this.phiDuongBo.ngayDongPhi = moment(this.ngayDongPhi);
+        this.phiDuongBo.ngayHetHanDongPhi = moment(this.ngayHetHan);
         this.phiDuongBo.soXe = this.soXe;
         let input = this.phiDuongBo;
         this.saving = true;

@@ -54,36 +54,40 @@
                                     [disabled]="true" [(ngModel)]="thongtinxe.donViSuDung" required maxlength="64">
                                 <validation-messages [formCtrl]="donViSuDungInput"></validation-messages>
                             </div>
+                            <div class="form-group">
+                                <label>Ghi chú </label>
+                                <input #ghiChuInput="ngModel" class="form-control" type="text" name="ghiChu"
+                                    class="form-control" [(ngModel)]="phiDuongBo.ghiChu" required maxlength="64">
+                                <validation-messages [formCtrl]="ghiChuInput"></validation-messages>
+                            </div>
                         </div>
                         <div class="col-6">
-                            <div class="form-group">
-                                <label>Ngày cập nhật: </label>
-                                <p-calendar #ngayCapNhatInput="ngModel" [(ngModel)]="ngayCapNhap" required
-                                    maxLength="64" name="ngayCapNhat" class="form-control">
+                            <div>
+                                <p>Ngày cập nhật: </p>
+                                <p-calendar [(ngModel)]="ngayCapNhap" required [showIcon]="true" maxLength="64"
+                                    name="ngayCapNhat" class="form-group">
                                 </p-calendar>
-                                <validation-messages [formCtrl]="ngayCapNhatInput"></validation-messages>
+
+                            </div>
+                            <div>
+                                <p>Ngày đóng phí:</p>
+                                <p-calendar [(ngModel)]="ngayDongPhi" required maxLength="64" class="form-group"
+                                    [showIcon]="true" name="ngayDongPhi">
+                                </p-calendar>
+                            </div>
+                            <div>
+                                <p>Ngày hết hạn đóng phí:</p>
+                                <p-calendar [(ngModel)]="ngayHetHan" class="form-group" required maxLength="64"
+                                    [showIcon]="true" name="ngayHetHanDongPhi">
+                                </p-calendar>
 
                             </div>
                             <div class="form-group">
-                                <label>Ngày đóng phí:</label>
-                                <p-calendar [(ngModel)]="ngayDongPhi" required maxLength="64" class="form-control"
-                                    name="ngayDongPhi" #ngayDongPhiInput="ngModel">
-                                </p-calendar>
-                                <validation-messages [formCtrl]="ngayDongPhiInput"></validation-messages>
-                            </div>
-                            <div class="form-group">
-                                <label>Ngày hết hạn đóng phí:</label>
-                                <p-calendar [(ngModel)]="ngayHetHan" class="form-control" required maxLength="64"
-                                    #ngayHetHanDongPhiInput="ngModel" name="ngayHetHanDongPhi">
-                                </p-calendar>
-                                <validation-messages [formCtrl]="ngayHetHanDongPhiInput"></validation-messages>
-                            </div>
-                            <div class="form-group">
-                                <label>Thời gian sử dụng:</label>
+                                <label>Thời gian sử dụng (năm):</label>
                                 <input #thoiGianSuDungInput="ngModel" type="number" name="thoiGianSuDung"
                                     class="form-control" [(ngModel)]="phiDuongBo.thoiGianSuDung" required
                                     maxlength="64">
-                                <label> Năm </label>
+
                                 <validation-messages [formCtrl]="thoiGianSuDungInput"></validation-messages>
                             </div>
                             <div class="form-group">
@@ -91,7 +95,6 @@
                                 <input #soTienThanhToanInput="ngModel" type="number" name="soTienThanhToan"
                                     class="form-control" [(ngModel)]="phiDuongBo.soTienThanhToan" required
                                     maxlength="64">
-                                <label> Triệu Đồng </label>
                                 <validation-messages [formCtrl]="soTienThanhToanInput"></validation-messages>
                             </div>
                             <div class="form-group">
@@ -106,12 +109,7 @@
                                     [(ngModel)]="phiDuongBo.loaiPhi" class="form-control" required maxlength="64">
                                 <validation-messages [formCtrl]="loaiPhiInput"></validation-messages>
                             </div>
-                            <div class="form-group">
-                                <label>Ghi chú </label>
-                                <input #ghiChuInput="ngModel" class="form-control" type="text" name="ghiChu"
-                                    class="form-control" [(ngModel)]="phiDuongBo.ghiChu" required maxlength="64">
-                                <validation-messages [formCtrl]="ghiChuInput"></validation-messages>
-                            </div>
+
                         </div>
 
                     </div>

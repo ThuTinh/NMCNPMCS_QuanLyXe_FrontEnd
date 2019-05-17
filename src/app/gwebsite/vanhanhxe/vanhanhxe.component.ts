@@ -38,18 +38,12 @@ export class VanHanhXeComponent extends AppComponentBase implements AfterViewIni
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
 
-
-
     constructor(
         injector: Injector,
         private _vanhanhxeService: QuanLyVanHanhServiceProxy,
         private _activatedRoute: ActivatedRoute,
     ) {
         super(injector);
-        this.soXe = "";
-        this.thongtinxeDto.soXe = "";
-
-
     }
 
 
@@ -111,7 +105,7 @@ export class VanHanhXeComponent extends AppComponentBase implements AfterViewIni
 
     reloadList(soXe: string, event?: LazyLoadEvent) {
         this.soXe = this.thongtinxeDto.soXe;
-        if (this.soXe.length > 0) {
+        if (this.soXe != undefined) {
             this._vanhanhxeService.getQuanLyVanHanhsByFilter(soXe, this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event),

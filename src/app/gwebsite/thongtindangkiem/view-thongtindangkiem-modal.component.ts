@@ -1,19 +1,19 @@
-import { ModelForViewDto, ThongTinXeForViewDto, ModelServiceProxy, ThongTinBaoHiemServiceProxy, ThongTinBaoHiemForViewDto } from './../../../shared/service-proxies/service-proxies';
+import { QuanLyVanHanhForViewDto, QuanLyVanHanhServiceProxy, ModelForViewDto, ThongTinXeForViewDto, ModelServiceProxy, ThongTinDangKiemServiceProxy, ThongTinDangKiemForViewDto } from './../../../shared/service-proxies/service-proxies';
 import { AppComponentBase } from "@shared/common/app-component-base";
 import { AfterViewInit, Injector, Component, ViewChild, Input } from "@angular/core";
 import { ThongTinXeServiceProxy } from "@shared/service-proxies/service-proxies";
 import { ModalDirective } from 'ngx-bootstrap';
-
+import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
 
 @Component({
-    selector: 'viewBaoHiemXeModal',
-    templateUrl: './view-thongtinbaohiem-modal.component.html',
+    selector: 'viewDangKiemXeModal',
+    templateUrl: './view-thongtindangkiem-modal.component.html',
 
 })
 
-export class ViewBaoHiemXeModalComponent extends AppComponentBase {
+export class ViewDangKiemXeModalComponent extends AppComponentBase {
 
-    baohiemxe: ThongTinBaoHiemForViewDto = new ThongTinBaoHiemForViewDto();
+    dangkiemxe: ThongTinDangKiemForViewDto = new ThongTinDangKiemForViewDto();
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxe: ThongTinXeForViewDto = new ThongTinXeForViewDto();
 
@@ -25,7 +25,7 @@ export class ViewBaoHiemXeModalComponent extends AppComponentBase {
         injector: Injector,
         private _modelService: ModelServiceProxy,
         private _thongtinxeService: ThongTinXeServiceProxy,
-        private _baohiemxeService: ThongTinBaoHiemServiceProxy
+        private _dangkiemxeService: ThongTinDangKiemServiceProxy
 
     ) {
         super(injector);
@@ -37,9 +37,9 @@ export class ViewBaoHiemXeModalComponent extends AppComponentBase {
             this.thongtinxe = kq;
             this._modelService.getModelForView(kq.model).subscribe(kq1 => {
                 this.model = kq1;
-                this._baohiemxeService.getThongTinBaoHiemForView(id).subscribe(result => {
-                    this.baohiemxe = result;
-                    console.log("day ne" + id, result);
+                this._dangkiemxeService.getThongTinDangKiemForView(id).subscribe(result => {
+                    this.dangkiemxe = result;
+                    console.log("test show view-thongtindangkiem-modal.components" + id, result);
                 })
             })
         });

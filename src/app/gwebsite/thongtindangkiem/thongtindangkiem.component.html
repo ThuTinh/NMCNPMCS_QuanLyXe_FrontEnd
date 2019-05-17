@@ -4,7 +4,7 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto col-xs-6">
                 <h3 class="m-subheader__title m-subheader__title--separator">
-                    <span>{{l("Thông tin vận hành xe")}}</span>
+                    <span>{{l("Thông tin đăng kiểm xe")}}</span>
                 </h3>
                 <span class="m-section__sub">
                     {{l("Thông tin chi tiết")}}
@@ -49,9 +49,7 @@
                                             type="text" name="mucDichSuDung" [(ngModel)]="thongtinxeDto.mucDichSuDung"
                                             maxlength="64">
                                     </div>
-
                                 </div>
-
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Năm sản xuất</label>
@@ -72,23 +70,17 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Trạng thái duyệt </label>
-                                        <input #trangthaiduyetInput="ngModel" class="form-control" [disabled]="true"
+                                        <input [disabled]="true" #trangthaiduyetInput="ngModel" class="form-control"
                                             type="text" name="trangThaiDuyet" [(ngModel)]="thongtinxeDto.trangThaiDuyet"
                                             maxlength="64">
                                     </div>
-
                                 </div>
-
                                 <div class="input-group w-100">
-
                                     <span class="input-group-btn w-100">
-
-
-                                        <button *ngIf="soXe!=undefined" class="btn btn-info float-right "
+                                        <button *ngIf="soXe.length>0" class="btn btn-info float-right "
                                             (click)="createOrEditModal.show(-1)"><i class="icon-refresh"></i>
                                             {{l("Thêm mới")}}</button>
                                     </span>
-
                                 </div>
                             </div>
                         </div>
@@ -97,76 +89,89 @@
                 <div class="row align-items-center">
                     <!--<Primeng-TurboTable-Start>-->
                     <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                        <p-table #dataTable (onLazyLoad)="getThongTinVanHanhs(soXe,$event)"
+                        <p-table #dataTable (onLazyLoad)="getThongTinDangKiems(soXe,$event)"
                             [value]="primengTableHelper.records"
                             rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
                             [responsive]="primengTableHelper.isResponsive" [scrollable]="true">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th pSortableColumn="soXe" style="width: 150px;">
+                                    <th pSortableColumn="soXe" style="width: 200px;">
                                         Số xe
                                         <p-sortIcon field="soXe"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="donViSuDung" style="width: 150px;">
-                                        Ngày cập nhập
+                                    <th pSortableColumn="donViSuDung" style="width: 200px;">
+                                        Ngày đăng kiểm
                                         <p-sortIcon field="donViSuDung"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="LoaiXe" style="width: 150px;">
-                                        Số Km
+                                    <th pSortableColumn="LoaiXe" style="width: 200px;">
+                                        Ngày hết hạn đăng kiểm
                                         <p-sortIcon field="LoaiXe"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="hangSanXuat" style="width: 150px;">
-                                        Xăng tiêu thụ
+                                    <th pSortableColumn="hangSanXuat" style="width: 200px;">
+                                        Thời hạn đăng kiểm
                                         <p-sortIcon field="hangSanXuat"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="mucDichSuDung" style="width: 200px;">
+                                        Cơ quan đăng kiểm
+                                        <p-sortIcon field="mucDichSuDung"></p-sortIcon>
                                     </th>
                                     <th pSortableColumn="mucDichSuDung" style="width: 200px;">
                                         Trạng thái duyệt
                                         <p-sortIcon field="mucDichSuDung"></p-sortIcon>
                                     </th>
-
-
+                                    <th pSortableColumn="mucDichSuDung" style="width: 200px;">
+                                        Ghi chú
+                                        <p-sortIcon field="mucDichSuDung"></p-sortIcon>
+                                    </th>
                                     <th style="width: 200px;">{{l('Edit')}}</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-record="$implicit" let-index="rowIndex">
                                 <tr>
-                                    <td style="width: 150px;">
+                                    <td style="width: 200px;">
                                         <span class="ui-column-title">Số xe</span>
                                         <span title="{{record.soXe}}">{{truncateString(record.soXe)}}
                                         </span>
                                     </td>
-                                    <td style="width: 150px;">
-                                        <span class="ui-column-title">Ngày cập nhâp</span>
+                                    <td style="width: 200px;">
+                                        <span class="ui-column-title">Ngày đăng kiểm</span>
                                         <span
-                                            title="{{record.ngayCapNhat}}">{{truncateString(record.ngayCapNhat)|date}}</span>
+                                            title="{{record.ngayDangKiem}}">{{truncateString(record.ngayDangKiem)|date}}</span>
                                     </td>
-                                    <td style="width: 150px;">
-                                        <span class="ui-column-title">Số km </span>
-                                        <span title="số km ">{{truncateString(record.soKM)}}</span>
-                                    </td>
-                                    <td style="width: 150px;">
-                                        <span class="ui-column-title">Xăng tiêu thụ</span>
+                                    <td style="width: 200px;">
+                                        <span class="ui-column-title">Ngày hết hạn đăng kiểm </span>
                                         <span
-                                            title="{{record.xangTieuThu}}">{{truncateString(record.xangTieuThu)}}</span>
+                                            title="{{record.ngayHetHanDangKiem}}">{{truncateString(record.ngayHetHanDangKiem)|date}}</span>
+                                    </td>
+                                    <td style="width: 200px;">
+                                        <span class="ui-column-title">Thời hạn đăng kiểm</span>
+                                        <span
+                                            title="{{record.thoiHanDangKiem}}">{{truncateString(record.thoiHanDangKiem)|date}}</span>
+                                    </td>
+                                    <td style="width: 200px;">
+                                        <span class="ui-column-title">Cơ quan đăng kiểm</span>
+                                        <span
+                                            title="{{record.coQuanDangKiem}}">{{truncateString(record.coQuanDangKiem)}}</span>
                                     </td>
                                     <td style="width: 200px;">
                                         <span class="ui-column-title">Trạng thái duyệt</span>
                                         <span
-                                            title="{{record.trangThaiDaDuyet}}">{{truncateString(record.trangThaiDaDuyet)}}</span>
+                                            title="{{record.trangThaiDuyet}}">{{truncateString(record.trangThaiDuyet)}}</span>
                                     </td>
-
-
+                                    <td style="width: 200px;">
+                                        <span class="ui-column-title">Ghi chú</span>
+                                        <span title="{{record.ghiChu}}">{{truncateString(record.ghiChu)}}</span>
+                                    </td>
                                     <td style=" width: 200px;">
                                         <button class=" btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only
-                                            m-btn--pill"
-                                            (click)="createOrEditModal.show(record.id, (index+1)>=primengTableHelper.records.length?-1:primengTableHelper.records[index+1].id)"
+                                            m-btn--pill" (click)="createOrEditModal.show(record.id)"
                                             title="{{l('Edit')}}">
                                             <i class="fa fa-edit" [attr.aria-label]="l('Edit')"></i>
                                         </button>
 
                                         <button
                                             class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-                                            (click)="deleteThongTinVanHanhXe(record.id)" title="{{l('Delete')}}">
+                                            (click)="deleteThongTinDangKiemXe(record.id)" title="{{l('Delete')}}">
                                             <i class="fa fa-times" [attr.aria-label]="l('Delete')"></i>
                                         </button>
 
@@ -184,7 +189,7 @@
                         </div>
                         <div class="primeng-paging-container">
                             <p-paginator rows="{{primengTableHelper.defaultRecordsCountPerPage}}" #paginator
-                                (onPageChange)="getThongTinVanHanhs(soXe,$event)"
+                                (onPageChange)="getThongTinDangKiems(soXe,$event)"
                                 [totalRecords]="primengTableHelper.totalRecordsCount"
                                 [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
                             </p-paginator>
@@ -198,8 +203,8 @@
             </div>
         </div>
     </div>
-    <createOrEditVanHanhXeModal #createOrEditModal (modalSave)="reloadPage()" [soXe]="thongtinxeDto.soXe">
-    </createOrEditVanHanhXeModal>
-    <viewVanHanhXeModal #viewThongTinXeModal [soXe]="thongtinxeDto.soXe"></viewVanHanhXeModal>
+    <createOrEditDangKiemXeModal #createOrEditModal (modalSave)="reloadPage()" [soXe]="thongtinxeDto.soXe">
+    </createOrEditDangKiemXeModal>
+    <viewDangKiemXeModal #viewThongTinXeModal [soXe]="thongtinxeDto.soXe"></viewDangKiemXeModal>
     <thongTinXeModalComponent #viewThongTinXe (thongtinxe)="getThongTinXe($event)"></thongTinXeModalComponent>
 </div>

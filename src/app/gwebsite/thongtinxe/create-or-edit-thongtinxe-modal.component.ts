@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { ThongTinXeInput, ThongTinXeServiceProxy, TaiSanInput, TaiSanServiceProxy, TaiSanDto, ModelDto, ModelServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinXeInput, ThongTinXeServiceProxy, TaiSanInput, TaiSanServiceProxy, TaiSanDto, ModelDto, ModelServiceProxy, ThietBiKemTheoInput, ThietBiKemTheoDto, ThietBiKemTheoServiceProxy } from '@shared/service-proxies/service-proxies';
 import { TaiSanComponent } from '../taisan/taisan.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ModelComponent } from '../model/model.component';
@@ -33,17 +33,21 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
     saving = false;
 
     thongtinxe: ThongTinXeInput = new ThongTinXeInput();
+    thietbikemmtheo: ThietBiKemTheoInput = new ThietBiKemTheoInput();
+    tbkts: ThietBiKemTheoDto[] = [];
     taisan: TaiSanDto = new TaiSanDto();
     taisanItem: TaiSanDto = new TaiSanDto();
     model: ModelDto = new ModelDto();
     modelItem: ModelDto = new ModelDto();
     ngaydangkibandau: Date;
+    check: boolean = false;
 
     constructor(
         injector: Injector,
         private _thongtinxeService: ThongTinXeServiceProxy,
         private _modelService: ModelServiceProxy,
-        private _taisanService: TaiSanServiceProxy
+        private _taisanService: TaiSanServiceProxy,
+        private _tbktService: ThietBiKemTheoServiceProxy
     ) {
         super(injector);
     }
@@ -52,20 +56,22 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
 
             this.taisan = taisan;
         }
-
-
     }
+
     GetModel(model: ModelDto) {
         if (model.model != undefined)
             this.model = model;
     }
-
 
     show(soXe?: string | null | undefined): void {
         this.saving = false;
 
         this._thongtinxeService.getThongTinSeForEdit(soXe).subscribe(result => {
             this.thongtinxe = result;
+            if (this.thongtinxe.trangThaiDuyet === "Đã duyệt")
+                this.check = true;
+            else
+                this.check = false;
             if (result.id != undefined)
                 this.ngaydangkibandau = result.ngayDangKiBanDau.toDate();
             this._taisanService.getTaiSanForEdit(result.maTaiSan).subscribe(kq => {
@@ -74,13 +80,42 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
             });
             this._modelService.getModelForEdit(result.model).subscribe(kq2 => {
                 this.model = kq2;
-            })
-            this.modal.show();
+            });
+            if (result.soXe) {
+                this._tbktService.getThietBiKemTheosByFilter(result.soXe, undefined, undefined, undefined).subscribe(kq3 => {
+                    this.tbkts = kq3.items;
+                })
+            }
 
+            this.modal.show();
         })
     }
 
+    onKeydown(event, index: number): void {
+        if (event.key === "Enter") {
+            let input = this.tbkts[index];
+            this._tbktService.createOrEditThietBiKemTheo(input).subscribe(
+            );
+        }
+    }
+
+    ThemThietBi(): void {
+        let input = new ThietBiKemTheoDto();
+        input.soLuong = 0;
+        // input.thietBiKemTheo = null;
+        // input.dienGiai = null;
+        input.soXe = this.thongtinxe.soXe;
+        this.tbkts.push(input);
+    }
+
     save(): void {
+
+
+        if (this.check) {
+            this.thongtinxe.trangThaiDuyet = "Đã duyệt"
+        }
+        else
+            this.thongtinxe.trangThaiDuyet = "Chưa duyệt"
 
         this.saving = true;
         this.thongtinxe.ngayDangKiBanDau = moment(this.ngaydangkibandau);
@@ -92,8 +127,8 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
             console.log("lasao" + this.thongtinxe.donViSuDung);
             this.close();
         })
-
     }
+
     close(): void {
         this.modal.hide();
         this.modalSave.emit(null);

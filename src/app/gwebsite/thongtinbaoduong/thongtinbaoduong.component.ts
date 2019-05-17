@@ -1,4 +1,4 @@
-
+import { ViewThongTinBaoDuongModalComponent } from './view-thongtinbaoduong-modal.component';
 import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
@@ -7,46 +7,42 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { ModelForViewDto, ThongTinBaoHiemServiceProxy } from '@shared/service-proxies/service-proxies';
-
-import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
+import { ThongTinBaoDuongServiceProxy, ModelForViewDto } from '@shared/service-proxies/service-proxies';
+import { CreateOrEditThongTinBaoDuongModalComponent } from './create-or-edit-thongtinbaoduong-modal.component';
 import { ThongTinXeModalComponent } from '../thongtinxe/thongtinxe-modal.component';
-import { ViewBaoHiemXeModalComponent } from './view-thongtinbaohiem-modal.component';
-import { CreateOrEditBaoHiemXeModalComponent } from './create-or-edit-thongtinbaohiem-modal.component';
+import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
 
 @Component({
-    selector: 'baohiemxeComponent',
-    templateUrl: './thongtinbaohiem.component.html',
+    templateUrl: './thongtinbaoduong.component.html',
     animations: [appModuleAnimation()]
 })
-export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterViewInit, OnInit {
+export class ThongTinBaoDuongComponent extends AppComponentBase implements AfterViewInit, OnInit {
 
     /**
      * @ViewChild là dùng get control và call thuộc tính, functions của control đó
      */
     @ViewChild('dataTable') dataTable: Table;
     @ViewChild('paginator') paginator: Paginator;
-    @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditBaoHiemXeModalComponent;
-    @ViewChild('viewVanHanhXeModal') viewVanHanhXeModal: ViewBaoHiemXeModalComponent;
+    @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditThongTinBaoDuongModalComponent;
+    @ViewChild('viewThongTinBaoDuongModal') viewThongTinBaoDuongModal: ViewThongTinBaoDuongModalComponent;
     @ViewChild('viewThongTinXe') viewThongTinXe: ThongTinXeModalComponent;
 
-
+    /**
+     * tạo các biến dể filters
+     */
+    thongtinbaoduongSoXe: string;
     soXe: string;
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
 
+
     constructor(
         injector: Injector,
-        private _baohiemxeService: ThongTinBaoHiemServiceProxy,
+        private _thongtinbaoduongService: ThongTinBaoDuongServiceProxy,
         private _activatedRoute: ActivatedRoute,
     ) {
         super(injector);
-
-
-
     }
-
-
 
     /**
      * Hàm xử lý trước khi View được init
@@ -59,32 +55,15 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
      */
     ngAfterViewInit(): void {
         setTimeout(() => {
-
             this.init();
-
         });
     }
 
-    // Search(event?: LazyLoadEvent) {
-    //     this._vanhanhxeService.getQuanLyVanHanhsByFilter(  , this.primengTableHelper.getSorting(this.dataTable),
-    //         this.primengTableHelper.getMaxResultCount(this.paginator, event),
-    //         this.primengTableHelper.getSkipCount(this.paginator, event),
-    //     ).subscribe(result => {
-
-    //         // this.primengTableHelper.totalRecordsCount = result.totalCount;
-    //         // this.primengTableHelper.records = result.items;
-    //         this.primengTableHelper.hideLoadingIndicator();
-    //     });
-
-
-
-    // }
-
     /**
-     * Hàm get danh sách Customer
+     * Hàm get danh sách ThongTinBaoDuong
      * @param event
      */
-    getThongTinBaoHiems(soXe: string, event?: LazyLoadEvent) {
+    getThongTinBaoDuongs(event?: LazyLoadEvent) {
         if (!this.paginator || !this.dataTable) {
             return;
         }
@@ -95,41 +74,43 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
         /**
          * mặc định ban đầu lấy hết dữ liệu nên dữ liệu filter = null
          */
-        this.reloadList(soXe, event);
+
+        this.reloadList(null, event);
+
     }
 
-    reloadList(soXe: string, event?: LazyLoadEvent) {
-        this.soXe = this.thongtinxeDto.soXe;
-        if (this.soXe != undefined) {
-            this._baohiemxeService.getThongTinBaoHiemsByFilter(this.soXe, this.primengTableHelper.getSorting(this.dataTable),
-                this.primengTableHelper.getMaxResultCount(this.paginator, event),
-                this.primengTableHelper.getSkipCount(this.paginator, event),
-            ).subscribe(result => {
-
-                this.primengTableHelper.totalRecordsCount = result.totalCount;
-                this.primengTableHelper.records = result.items;
-
-            });
-        }
-        this.primengTableHelper.hideLoadingIndicator();
-    }
-
-    deleteThongTinBaoHiemXe(id: number): void {
-        this._baohiemxeService.deleteThongTinBaoHiem(id).subscribe(() => {
-            this.reloadPage();
-        })
-    }
     getThongTinXe(item: ThongTinXeViewDTO) {
         this.thongtinxeDto = item;
         this.soXe = item.soXe;
         this.reloadList(this.soXe, null);
     }
+
+    reloadList(thongtinbaoduongSoXe, event?: LazyLoadEvent) {
+        this.soXe = this.thongtinxeDto.soXe;
+        if (this.soXe != undefined) {
+            this._thongtinbaoduongService.getThongTinBaoDuongsByFilter(thongtinbaoduongSoXe, this.primengTableHelper.getSorting(this.dataTable),
+                this.primengTableHelper.getMaxResultCount(this.paginator, event),
+                this.primengTableHelper.getSkipCount(this.paginator, event),
+            ).subscribe(result => {
+                this.primengTableHelper.totalRecordsCount = result.totalCount;
+                this.primengTableHelper.records = result.items;
+            });
+
+        }
+        this.primengTableHelper.hideLoadingIndicator();
+    }
+
+    deleteThongTinBaoDuong(id): void {
+        this._thongtinbaoduongService.deleteThongTinBaoDuong(id).subscribe(() => {
+            this.reloadPage();
+        })
+    }
+
     init(): void {
         //get params từ url để thực hiện filter
         this._activatedRoute.params.subscribe((params: Params) => {
-            this.soXe = params['name'] || '';
-
-            this.reloadList(this.soXe, null);
+            this.thongtinbaoduongSoXe = params['soXe'] || '';
+            this.reloadList(this.thongtinbaoduongSoXe, null);
         });
     }
 
@@ -139,7 +120,7 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
 
     applyFilters(): void {
         //truyền params lên url thông qua router
-        this.reloadList(null);
+        this.reloadList(this.thongtinbaoduongSoXe, null);
 
         if (this.paginator.getPage() !== 0) {
             this.paginator.changePage(0);
@@ -147,10 +128,9 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
         }
     }
 
-
     //hàm show view create MenuClient
-    createBaoHiem() {
-        this.createOrEditModal.show();
+    createThongTinBaoDuong() {
+        this.createOrEditModal.show(-1);
     }
 
     /**

@@ -25,14 +25,13 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
     saving = false;
     soKmMoi: number;
     ngayCapNhap: Date;
-
     vanhanhxe: QuanLyVanHanhInput = new QuanLyVanHanhInput();
     vanhanhxesau: QuanLyVanHanhInput = new QuanLyVanHanhInput();
-
     thongtinxe: ThongTinXeInput = new ThongTinXeInput();
     model: ModelInput = new ModelInput();
     km: number;
     xangdinhmuc: number;
+    check: boolean = false;
     @Input() soXe: string;
 
 
@@ -51,6 +50,11 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
 
         this._thongtinxeService.getThongTinSeForEdit(this.soXe).subscribe(kq => {
             this.thongtinxe = kq;
+            if (this.check)
+                this.vanhanhxe.trangThaiDaDuyet = "Đã duyệt"
+            else
+                this.vanhanhxe.trangThaiDaDuyet = "Chưa duyệt"
+
             this._modelService.getModelForEdit(kq.model).subscribe(kq1 => {
                 this.model = kq1;
             })
@@ -63,9 +67,10 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
                     if (idSau !== -1) {
                         this._vanhanhxeService.getQuanLyVanHanhForEdit(idSau).subscribe(kq => {
                             this.vanhanhxesau = kq;
+                            this.ngayCapNhap = result.ngayCapNhat.toDate();
                         })
                     }
-                    this.ngayCapNhap = result.ngayCapNhat.toDate();
+
                 })
 
             }
@@ -73,7 +78,7 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
                 this.vanhanhxe = new QuanLyVanHanhInput();
                 this._vanhanhxeService.getQuanLyVanHanhsByFilter(this.soXe, undefined, undefined, undefined).subscribe(kq => {
 
-                    if (kq.items == null)
+                    if (kq.totalCount === 0)
                         this.vanhanhxe.kmCu = 0;
                     else
                         this.vanhanhxe.kmCu = kq.items[kq.items.length - 1].kmMoi;
@@ -84,14 +89,13 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
     }
     onKeydown(event): void {
         if (event.key === "Enter") {
-
-            this.vanhanhxe.soKM = this.vanhanhxe.kmMoi - this.vanhanhxe.kmCu;
-
-            this.xangdinhmuc = (this.model.dinhMucNhienLieu * this.vanhanhxe.soKM) / 100;
-            console.log("enter ne" + this.xangdinhmuc);
-
+            if (this.vanhanhxe.kmCu < this.vanhanhxe.kmMoi) {
+                this.vanhanhxe.soKM = this.vanhanhxe.kmMoi - this.vanhanhxe.kmCu;
+                this.xangdinhmuc = (this.model.dinhMucNhienLieu * this.vanhanhxe.soKM) / 100;
+            }
         }
     }
+
     TinhDinhMucNhienLieu(): void {
 
         this.vanhanhxe.soKM = this.vanhanhxe.kmMoi - this.vanhanhxe.kmCu;
@@ -101,32 +105,42 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
     save(): void {
 
         this.vanhanhxe.soXe = this.soXe;
-        if (this.vanhanhxesau != null) {
-            if (this.vanhanhxe.kmMoi !== this.soKmMoi) {
-                this.vanhanhxesau.kmCu = this.vanhanhxe.kmMoi;
+        if (this.vanhanhxe.kmMoi > this.vanhanhxe.kmCu) {
+            if (this.vanhanhxesau != null) {
+                if (this.vanhanhxe.kmMoi !== this.soKmMoi) {
+                    this.vanhanhxesau.kmCu = this.vanhanhxe.kmMoi;
+                }
+                let inputsau = this.vanhanhxesau;
+                this._vanhanhxeService.createOrEditQuanLyVanHanh(inputsau).subscribe(result => {
+                })
             }
 
-            let inputsau = this.vanhanhxesau;
-            this._vanhanhxeService.createOrEditQuanLyVanHanh(inputsau).subscribe(result => {
+            this.vanhanhxe.soKM = this.vanhanhxe.kmMoi - this.vanhanhxe.kmCu;
+            this.vanhanhxe.ngayCapNhat = moment(this.ngayCapNhap);
 
+            //alert(this.vanhanhxe.ngayCapNhat);
+            if (this.check)
+                this.vanhanhxe.trangThaiDaDuyet = "Đã duyệt";
+            else
+                this.vanhanhxe.trangThaiDaDuyet = "Chưa duyệt";
+            let input = this.vanhanhxe;
+            this.saving = true;
+            this._vanhanhxeService.createOrEditQuanLyVanHanh(input).subscribe(result => {
+                this.notify.info(this.l('SavedSuccessfully'));
+                this.close();
+                //alert("again " + this.vanhanhxe.ngayCapNhat);
             })
+
         }
+        else {
+            this.notify.info(this.l('SavedFail'));
 
-        this.vanhanhxe.ngayCapNhat = moment(this.ngayCapNhap);
-
-        //alert(this.vanhanhxe.ngayCapNhat);
-        let input = this.vanhanhxe;
-        this.saving = true;
-        this._vanhanhxeService.createOrEditQuanLyVanHanh(input).subscribe(result => {
-            this.notify.info(this.l('SavedSuccessfully'));
-            this.close();
-            //alert("again " + this.vanhanhxe.ngayCapNhat);
-        })
-
+        }
     }
 
     close(): void {
         this.modal.hide();
         this.modalSave.emit(null);
+        this.ngayCapNhap = null;
     }
 }

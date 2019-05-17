@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-6 ">
                             <div class="form-group">
                                 <label>Loại xe </label>
                                 <input #loaixeInput="ngModel" class="form-control" type="text" name="loaiXe"
@@ -69,8 +69,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Số Km mới </label>
-                                <input #kmMoiInput="ngModel" class="form-control" type="text" name="kmMoi"
+                                <input #kmMoiInput="ngModel" class="form-control" type="number" name="kmMoi"
                                     (keydown)="onKeydown($event)" [(ngModel)]="vanhanhxe.kmMoi" required maxlength="64">
+                                <label *ngIf="vanhanhxe.kmCu>vanhanhxe.kmMoi"
+                                    style="font-size: 10px; color: red; "><i>Số <b>Km mới</b> phải lớn hơn số <b>Km
+                                            cũ</b></i></label>
                                 <validation-messages [formCtrl]="kmMoiInput"></validation-messages>
                             </div>
                             <div class="form-group">
@@ -87,23 +90,31 @@
                                 <validation-messages [formCtrl]="soKmInput"></validation-messages>
                             </div>
                             <div class="form-group">
-                                <label>NHiên liệu tiêu hao theo định mức (lit) </label>
+                                <label>Nhiên liệu tiêu hao theo định mức (lit) </label>
                                 <input class="form-control" type="text" name="xangdinhmuc" required
                                     value="{{xangdinhmuc}}" [disabled]="true" maxlength="64">
 
                             </div>
                             <div class="form-group">
                                 <label>Nhiên liệu tiêu hao thực tế(lit) </label>
-                                <input #xangtieuthuInput="ngModel" class="form-control" type="text" name="xangTieuThu"
+                                <input #xangtieuthuInput="ngModel" class="form-control" type="number" name="xangTieuThu"
                                     [(ngModel)]="vanhanhxe.xangTieuThu" required maxlength="64">
                                 <validation-messages [formCtrl]="xangtieuthuInput"></validation-messages>
                             </div>
-
+                            <!-- 
                             <div class="form-group">
                                 <label>Trạng thái duyệt </label>
                                 <input #ghiChuInput="ngModel" class="form-control" type="text" name="trangThaiDaDuyet"
                                     [(ngModel)]="vanhanhxe.trangThaiDaDuyet" required maxlength="64">
                                 <validation-messages [formCtrl]="ghiChuInput"></validation-messages>
+                            </div> -->
+
+                            <div class="form-group">
+                                <label class="mr-3">Trạng thái duyệt:
+                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDaDuyet"
+                                        [(ngModel)]="check" required maxlength="64"> Đã
+                                    duyệt
+                                </label>
                             </div>
                         </div>
 

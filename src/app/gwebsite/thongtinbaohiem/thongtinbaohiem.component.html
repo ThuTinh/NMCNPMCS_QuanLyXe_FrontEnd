@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="input-group w-100">
                                     <span class="input-group-btn w-100">
-                                        <button *ngIf="soXe.length>0" class="btn btn-info float-right "
+                                        <button *ngIf="soXe!=undefined" class="btn btn-info float-right "
                                             (click)="createOrEditModal.show(-1)"><i class="icon-refresh"></i>
                                             {{l("Thêm mới")}}</button>
                                     </span>

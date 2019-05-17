@@ -7,27 +7,28 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { ModelForViewDto, ThongTinBaoHiemServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, QuanLyVanHanhServiceProxy, ThongTinDangKiemServiceProxy } from '@shared/service-proxies/service-proxies';
 
 import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
+import { ViewThongTinXeModalComponent } from '../thongtinxe/view-thongtinxe-modal.component';
 import { ThongTinXeModalComponent } from '../thongtinxe/thongtinxe-modal.component';
-import { ViewBaoHiemXeModalComponent } from './view-thongtinbaohiem-modal.component';
-import { CreateOrEditBaoHiemXeModalComponent } from './create-or-edit-thongtinbaohiem-modal.component';
+import { ViewDangKiemXeModalComponent } from './view-thongtindangkiem-modal.component';
+import { CreateOrEditDangKiemXeModalComponent } from './create-or-edit-thongtindangkiem-modal.component';
 
 @Component({
-    selector: 'baohiemxeComponent',
-    templateUrl: './thongtinbaohiem.component.html',
+    selector: 'dangkiemxeComponent',
+    templateUrl: './thongtindangkiem.component.html',
     animations: [appModuleAnimation()]
 })
-export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterViewInit, OnInit {
+export class ThongTinDangKiemComponent extends AppComponentBase implements AfterViewInit, OnInit {
 
     /**
      * @ViewChild là dùng get control và call thuộc tính, functions của control đó
      */
     @ViewChild('dataTable') dataTable: Table;
     @ViewChild('paginator') paginator: Paginator;
-    @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditBaoHiemXeModalComponent;
-    @ViewChild('viewVanHanhXeModal') viewVanHanhXeModal: ViewBaoHiemXeModalComponent;
+    @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditDangKiemXeModalComponent;
+    @ViewChild('viewVanHanhXeModal') viewVanHanhXeModal: ViewDangKiemXeModalComponent;
     @ViewChild('viewThongTinXe') viewThongTinXe: ThongTinXeModalComponent;
 
 
@@ -37,11 +38,12 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
 
     constructor(
         injector: Injector,
-        private _baohiemxeService: ThongTinBaoHiemServiceProxy,
+        private _dangkiemxeService: ThongTinDangKiemServiceProxy,
         private _activatedRoute: ActivatedRoute,
     ) {
         super(injector);
-
+        this.soXe = "";
+        this.thongtinxeDto.soXe = "";
 
 
     }
@@ -84,7 +86,7 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
      * Hàm get danh sách Customer
      * @param event
      */
-    getThongTinBaoHiems(soXe: string, event?: LazyLoadEvent) {
+    getThongTinDangKiems(soXe: string, event?: LazyLoadEvent) {
         if (!this.paginator || !this.dataTable) {
             return;
         }
@@ -100,8 +102,8 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
 
     reloadList(soXe: string, event?: LazyLoadEvent) {
         this.soXe = this.thongtinxeDto.soXe;
-        if (this.soXe != undefined) {
-            this._baohiemxeService.getThongTinBaoHiemsByFilter(this.soXe, this.primengTableHelper.getSorting(this.dataTable),
+        if (this.soXe.length > 0) {
+            this._dangkiemxeService.getThongTinDangKiemsByFilter(soXe, this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
             ).subscribe(result => {
@@ -114,8 +116,8 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
         this.primengTableHelper.hideLoadingIndicator();
     }
 
-    deleteThongTinBaoHiemXe(id: number): void {
-        this._baohiemxeService.deleteThongTinBaoHiem(id).subscribe(() => {
+    deleteThongTinDangKiemXe(id: number): void {
+        this._dangkiemxeService.deleteThongTinDangKiem(id).subscribe(() => {
             this.reloadPage();
         })
     }
@@ -149,7 +151,7 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
 
 
     //hàm show view create MenuClient
-    createBaoHiem() {
+    createDangKiem() {
         this.createOrEditModal.show();
     }
 

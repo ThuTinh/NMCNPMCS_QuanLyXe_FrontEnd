@@ -1,0 +1,57 @@
+<div bsModal #viewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="viewModal"
+    aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span *ngIf="thongTinSuaChua.id">{{l("ChinhSuaThongTinSuaChua")}}: {{thongTinSuaChua.soXe}}</span>
+                    <span *ngIf="!thongTinSuaChua.id">{{l("TaoMoiThongTinSuaChua")}}</span>
+                </h4>
+                <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Số xe</label>
+                    <p>{{thongTinSuaChua.soXe}}</p>
+                </div>
+                <div class="form-group">
+                    <label>Ngày Sữa Chữa</label>
+                    <p>{{thongTinSuaChua.ngaySuaChua}}</p>
+                </div>
+                <div class="form-group">
+                    <label>Ngày dự kiến sữa xong</label>
+                    <p>{{thongTinSuaChua.ngayDuKienSuaXong}}</p>
+                </div>
+                <div class="form-group">
+                    <label>Chi Phí Sữa Chữa</label>
+                    <p>{{thongTinSuaChua.chiPhiSuaChua}}</p>
+                </div>
+                <div class="form-group">
+                    <label>Nội Dung Sữa Chữa Thực Tế</label>
+                    <p>{{thongTinSuaChua.noiDungSuaChuaThucTe}}</p>
+                </div>
+                <div class="form-group">
+                    <label>Trạng Thái Duyệt</label>
+                    <p>{{thongTinSuaChua.trangThaiDuyet}}</p>
+                </div>
+                <div class="form-group">
+                    <label>Ghi chú</label>
+                    <p>{{thongTinSuaChua.ghiChu}}</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
+                    {{l("Cancel")}}
+                </button>
+                <button type="submit" class="btn btn-primary" [buttonBusy]="saving"
+                    [busyText]="l('SavingWithThreeDot')">
+                    <i class="fa fa-save"></i>
+                    <span>{{l("Save")}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

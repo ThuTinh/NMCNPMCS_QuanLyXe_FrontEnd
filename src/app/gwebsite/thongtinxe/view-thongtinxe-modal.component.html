@@ -147,6 +147,25 @@
 
                         </div>
                     </tab>
+                    <tab heading="Thiết bị kèm theo" customClass="m-tabs__item">
+                        <p-table [value]="tbkts">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Thiết bị kèm theo</th>
+                                    <th>Số lượng</th>
+                                    <th>Diễn giải</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-tbkt>
+                                <tr>
+                                    <td>{{tbkt.thietBiKemTheo}}</td>
+                                    <td>{{tbkt.soLuong}}</td>
+                                    <td>{{tbkt.dienGiai}}</td>
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </tab>
                 </tabset>
             </div>
             <var></var>

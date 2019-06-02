@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, QuanLyVanHanhServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, QuanLyVanHanhServiceProxy, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ViewVanHanhXeModalComponent } from './view-vanhanhxe-modal.component';
 import { CreateOrEditVanHanhXeModalComponent } from './create-or-edit-vanhanhxe-modal.component';
 import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
@@ -37,13 +37,18 @@ export class VanHanhXeComponent extends AppComponentBase implements AfterViewIni
     soXe: string;
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
+    isDuyet: boolean;
 
     constructor(
         injector: Injector,
         private _vanhanhxeService: QuanLyVanHanhServiceProxy,
         private _activatedRoute: ActivatedRoute,
+        private _isDuyet: CheckServiceProxy
     ) {
         super(injector);
+        _isDuyet.isDuyet().subscribe(result => {
+            this.isDuyet = result;
+        })
     }
 
 

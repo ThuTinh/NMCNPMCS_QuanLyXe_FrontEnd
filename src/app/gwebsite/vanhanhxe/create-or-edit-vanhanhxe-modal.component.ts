@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild, Input } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { QuanLyVanHanhInput, QuanLyVanHanhServiceProxy, ThongTinXeServiceProxy, ModelServiceProxy, ThongTinXeInput, ModelInput } from '@shared/service-proxies/service-proxies';
+import { QuanLyVanHanhInput, QuanLyVanHanhServiceProxy, ThongTinXeServiceProxy, ModelServiceProxy, ThongTinXeInput, ModelInput, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 @Component({
     selector: 'createOrEditVanHanhXeModal',
@@ -21,7 +21,6 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
      * @Output dùng để public event cho component khác xử lý
      */
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
-
     saving = false;
     soKmMoi: number;
     ngayCapNhap: Date;
@@ -33,21 +32,26 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
     xangdinhmuc: number;
     check: boolean = false;
     @Input() soXe: string;
-
+    isDuyet: boolean;
 
     constructor(
         injector: Injector,
         private _vanhanhxeService: QuanLyVanHanhServiceProxy,
         private _thongtinxeService: ThongTinXeServiceProxy,
-        private _modelService: ModelServiceProxy
+        private _modelService: ModelServiceProxy,
+        private _isDuyet: CheckServiceProxy
     ) {
         super(injector);
         this.vanhanhxesau = null;
+        _isDuyet.isDuyet().subscribe(result => {
+            this.isDuyet = result;
+        })
+
     }
 
     show(Id?: number | null | undefined, idSau?: number | null | undefined): void {
         this.saving = false;
-
+        this.ngayCapNhap = new Date();
         this._thongtinxeService.getThongTinSeForEdit(this.soXe).subscribe(kq => {
             this.thongtinxe = kq;
             if (this.check)
@@ -67,7 +71,7 @@ export class CreateOrEditVanHanhXeModalComponent extends AppComponentBase {
                     if (idSau !== -1) {
                         this._vanhanhxeService.getQuanLyVanHanhForEdit(idSau).subscribe(kq => {
                             this.vanhanhxesau = kq;
-                            this.ngayCapNhap = result.ngayCapNhat.toDate();
+                            //  this.ngayCapNhap = result.ngayCapNhat.toDate();
                         })
                     }
 

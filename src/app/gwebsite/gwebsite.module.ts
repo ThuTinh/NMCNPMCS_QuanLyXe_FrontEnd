@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy, ThongTinBaoDuongServiceProxy, ThongTinDangKiemServiceProxy, ThietBiKemTheoServiceProxy, ThongTinSuaChuaServiceProxy, CheckServiceProxy } from './../../shared/service-proxies/service-proxies';
+=======
 import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy, ThongTinBaoDuongServiceProxy, ThongTinDangKiemServiceProxy, ThietBiKemTheoServiceProxy } from './../../shared/service-proxies/service-proxies';
+>>>>>>> parent of c5051f0... add File
 import { ViewDemoModelModalComponent } from './demo-model/view-demo-model-modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -43,6 +47,14 @@ import { ThongTinBaoDuongComponent } from './thongtinbaoduong/thongtinbaoduong.c
 import { ViewDangKiemXeModalComponent } from './thongtindangkiem/view-thongtindangkiem-modal.component';
 import { CreateOrEditDangKiemXeModalComponent } from './thongtindangkiem/create-or-edit-thongtindangkiem-modal.component';
 import { ThongTinDangKiemComponent } from './thongtindangkiem/thongtindangkiem.component';
+import { OrganizationUnitsTreeComponent } from '@app/admin/shared/organization-unit-tree.component';
+<<<<<<< HEAD
+import { CreateOrEditThongTinSuaChuaModalComponent } from './thongTinSuaChua/create-or-edit-thongTinSuaChua-modal.component';
+import { ThongTinSuaChuaComponent } from './thongTinSuaChua/thongTinSuaChua.component';
+import { ViewThongTinSuaChuaModalComponent } from './thongTinSuaChua/view-thongTinSuaChua-modal.component';
+import { ChiTietXeComponent } from './chitietxe/chitietxe.component';
+=======
+>>>>>>> parent of c5051f0... add File
 @NgModule({
     imports: [
         FormsModule,
@@ -76,7 +88,13 @@ import { ThongTinDangKiemComponent } from './thongtindangkiem/thongtindangkiem.c
         ThongTinBaoHiemComponent, CreateOrEditBaoHiemXeModalComponent, ViewBaoHiemXeModalComponent,
         PhiDuongBoComponent, CreateOrEditPhiDuongBoModalComponent, ViewPhiDuongBoModalComponent,
         ThongTinBaoDuongComponent, CreateOrEditThongTinBaoDuongModalComponent, ViewThongTinBaoDuongModalComponent,
+<<<<<<< HEAD
+        ThongTinDangKiemComponent, CreateOrEditDangKiemXeModalComponent, ViewDangKiemXeModalComponent,
+        ThongTinSuaChuaComponent, CreateOrEditThongTinSuaChuaModalComponent, ViewThongTinSuaChuaModalComponent,
+        ChiTietXeComponent
+=======
         ThongTinDangKiemComponent, CreateOrEditDangKiemXeModalComponent, ViewDangKiemXeModalComponent
+>>>>>>> parent of c5051f0... add File
 
     ],
     providers: [
@@ -91,7 +109,13 @@ import { ThongTinDangKiemComponent } from './thongtindangkiem/thongtindangkiem.c
         PhiDuongBoServiceProxy,
         ThongTinBaoDuongServiceProxy,
         ThongTinDangKiemServiceProxy,
+<<<<<<< HEAD
+        ThietBiKemTheoServiceProxy,
+        ThongTinSuaChuaServiceProxy,
+        CheckServiceProxy
+=======
         ThietBiKemTheoServiceProxy
+>>>>>>> parent of c5051f0... add File
     ]
 })
 export class GWebsiteModule { }

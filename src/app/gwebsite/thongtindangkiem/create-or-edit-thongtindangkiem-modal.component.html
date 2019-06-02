@@ -117,10 +117,17 @@
                                     maxlength="64">
                                 <validation-messages [formCtrl]="trangThaiDuyetInput"></validation-messages>
                             </div> -->
-                            <div class="form-group">
+                            <div class="form-group" *ngIf="isDuyet">
                                 <label class="mr-3">Trạng thái duyệt:
                                     <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet"
                                         [(ngModel)]="check" required maxlength="64"> Đã
+                                    duyệt
+                                </label>
+                            </div>
+                            <div class="form-group" *ngIf="!isDuyet">
+                                <label class="mr-3">Trạng thái duyệt:
+                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet" [(ngModel)]="check" required [disabled] = "true"
+                                        maxlength="64"> Đã
                                     duyệt
                                 </label>
                             </div>

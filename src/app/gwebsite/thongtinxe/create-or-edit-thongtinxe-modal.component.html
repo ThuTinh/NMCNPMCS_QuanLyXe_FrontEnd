@@ -107,6 +107,16 @@
                                         <validation-messages [formCtrl]="soXeInput"></validation-messages>
                                     </div>
                                     <div class="form-group">
+                                        <label>Đơn vị </label>
+                                        <select #unit="ngModel" class="form-control" name="unit"
+                                            [(ngModel)]="thongtinxe.organizationUnitId">
+                                            <option value>Chọn đơn vị</option>
+                                            <option *ngFor="let item of organizationUnits" value="{{item.id}}">
+                                                {{item.displayName}}</option>
+                                        </select>
+                                        <validation-messages [formCtrl]="unit"></validation-messages>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Model</label>
                                         <div>
                                             <input #modelInput="ngModel" [disabled]="true" class="form-control"
@@ -258,9 +268,18 @@
                                             maxlength="64">
                                         <validation-messages [formCtrl]="tenchuphuongtienInput"></validation-messages>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" *ngIf="isDuyet">
                                         <label class="mr-3">Trạng thái duyệt:
                                             <input value="Đã duyệt" [checked]="check" type="checkbox"
+                                                name="trangThaiDuyet" [(ngModel)]="check" required maxlength="64"> Đã
+                                            duyệt
+                                        </label>
+
+                                    </div>
+
+                                    <div class="form-group" *ngIf="!isDuyet">
+                                        <label class="mr-3">Trạng thái duyệt:
+                                            <input value="Đã duyệt" [checked]="check" type="checkbox" [disabled]="true"
                                                 name="trangThaiDuyet" [(ngModel)]="check" required maxlength="64"> Đã
                                             duyệt
                                         </label>
@@ -287,6 +306,7 @@
                                         <th>Thiết bị kèm theo</th>
                                         <th>Số lượng</th>
                                         <th>Diễn giải</th>
+                                        <th></th>
 
                                     </tr>
                                 </ng-template>
@@ -328,10 +348,16 @@
                                                 </ng-template>
                                             </p-cellEditor>
                                         </td>
+                                        <td> <button
+                                                class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+                                                (click)="Xoa(index)" title="{{l('Delete')}}">
+                                                <i class="fa fa-times" [attr.aria-label]="l('Delete')"></i>
+                                            </button></td>
                                     </tr>
                                 </ng-template>
                             </p-table>
                         </tab>
+
                     </tabset>
 
                 </div>

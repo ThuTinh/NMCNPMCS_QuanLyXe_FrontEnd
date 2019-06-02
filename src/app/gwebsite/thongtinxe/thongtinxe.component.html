@@ -159,7 +159,8 @@
                                     <td style=" width: 200px;">
                                             <button class=" btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only
                                             m-btn--pill" (click)="createOrEditModal.show(record.soXe)"
-                                                title="{{l('Edit')}}">
+                                                title="{{l('Edit')}}"
+                                                *ngIf='record.trangThaiDuyet!="Đã duyệt" || isDuyet'>
                                                 <i class="fa fa-edit" [attr.aria-label]="l('Edit')"></i>
                                             </button>
 

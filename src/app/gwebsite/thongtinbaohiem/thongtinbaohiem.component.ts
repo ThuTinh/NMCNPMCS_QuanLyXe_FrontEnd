@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { ModelForViewDto, ThongTinBaoHiemServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ModelForViewDto, ThongTinBaoHiemServiceProxy, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
 
 import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
 import { ThongTinXeModalComponent } from '../thongtinxe/thongtinxe-modal.component';
@@ -34,16 +34,18 @@ export class ThongTinBaoHiemComponent extends AppComponentBase implements AfterV
     soXe: string;
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
+    isDuyet: boolean;
 
     constructor(
         injector: Injector,
         private _baohiemxeService: ThongTinBaoHiemServiceProxy,
         private _activatedRoute: ActivatedRoute,
+        private _isDuyet: CheckServiceProxy
     ) {
         super(injector);
-
-
-
+        this._isDuyet.isDuyet().subscribe(result => {
+            this.isDuyet = result;
+        })
     }
 
 

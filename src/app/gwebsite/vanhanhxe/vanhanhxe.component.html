@@ -160,7 +160,7 @@
                                         <button class=" btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only
                                             m-btn--pill"
                                             (click)="createOrEditModal.show(record.id, (index+1)>=primengTableHelper.records.length?-1:primengTableHelper.records[index+1].id)"
-                                            title="{{l('Edit')}}">
+                                            title="{{l('Edit')}}" *ngIf='record.trangThaiDaDuyet!="Đã duyệt" || isDuyet'>
                                             <i class="fa fa-edit" [attr.aria-label]="l('Edit')"></i>
                                         </button>
 

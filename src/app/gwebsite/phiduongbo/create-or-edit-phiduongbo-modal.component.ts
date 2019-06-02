@@ -27,10 +27,9 @@ export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
     phiDuongBo: PhiDuongBoInput = new PhiDuongBoInput();
     thongtinxe: ThongTinXeInput = new ThongTinXeInput();
     model: ModelInput = new ModelInput();
-    ngayCapNhap: Date;
+    ngayCapNhap: Date = new Date();
     ngayHetHan: Date;
     ngayDongPhi: Date;
-
     @Input() soXe: string;
 
     constructor(
@@ -56,16 +55,14 @@ export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
                 this.phiDuongBo = result;
                 if (phiDuongBoId != -1) {
 
-                    if (result.ngayCapNhat != undefined)
-                        this.ngayCapNhap = result.ngayCapNhat.toDate()
+                    // if (result.ngayCapNhat != undefined)
+                    //     this.ngayCapNhap = result.ngayCapNhat.toDate()
                     if (result.ngayDongPhi != undefined)
                         this.ngayDongPhi = result.ngayDongPhi.toDate();
                     if (result.ngayHetHanDongPhi != undefined)
                         this.ngayHetHan = result.ngayHetHanDongPhi.toDate();
 
                 }
-
-
             })
             this.modal.show();
         })

@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild, Input } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { ThongTinXeServiceProxy, ModelServiceProxy, ThongTinXeInput, ModelInput, ThongTinBaoHiemServiceProxy, ThongTinBaoHiemInput, NhaCungCapServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinXeServiceProxy, ModelServiceProxy, ThongTinXeInput, ModelInput, ThongTinBaoHiemServiceProxy, ThongTinBaoHiemInput, NhaCungCapServiceProxy, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 
 @Component({
@@ -30,6 +30,7 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
     ngayHetHan: Date;
     check: boolean = false;
     @Input() soXe: string;
+    isDuyet: boolean;
 
 
     constructor(
@@ -37,9 +38,13 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
         private _thongtinxeService: ThongTinXeServiceProxy,
         private _modelService: ModelServiceProxy,
         private _baohiemxeService: ThongTinBaoHiemServiceProxy,
-        private _nhacungcapService: NhaCungCapServiceProxy
+        private _nhacungcapService: NhaCungCapServiceProxy,
+        private _isDuyet: CheckServiceProxy
     ) {
         super(injector);
+        _isDuyet.isDuyet().subscribe(result => {
+            this.isDuyet = result;
+        })
 
     }
 
@@ -47,13 +52,14 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
         this.saving = false;
         this._thongtinxeService.getThongTinSeForEdit(this.soXe).subscribe(kq => {
             this.thongtinxe = kq;
-            if (this.thongtinxe.trangThaiDuyet === "Đã duyệt")
-                this.check = true;
+
             this._modelService.getModelForEdit(kq.model).subscribe(kq1 => {
                 this.model = kq1;
             })
             this._baohiemxeService.getThongTinBaoHiemForEdit(Id).subscribe(result => {
                 this.baohiemxe = result;
+                if (result.trangThaiDuyet === "Đã duyệt")
+                    this.check = true;
                 if (Id != -1) {
                     this.ngayMua = result.ngayMuaBaoHiem.toDate();
                     this.ngayHetHan = result.ngayHetHanBaoHiem.toDate();
@@ -63,6 +69,7 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
 
             this._nhacungcapService.getNhaCungCapsByFilter(undefined, undefined, undefined, undefined).subscribe(kq => {
 
+                this.arrCongTyBaoHiem = [];
                 kq.items.map(item => {
                     this.arrCongTyBaoHiem.push(item.tenCongTyBaoHiem);
                 })

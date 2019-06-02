@@ -1,4 +1,4 @@
-import { ThongTinXeForViewDto, ModelDto, TaiSanForViewDto, ModelForViewDto, TaiSanServiceProxy, ModelServiceProxy } from './../../../shared/service-proxies/service-proxies';
+import { ThongTinXeForViewDto, ModelDto, TaiSanForViewDto, ModelForViewDto, TaiSanServiceProxy, ModelServiceProxy, ThietBiKemTheoServiceProxy, ThietBiKemTheoDto } from './../../../shared/service-proxies/service-proxies';
 import { AppComponentBase } from "@shared/common/app-component-base";
 import { AfterViewInit, Injector, Component, ViewChild } from "@angular/core";
 import { ThongTinXeServiceProxy } from "@shared/service-proxies/service-proxies";
@@ -15,13 +15,16 @@ export class ViewThongTinXeModalComponent extends AppComponentBase {
     thongtinxe: ThongTinXeForViewDto = new ThongTinXeForViewDto();
     model: ModelForViewDto = new ModelForViewDto();
     taisan: TaiSanForViewDto = new TaiSanForViewDto();
+    tbkts: ThietBiKemTheoDto[] = [];
+
     @ViewChild('viewModal') modal: ModalDirective;
 
     constructor(
         injector: Injector,
         private _thongtinxeService: ThongTinXeServiceProxy,
         private _taisanService: TaiSanServiceProxy,
-        private _modelService: ModelServiceProxy
+        private _modelService: ModelServiceProxy,
+        private _tbktService: ThietBiKemTheoServiceProxy
     ) {
         super(injector);
     }
@@ -34,6 +37,11 @@ export class ViewThongTinXeModalComponent extends AppComponentBase {
             });
             this._modelService.getModelForView(result.model).subscribe(kq => {
                 this.model = kq;
+                if (this.thongtinxe.soXe) {
+                    this._tbktService.getThietBiKemTheosByFilter(this.thongtinxe.soXe, undefined, undefined, undefined).subscribe(kq3 => {
+                        this.tbkts = kq3.items;
+                    })
+                }
 
             });
 

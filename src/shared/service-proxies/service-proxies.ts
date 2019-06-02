@@ -1362,6 +1362,70 @@ export class ChatServiceProxy {
 }
 
 @Injectable()
+export class CheckServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    isDuyet(): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/Check/isDuyet";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processIsDuyet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processIsDuyet(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processIsDuyet(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
+}
+
+@Injectable()
 export class CommonLookupServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -6196,6 +6260,62 @@ export class OrganizationUnitServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfNameValueDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getOrganizationUnitDtosForTree(): Observable<OrganizationUnitDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/GetOrganizationUnitDtosForTree";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOrganizationUnitDtosForTree(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOrganizationUnitDtosForTree(<any>response_);
+                } catch (e) {
+                    return <Observable<OrganizationUnitDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OrganizationUnitDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOrganizationUnitDtosForTree(response: HttpResponseBase): Observable<OrganizationUnitDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(OrganizationUnitDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OrganizationUnitDto[]>(<any>null);
     }
 }
 
@@ -24529,6 +24649,7 @@ export class ThongTinXeDto implements IThongTinXeDto {
     trangThaiDuyet!: string | undefined;
     donViSuDung!: string | undefined;
     tenChuPhuongTien!: string | undefined;
+    organizationUnitId!: number | undefined;
     id!: number | undefined;
 
     constructor(data?: IThongTinXeDto) {
@@ -24563,6 +24684,7 @@ export class ThongTinXeDto implements IThongTinXeDto {
             this.trangThaiDuyet = data["trangThaiDuyet"];
             this.donViSuDung = data["donViSuDung"];
             this.tenChuPhuongTien = data["tenChuPhuongTien"];
+            this.organizationUnitId = data["organizationUnitId"];
             this.id = data["id"];
         }
     }
@@ -24597,6 +24719,7 @@ export class ThongTinXeDto implements IThongTinXeDto {
         data["trangThaiDuyet"] = this.trangThaiDuyet;
         data["donViSuDung"] = this.donViSuDung;
         data["tenChuPhuongTien"] = this.tenChuPhuongTien;
+        data["organizationUnitId"] = this.organizationUnitId;
         data["id"] = this.id;
         return data; 
     }
@@ -24624,6 +24747,7 @@ export interface IThongTinXeDto {
     trangThaiDuyet: string | undefined;
     donViSuDung: string | undefined;
     tenChuPhuongTien: string | undefined;
+    organizationUnitId: number | undefined;
     id: number | undefined;
 }
 
@@ -24649,6 +24773,7 @@ export class ThongTinXeForViewDto implements IThongTinXeForViewDto {
     trangThaiDuyet!: string | undefined;
     donViSuDung!: string | undefined;
     tenChuPhuongTien!: string | undefined;
+    organizationUnitId!: number | undefined;
 
     constructor(data?: IThongTinXeForViewDto) {
         if (data) {
@@ -24682,6 +24807,7 @@ export class ThongTinXeForViewDto implements IThongTinXeForViewDto {
             this.trangThaiDuyet = data["trangThaiDuyet"];
             this.donViSuDung = data["donViSuDung"];
             this.tenChuPhuongTien = data["tenChuPhuongTien"];
+            this.organizationUnitId = data["organizationUnitId"];
         }
     }
 
@@ -24715,6 +24841,7 @@ export class ThongTinXeForViewDto implements IThongTinXeForViewDto {
         data["trangThaiDuyet"] = this.trangThaiDuyet;
         data["donViSuDung"] = this.donViSuDung;
         data["tenChuPhuongTien"] = this.tenChuPhuongTien;
+        data["organizationUnitId"] = this.organizationUnitId;
         return data; 
     }
 }
@@ -24741,6 +24868,7 @@ export interface IThongTinXeForViewDto {
     trangThaiDuyet: string | undefined;
     donViSuDung: string | undefined;
     tenChuPhuongTien: string | undefined;
+    organizationUnitId: number | undefined;
 }
 
 export class ThongTinXeInput implements IThongTinXeInput {
@@ -24765,6 +24893,7 @@ export class ThongTinXeInput implements IThongTinXeInput {
     trangThaiDuyet!: string | undefined;
     donViSuDung!: string | undefined;
     tenChuPhuongTien!: string | undefined;
+    organizationUnitId!: number | undefined;
     id!: number | undefined;
 
     constructor(data?: IThongTinXeInput) {
@@ -24799,6 +24928,7 @@ export class ThongTinXeInput implements IThongTinXeInput {
             this.trangThaiDuyet = data["trangThaiDuyet"];
             this.donViSuDung = data["donViSuDung"];
             this.tenChuPhuongTien = data["tenChuPhuongTien"];
+            this.organizationUnitId = data["organizationUnitId"];
             this.id = data["id"];
         }
     }
@@ -24833,6 +24963,7 @@ export class ThongTinXeInput implements IThongTinXeInput {
         data["trangThaiDuyet"] = this.trangThaiDuyet;
         data["donViSuDung"] = this.donViSuDung;
         data["tenChuPhuongTien"] = this.tenChuPhuongTien;
+        data["organizationUnitId"] = this.organizationUnitId;
         data["id"] = this.id;
         return data; 
     }
@@ -24860,6 +24991,7 @@ export interface IThongTinXeInput {
     trangThaiDuyet: string | undefined;
     donViSuDung: string | undefined;
     tenChuPhuongTien: string | undefined;
+    organizationUnitId: number | undefined;
     id: number | undefined;
 }
 

@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 <label>Ngày cập nhập </label>
                                 <p-calendar #ngayCapNhapInput="ngModel" class="form-control" [showIcon]="true"
-                                    [(ngModel)]="ngayCapNhap" name="ngayCapNhap">
+                                    [disabled]="true" [(ngModel)]="ngayCapNhap" name="ngayCapNhap">
                                 </p-calendar>
                                 <validation-messages [formCtrl]="ngayCapNhapInput"></validation-messages>
                             </div>
@@ -108,11 +108,18 @@
                                     [(ngModel)]="vanhanhxe.trangThaiDaDuyet" required maxlength="64">
                                 <validation-messages [formCtrl]="ghiChuInput"></validation-messages>
                             </div> -->
-
-                            <div class="form-group">
+                            <div class="form-group" *ngIf="isDuyet">
                                 <label class="mr-3">Trạng thái duyệt:
                                     <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDaDuyet"
                                         [(ngModel)]="check" required maxlength="64"> Đã
+                                    duyệt
+                                </label>
+                            </div>
+
+                            <div class="form-group" *ngIf="!isDuyet">
+                                <label class="mr-3">Trạng thái duyệt:
+                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDaDuyet"
+                                        [disabled]="true" [(ngModel)]="check" required maxlength="64"> Đã
                                     duyệt
                                 </label>
                             </div>

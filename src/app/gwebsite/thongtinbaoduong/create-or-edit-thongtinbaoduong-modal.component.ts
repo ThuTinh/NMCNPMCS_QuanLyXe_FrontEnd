@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Injector, Output, AfterViewInit, ViewChild, Input } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { ThongTinBaoDuongServiceProxy, ThongTinBaoDuongInput, ThongTinXeInput, ModelInput, ModelServiceProxy, ThongTinXeServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinBaoDuongServiceProxy, ThongTinBaoDuongInput, ThongTinXeInput, ModelInput, ModelServiceProxy, ThongTinXeServiceProxy, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 
 @Component({
@@ -29,6 +29,7 @@ export class CreateOrEditThongTinBaoDuongModalComponent extends AppComponentBase
     thongtinxe: ThongTinXeInput = new ThongTinXeInput();
     model: ModelInput = new ModelInput();
     check: boolean = false;
+    isDuyet: boolean;
 
 
     thongtinbaoduong: ThongTinBaoDuongInput = new ThongTinBaoDuongInput();
@@ -37,9 +38,13 @@ export class CreateOrEditThongTinBaoDuongModalComponent extends AppComponentBase
         injector: Injector,
         private _thongtinbaoduongService: ThongTinBaoDuongServiceProxy,
         private _thongtinxeService: ThongTinXeServiceProxy,
-        private _modelService: ModelServiceProxy
+        private _modelService: ModelServiceProxy,
+        private _isDuyet: CheckServiceProxy
     ) {
         super(injector);
+        _isDuyet.isDuyet().subscribe(result => {
+            this.isDuyet = result;
+        })
     }
 
     // ngAfterViewInit(): void {

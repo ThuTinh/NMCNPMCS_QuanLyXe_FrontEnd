@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto } from '@shared/service-proxies/service-proxies';
+import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditThongTinXeModalComponent } from './create-or-edit-thongtinxe-modal.component';
 import { ViewThongTinXeModalComponent } from './view-thongtinxe-modal.component'
 import { ThongTinXeViewDTO } from './dto/ThongTinXeViewDTO';
@@ -36,6 +36,7 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxes: ThongTinXeViewDTO[] = [];
     filter: ThongTinXeFilter = new ThongTinXeFilter();
+    isDuyet: boolean;
 
 
 
@@ -44,6 +45,8 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
         private _thongtinxeService: ThongTinXeServiceProxy,
         private _modelService: ModelServiceProxy,
         private _activatedRoute: ActivatedRoute,
+        private _isDuyet: CheckServiceProxy
+
     ) {
         super(injector);
         this.filter.soXe = null;
@@ -51,6 +54,10 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
         this.filter.model = null;
         this.filter.namSanXuat = null;
         this.filter.trangThaiDuyet = null;
+        _isDuyet.isDuyet().subscribe(result => {
+            this.isDuyet = result;
+        })
+
     }
 
     /**

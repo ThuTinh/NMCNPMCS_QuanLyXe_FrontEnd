@@ -28,6 +28,11 @@ export class AppNavigationService {
                     new AppMenuItem('Phí đường bộ', '', 'flaticon-menu-1', '/app/gwebsite/phiduongbo'),
                     new AppMenuItem('Thông tin bảo dưỡng', '', 'flaticon-menu-1', '/app/gwebsite/thongtinbaoduong'),
                     new AppMenuItem('Thông tin đăng kiểm', '', 'flaticon-menu-1', '/app/gwebsite/thongtindangkiem'),
+<<<<<<< HEAD
+                    new AppMenuItem('Thông tin sửa chữa', '', 'flaticon-menu-1', '/app/gwebsite/thongTinSuaChua'),
+                    new AppMenuItem('Thông tin chi tiết xe', '', 'flaticon-menu-1', '/app/gwebsite/chitietxe'),
+=======
+>>>>>>> parent of c5051f0... add File
 
                 ]),
             ]),

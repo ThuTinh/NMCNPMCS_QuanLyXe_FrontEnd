@@ -1,7 +1,7 @@
-import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { ThongTinXeInput, ThongTinXeServiceProxy, TaiSanInput, TaiSanServiceProxy, TaiSanDto, ModelDto, ModelServiceProxy, ThietBiKemTheoInput, ThietBiKemTheoDto, ThietBiKemTheoServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinXeInput, ThongTinXeServiceProxy, TaiSanInput, TaiSanServiceProxy, TaiSanDto, ModelDto, ModelServiceProxy, ThietBiKemTheoInput, ThietBiKemTheoDto, ThietBiKemTheoServiceProxy, OrganizationUnitDto, OrganizationUnitServiceProxy, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
 import { TaiSanComponent } from '../taisan/taisan.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ModelComponent } from '../model/model.component';
@@ -14,7 +14,7 @@ import * as moment from 'moment';
     styleUrls: ['./create-or-edit-thongtinxe.component.css'],
     animations: [appModuleAnimation()]
 })
-export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
+export class CreateOrEditThongTinXeModalComponent extends AppComponentBase implements AfterViewInit {
 
 
     @ViewChild('createOrEditModal') modal: ModalDirective;
@@ -41,15 +41,29 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
     modelItem: ModelDto = new ModelDto();
     ngaydangkibandau: Date;
     check: boolean = false;
+    organizationUnits: OrganizationUnitDto[];
+    isDuyet: boolean;
 
     constructor(
         injector: Injector,
         private _thongtinxeService: ThongTinXeServiceProxy,
         private _modelService: ModelServiceProxy,
         private _taisanService: TaiSanServiceProxy,
-        private _tbktService: ThietBiKemTheoServiceProxy
+        private _tbktService: ThietBiKemTheoServiceProxy,
+        private _organizationUnitServiceProxy: OrganizationUnitServiceProxy,
+        private _isDuyet: CheckServiceProxy
     ) {
         super(injector);
+        _isDuyet.isDuyet().subscribe(result => {
+            this.isDuyet = result;
+        })
+    }
+
+    ngAfterViewInit(): void {
+        this._organizationUnitServiceProxy.getOrganizationUnitDtosForTree().subscribe(response => {
+            var selectedOrganization = [];
+            this.organizationUnits = response;
+        })
     }
     GetTaiSan(taisan: TaiSanDto) {
         if (taisan.maTaiSan != undefined) {
@@ -99,6 +113,8 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
         }
     }
 
+
+
     ThemThietBi(): void {
         let input = new ThietBiKemTheoDto();
         input.soLuong = 0;
@@ -108,9 +124,8 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
         this.tbkts.push(input);
     }
 
+
     save(): void {
-
-
         if (this.check) {
             this.thongtinxe.trangThaiDuyet = "Đã duyệt"
         }
@@ -129,6 +144,18 @@ export class CreateOrEditThongTinXeModalComponent extends AppComponentBase {
         })
     }
 
+    Xoa(index: number): void {
+        let temp = this.tbkts[index];
+        this._tbktService.deleteThietBiKemTheo(temp.id).subscribe();
+        if (this.thongtinxe.soXe) {
+            this._tbktService.getThietBiKemTheosByFilter(this.thongtinxe.soXe, undefined, undefined, undefined).subscribe(kq3 => {
+                this.tbkts = kq3.items;
+            })
+        }
+
+
+
+    }
     close(): void {
         this.modal.hide();
         this.modalSave.emit(null);

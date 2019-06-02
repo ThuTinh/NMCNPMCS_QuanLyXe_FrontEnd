@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild, Input } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { ThongTinXeServiceProxy, ModelServiceProxy, ThongTinXeInput, ModelInput, ThongTinDangKiemServiceProxy, ThongTinDangKiemInput } from '@shared/service-proxies/service-proxies';
+import { ThongTinXeServiceProxy, ModelServiceProxy, ThongTinXeInput, ModelInput, ThongTinDangKiemServiceProxy, ThongTinDangKiemInput, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 
 @Component({
@@ -30,6 +30,7 @@ export class CreateOrEditDangKiemXeModalComponent extends AppComponentBase {
     ngayHetHanDangKiem: Date;
     check: boolean = false;
     @Input() soXe: string;
+    isDuyet: boolean;
 
 
     constructor(
@@ -38,8 +39,12 @@ export class CreateOrEditDangKiemXeModalComponent extends AppComponentBase {
         private _modelService: ModelServiceProxy,
         private _dangkiemxeService: ThongTinDangKiemServiceProxy,
         // private _coquandangkiemService: CoQuanDangKiemServiceProxy
+        private _isDuyet: CheckServiceProxy
     ) {
         super(injector);
+        this._isDuyet.isDuyet().subscribe(result => {
+            this.isDuyet = result;
+        })
 
     }
 

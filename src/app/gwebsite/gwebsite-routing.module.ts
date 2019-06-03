@@ -12,11 +12,8 @@ import { ThongTinBaoHiemComponent } from './thongtinbaohiem/thongtinbaohiem.comp
 import { PhiDuongBoComponent } from './phiduongbo/phiduongbo.component';
 import { ThongTinBaoDuongComponent } from './thongtinbaoduong/thongtinbaoduong.component';
 import { ThongTinDangKiemComponent } from './thongtindangkiem/thongtindangkiem.component';
-<<<<<<< HEAD
 import { ThongTinSuaChuaComponent } from './thongTinSuaChua/thongTinSuaChua.component';
 import { ChiTietXeComponent } from './chitietxe/chitietxe.component';
-=======
->>>>>>> parent of c5051f0... add File
 
 @NgModule({
     imports: [
@@ -74,15 +71,13 @@ import { ChiTietXeComponent } from './chitietxe/chitietxe.component';
                     },
                     {
                         path: 'thongtindangkiem', component: ThongTinDangKiemComponent,
-<<<<<<< HEAD
+
                     },
                     {
                         path: 'thongTinSuaChua', component: ThongTinSuaChuaComponent,
                     },
                     {
                         path: 'chitietxe', component: ChiTietXeComponent,
-=======
->>>>>>> parent of c5051f0... add File
                     }
 
                 ]

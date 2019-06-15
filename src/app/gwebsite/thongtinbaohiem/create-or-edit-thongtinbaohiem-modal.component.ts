@@ -91,6 +91,14 @@ export class CreateOrEditBaoHiemXeModalComponent extends AppComponentBase {
             this.baohiemxe.trangThaiDuyet = "Chưa duyệt";
 
         this.baohiemxe.soXe = this.soXe;
+        let year = this.ngayHetHan.getFullYear();
+        let month = this.ngayHetHan.getMonth() + 1;
+        let date = this.ngayHetHan.getDate();
+        this._thongtinxeService.addbaoHiemJob(this.soXe, year, month, date).subscribe(result => {
+
+        })
+
+
         // this.baohiemxe.ngayMuaBaoHiem = moment(this.ngayMua);
         // this.baohiemxe.ngayHetHanBaoHiem = moment(this.ngayHetHan);
         // alert(this.baohiemxe.ngayHetHanBaoHiem.diff(this.baohiemxe.ngayMuaBaoHiem, 'month'));

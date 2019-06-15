@@ -11264,6 +11264,294 @@ export class ThongTinXeServiceProxy {
 
     /**
      * @soXe (optional) 
+     * @year (optional) 
+     * @month (optional) 
+     * @day (optional) 
+     * @return Success
+     */
+    addbaoHiemJob(soXe: string | null | undefined, year: number | null | undefined, month: number | null | undefined, day: number | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/AddbaoHiemJob?";
+        if (soXe !== undefined)
+            url_ += "soXe=" + encodeURIComponent("" + soXe) + "&"; 
+        if (year !== undefined)
+            url_ += "year=" + encodeURIComponent("" + year) + "&"; 
+        if (month !== undefined)
+            url_ += "month=" + encodeURIComponent("" + month) + "&"; 
+        if (day !== undefined)
+            url_ += "day=" + encodeURIComponent("" + day) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddbaoHiemJob(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddbaoHiemJob(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddbaoHiemJob(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @soXe (optional) 
+     * @year (optional) 
+     * @month (optional) 
+     * @day (optional) 
+     * @return Success
+     */
+    addBaoDuongJob(soXe: string | null | undefined, year: number | null | undefined, month: number | null | undefined, day: number | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/AddBaoDuongJob?";
+        if (soXe !== undefined)
+            url_ += "soXe=" + encodeURIComponent("" + soXe) + "&"; 
+        if (year !== undefined)
+            url_ += "year=" + encodeURIComponent("" + year) + "&"; 
+        if (month !== undefined)
+            url_ += "month=" + encodeURIComponent("" + month) + "&"; 
+        if (day !== undefined)
+            url_ += "day=" + encodeURIComponent("" + day) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddBaoDuongJob(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddBaoDuongJob(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddBaoDuongJob(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @soXe (optional) 
+     * @year (optional) 
+     * @month (optional) 
+     * @day (optional) 
+     * @return Success
+     */
+    addDangKiemJob(soXe: string | null | undefined, year: number | null | undefined, month: number | null | undefined, day: number | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/AddDangKiemJob?";
+        if (soXe !== undefined)
+            url_ += "soXe=" + encodeURIComponent("" + soXe) + "&"; 
+        if (year !== undefined)
+            url_ += "year=" + encodeURIComponent("" + year) + "&"; 
+        if (month !== undefined)
+            url_ += "month=" + encodeURIComponent("" + month) + "&"; 
+        if (day !== undefined)
+            url_ += "day=" + encodeURIComponent("" + day) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddDangKiemJob(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddDangKiemJob(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddDangKiemJob(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @soXe (optional) 
+     * @year (optional) 
+     * @month (optional) 
+     * @day (optional) 
+     * @return Success
+     */
+    addPhiDuongBoJob(soXe: string | null | undefined, year: number | null | undefined, month: number | null | undefined, day: number | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/AddPhiDuongBoJob?";
+        if (soXe !== undefined)
+            url_ += "soXe=" + encodeURIComponent("" + soXe) + "&"; 
+        if (year !== undefined)
+            url_ += "year=" + encodeURIComponent("" + year) + "&"; 
+        if (month !== undefined)
+            url_ += "month=" + encodeURIComponent("" + month) + "&"; 
+        if (day !== undefined)
+            url_ += "day=" + encodeURIComponent("" + day) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddPhiDuongBoJob(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddPhiDuongBoJob(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddPhiDuongBoJob(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    startSched(): Observable<void> {
+        let url_ = this.baseUrl + "/api/ThongTinXe/StartSched";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processStartSched(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processStartSched(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processStartSched(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @soXe (optional) 
      * @muchDichSuDung (optional) 
      * @model (optional) 
      * @namSanXuat (optional) 
@@ -13083,6 +13371,70 @@ export class UserLoginServiceProxy {
             }));
         }
         return _observableOf<ListResultDtoOfUserLoginAttemptDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class UserSevicrServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getUser(): Observable<string> {
+        let url_ = this.baseUrl + "/api/UserSevicr/GetUser";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUser(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUser(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetUser(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
     }
 }
 
@@ -20281,6 +20633,7 @@ export interface IPagedResultDtoOfPhiDuongBoDTO {
 }
 
 export class PhiDuongBoDTO implements IPhiDuongBoDTO {
+    createdBy!: string | undefined;
     soXe!: string | undefined;
     ngayCapNhat!: moment.Moment | undefined;
     ngayDongPhi!: moment.Moment | undefined;
@@ -20303,6 +20656,7 @@ export class PhiDuongBoDTO implements IPhiDuongBoDTO {
 
     init(data?: any) {
         if (data) {
+            this.createdBy = data["createdBy"];
             this.soXe = data["soXe"];
             this.ngayCapNhat = data["ngayCapNhat"] ? moment(data["ngayCapNhat"].toString()) : <any>undefined;
             this.ngayDongPhi = data["ngayDongPhi"] ? moment(data["ngayDongPhi"].toString()) : <any>undefined;
@@ -20325,6 +20679,7 @@ export class PhiDuongBoDTO implements IPhiDuongBoDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
         data["soXe"] = this.soXe;
         data["ngayCapNhat"] = this.ngayCapNhat ? this.ngayCapNhat.toISOString() : <any>undefined;
         data["ngayDongPhi"] = this.ngayDongPhi ? this.ngayDongPhi.toISOString() : <any>undefined;
@@ -20340,6 +20695,7 @@ export class PhiDuongBoDTO implements IPhiDuongBoDTO {
 }
 
 export interface IPhiDuongBoDTO {
+    createdBy: string | undefined;
     soXe: string | undefined;
     ngayCapNhat: moment.Moment | undefined;
     ngayDongPhi: moment.Moment | undefined;
@@ -20881,6 +21237,7 @@ export interface IPagedResultDtoOfQuanLyVanHanhDto {
 }
 
 export class QuanLyVanHanhDto implements IQuanLyVanHanhDto {
+    createdBy!: string | undefined;
     soXe!: string | undefined;
     ngayCapNhat!: moment.Moment | undefined;
     soKM!: number | undefined;
@@ -20902,6 +21259,7 @@ export class QuanLyVanHanhDto implements IQuanLyVanHanhDto {
 
     init(data?: any) {
         if (data) {
+            this.createdBy = data["createdBy"];
             this.soXe = data["soXe"];
             this.ngayCapNhat = data["ngayCapNhat"] ? moment(data["ngayCapNhat"].toString()) : <any>undefined;
             this.soKM = data["soKM"];
@@ -20923,6 +21281,7 @@ export class QuanLyVanHanhDto implements IQuanLyVanHanhDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
         data["soXe"] = this.soXe;
         data["ngayCapNhat"] = this.ngayCapNhat ? this.ngayCapNhat.toISOString() : <any>undefined;
         data["soKM"] = this.soKM;
@@ -20937,6 +21296,7 @@ export class QuanLyVanHanhDto implements IQuanLyVanHanhDto {
 }
 
 export interface IQuanLyVanHanhDto {
+    createdBy: string | undefined;
     soXe: string | undefined;
     ngayCapNhat: moment.Moment | undefined;
     soKM: number | undefined;
@@ -23660,6 +24020,7 @@ export interface IPagedResultDtoOfThongTinBaoDuongDto {
 }
 
 export class ThongTinBaoDuongDto implements IThongTinBaoDuongDto {
+    createdBy!: string | undefined;
     soXe!: string | undefined;
     ngayBaoDuong!: moment.Moment | undefined;
     ngayBaoDuongTiepTheo!: moment.Moment | undefined;
@@ -23680,6 +24041,7 @@ export class ThongTinBaoDuongDto implements IThongTinBaoDuongDto {
 
     init(data?: any) {
         if (data) {
+            this.createdBy = data["createdBy"];
             this.soXe = data["soXe"];
             this.ngayBaoDuong = data["ngayBaoDuong"] ? moment(data["ngayBaoDuong"].toString()) : <any>undefined;
             this.ngayBaoDuongTiepTheo = data["ngayBaoDuongTiepTheo"] ? moment(data["ngayBaoDuongTiepTheo"].toString()) : <any>undefined;
@@ -23700,6 +24062,7 @@ export class ThongTinBaoDuongDto implements IThongTinBaoDuongDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
         data["soXe"] = this.soXe;
         data["ngayBaoDuong"] = this.ngayBaoDuong ? this.ngayBaoDuong.toISOString() : <any>undefined;
         data["ngayBaoDuongTiepTheo"] = this.ngayBaoDuongTiepTheo ? this.ngayBaoDuongTiepTheo.toISOString() : <any>undefined;
@@ -23713,6 +24076,7 @@ export class ThongTinBaoDuongDto implements IThongTinBaoDuongDto {
 }
 
 export interface IThongTinBaoDuongDto {
+    createdBy: string | undefined;
     soXe: string | undefined;
     ngayBaoDuong: moment.Moment | undefined;
     ngayBaoDuongTiepTheo: moment.Moment | undefined;
@@ -23896,6 +24260,7 @@ export interface IPagedResultDtoOfThongTinBaoHiemDto {
 }
 
 export class ThongTinBaoHiemDto implements IThongTinBaoHiemDto {
+    createdBy!: string | undefined;
     soXe!: string | undefined;
     ngayMuaBaoHiem!: moment.Moment | undefined;
     ngayHetHanBaoHiem!: moment.Moment | undefined;
@@ -23918,6 +24283,7 @@ export class ThongTinBaoHiemDto implements IThongTinBaoHiemDto {
 
     init(data?: any) {
         if (data) {
+            this.createdBy = data["createdBy"];
             this.soXe = data["soXe"];
             this.ngayMuaBaoHiem = data["ngayMuaBaoHiem"] ? moment(data["ngayMuaBaoHiem"].toString()) : <any>undefined;
             this.ngayHetHanBaoHiem = data["ngayHetHanBaoHiem"] ? moment(data["ngayHetHanBaoHiem"].toString()) : <any>undefined;
@@ -23940,6 +24306,7 @@ export class ThongTinBaoHiemDto implements IThongTinBaoHiemDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
         data["soXe"] = this.soXe;
         data["ngayMuaBaoHiem"] = this.ngayMuaBaoHiem ? this.ngayMuaBaoHiem.toISOString() : <any>undefined;
         data["ngayHetHanBaoHiem"] = this.ngayHetHanBaoHiem ? this.ngayHetHanBaoHiem.toISOString() : <any>undefined;
@@ -23955,6 +24322,7 @@ export class ThongTinBaoHiemDto implements IThongTinBaoHiemDto {
 }
 
 export interface IThongTinBaoHiemDto {
+    createdBy: string | undefined;
     soXe: string | undefined;
     ngayMuaBaoHiem: moment.Moment | undefined;
     ngayHetHanBaoHiem: moment.Moment | undefined;
@@ -24156,6 +24524,7 @@ export interface IPagedResultDtoOfThongTinDangKiemDto {
 }
 
 export class ThongTinDangKiemDto implements IThongTinDangKiemDto {
+    createdBy!: string | undefined;
     soXe!: string | undefined;
     ngayDangKiem!: moment.Moment | undefined;
     ngayHetHanDangKiem!: moment.Moment | undefined;
@@ -24176,6 +24545,7 @@ export class ThongTinDangKiemDto implements IThongTinDangKiemDto {
 
     init(data?: any) {
         if (data) {
+            this.createdBy = data["createdBy"];
             this.soXe = data["soXe"];
             this.ngayDangKiem = data["ngayDangKiem"] ? moment(data["ngayDangKiem"].toString()) : <any>undefined;
             this.ngayHetHanDangKiem = data["ngayHetHanDangKiem"] ? moment(data["ngayHetHanDangKiem"].toString()) : <any>undefined;
@@ -24196,6 +24566,7 @@ export class ThongTinDangKiemDto implements IThongTinDangKiemDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
         data["soXe"] = this.soXe;
         data["ngayDangKiem"] = this.ngayDangKiem ? this.ngayDangKiem.toISOString() : <any>undefined;
         data["ngayHetHanDangKiem"] = this.ngayHetHanDangKiem ? this.ngayHetHanDangKiem.toISOString() : <any>undefined;
@@ -24209,6 +24580,7 @@ export class ThongTinDangKiemDto implements IThongTinDangKiemDto {
 }
 
 export interface IThongTinDangKiemDto {
+    createdBy: string | undefined;
     soXe: string | undefined;
     ngayDangKiem: moment.Moment | undefined;
     ngayHetHanDangKiem: moment.Moment | undefined;
@@ -24392,6 +24764,7 @@ export interface IPagedResultDtoOfThongTinSuaChuaDTO {
 }
 
 export class ThongTinSuaChuaDTO implements IThongTinSuaChuaDTO {
+    createdBy!: string | undefined;
     soXe!: string | undefined;
     ngaySuaChua!: moment.Moment | undefined;
     ngayDuKienSuaXong!: moment.Moment | undefined;
@@ -24412,6 +24785,7 @@ export class ThongTinSuaChuaDTO implements IThongTinSuaChuaDTO {
 
     init(data?: any) {
         if (data) {
+            this.createdBy = data["createdBy"];
             this.soXe = data["soXe"];
             this.ngaySuaChua = data["ngaySuaChua"] ? moment(data["ngaySuaChua"].toString()) : <any>undefined;
             this.ngayDuKienSuaXong = data["ngayDuKienSuaXong"] ? moment(data["ngayDuKienSuaXong"].toString()) : <any>undefined;
@@ -24432,6 +24806,7 @@ export class ThongTinSuaChuaDTO implements IThongTinSuaChuaDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
         data["soXe"] = this.soXe;
         data["ngaySuaChua"] = this.ngaySuaChua ? this.ngaySuaChua.toISOString() : <any>undefined;
         data["ngayDuKienSuaXong"] = this.ngayDuKienSuaXong ? this.ngayDuKienSuaXong.toISOString() : <any>undefined;
@@ -24445,6 +24820,7 @@ export class ThongTinSuaChuaDTO implements IThongTinSuaChuaDTO {
 }
 
 export interface IThongTinSuaChuaDTO {
+    createdBy: string | undefined;
     soXe: string | undefined;
     ngaySuaChua: moment.Moment | undefined;
     ngayDuKienSuaXong: moment.Moment | undefined;
@@ -24628,6 +25004,7 @@ export interface IPagedResultDtoOfThongTinXeDto {
 }
 
 export class ThongTinXeDto implements IThongTinXeDto {
+    createdBy!: string | undefined;
     soXe!: string | undefined;
     model!: string | undefined;
     nuocSanXuat!: string | undefined;
@@ -24663,6 +25040,7 @@ export class ThongTinXeDto implements IThongTinXeDto {
 
     init(data?: any) {
         if (data) {
+            this.createdBy = data["createdBy"];
             this.soXe = data["soXe"];
             this.model = data["model"];
             this.nuocSanXuat = data["nuocSanXuat"];
@@ -24698,6 +25076,7 @@ export class ThongTinXeDto implements IThongTinXeDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["createdBy"] = this.createdBy;
         data["soXe"] = this.soXe;
         data["model"] = this.model;
         data["nuocSanXuat"] = this.nuocSanXuat;
@@ -24726,6 +25105,7 @@ export class ThongTinXeDto implements IThongTinXeDto {
 }
 
 export interface IThongTinXeDto {
+    createdBy: string | undefined;
     soXe: string | undefined;
     model: string | undefined;
     nuocSanXuat: string | undefined;

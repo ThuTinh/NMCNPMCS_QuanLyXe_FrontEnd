@@ -19,38 +19,38 @@
                             <div class="form-group">
                                 <label>Số Xe </label>
                                 <input #soxeInput="ngModel" class="form-control" type="text" name="soXe"
-                                    [disabled]="true" [(ngModel)]="thongtinxe.soXe " required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="thongtinxe.soXe " maxlength="64">
                                 <validation-messages [formCtrl]="soxeInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Loại xe </label>
                                 <input #loaixeInput="ngModel" class="form-control" type="text" name="loaiXe"
-                                    [disabled]="true" [(ngModel)]="model.loaiXe " required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="model.loaiXe " maxlength="64">
                                 <validation-messages [formCtrl]="loaixeInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Model </label>
                                 <input #modelInput="ngModel" class="form-control" type="text" name="model"
-                                    [disabled]="true" [(ngModel)]="thongtinxe.model" required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="thongtinxe.model" maxlength="64">
                                 <validation-messages [formCtrl]="modelInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Nước sản xuất </label>
                                 <input #nuocsanxuatInput="ngModel" class="form-control" type="text" name="nuocSanXuat"
-                                    [disabled]="true" [(ngModel)]="thongtinxe.nuocSanXuat" required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="thongtinxe.nuocSanXuat" maxlength="64">
                                 <validation-messages [formCtrl]="nuocsanxuatInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Loại nhiên liệu </label>
                                 <input #loaiNhienLieuInput="ngModel" class="form-control" type="text"
                                     name="loaiNhienLieu" [disabled]="true" [(ngModel)]="thongtinxe.loaiNhienLieu"
-                                    required maxlength="64">
+                                    maxlength="64">
                                 <validation-messages [formCtrl]="loaiNhienLieuInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Đơn vị sử dụng </label>
                                 <input #donViSuDungInput="ngModel" class="form-control" type="text" name="donViSuDung"
-                                    [disabled]="true" [(ngModel)]="thongtinxe.donViSuDung" required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="thongtinxe.donViSuDung" maxlength="64">
                                 <validation-messages [formCtrl]="donViSuDungInput"></validation-messages>
                             </div>
 
@@ -71,7 +71,7 @@
 
                             <div>
                                 <p>Ngày mua bảo hiểm </p>
-                                <p-calendar [showIcon]="true" class="form-group" [(ngModel)]="ngayMua"
+                                <p-calendar [showIcon]="true" class="form-group" [(ngModel)]="ngayMua" required
                                     (onSelect)="ChonNgayMua()" name="ngayMuaBaoHiem">
                                 </p-calendar>
                                 <!-- </div> -->
@@ -82,7 +82,8 @@
                                     name="ngayHetHanBaoHiem" [(ngModel)]="baohiemxe.ngayHetHanBaoHiem" required
                                     maxlength="64"> -->
                                 <p-calendar #ngayHetHanBaoHiemInput="ngModel" class="form-group" [showIcon]="true"
-                                    (onSelect)="ChonNgayHetHan()" [(ngModel)]="ngayHetHan" name="ngayHetHanBaoHiem">
+                                    required (onSelect)="ChonNgayHetHan()" [(ngModel)]="ngayHetHan"
+                                    name="ngayHetHanBaoHiem">
                                 </p-calendar>
                                 <p *ngIf="ngayHetHan<ngayMua" style="color: red; font-size: 10px"><i>Ngày hết hạn phải
                                         lớn hơn ngày mua bảo hiểm </i></p>
@@ -144,21 +145,21 @@
                             <div class="form-group" *ngIf="isDuyet">
                                 <label class="mr-3">Trạng thái duyệt:
                                     <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet"
-                                        [(ngModel)]="check" required maxlength="64"> Đã
+                                        [(ngModel)]="check" maxlength="64"> Đã
                                     duyệt
                                 </label>
                             </div>
-                             <div class="form-group" *ngIf="!isDuyet">
+                            <div class="form-group" *ngIf="!isDuyet">
                                 <label class="mr-3">Trạng thái duyệt:
-                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet" [disabled] = "true"
-                                        [(ngModel)]="check" required maxlength="64"> Đã
+                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet"
+                                        [disabled]="true" [(ngModel)]="check" maxlength="64"> Đã
                                     duyệt
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label>Ghi chú </label>
                                 <input #ghiChuInput="ngModel" class="form-control" type="text" name="ghiChu"
-                                    [(ngModel)]="baohiemxe.ghiChu" required maxlength="64">
+                                    [(ngModel)]="baohiemxe.ghiChu" maxlength="64">
                                 <validation-messages [formCtrl]="ghiChuInput"></validation-messages>
                             </div>
                         </div>
@@ -172,7 +173,7 @@
             <div class="modal-footer">
                 <button [disabled]="saving" type="button" class="btn btn-default"
                     (click)="close()">{{l("Cancel")}}</button>
-                <button (click)="save()" class="btn btn-info"><i class="fa fa-save"></i>
+                <button (click)="save()" class="btn btn-info" [disabled]="editForm.invalid"><i class="fa fa-save"></i>
                     <span>{{l("Save")}}</span></button>
             </div>
         </div>

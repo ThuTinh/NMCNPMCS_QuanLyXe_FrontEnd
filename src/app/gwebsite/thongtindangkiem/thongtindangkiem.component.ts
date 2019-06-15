@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, QuanLyVanHanhServiceProxy, ThongTinDangKiemServiceProxy, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, QuanLyVanHanhServiceProxy, ThongTinDangKiemServiceProxy, CheckServiceProxy, UserSevicrServiceProxy, ThongTinDangKiemDto } from '@shared/service-proxies/service-proxies';
 
 import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
 import { ViewThongTinXeModalComponent } from '../thongtinxe/view-thongtinxe-modal.component';
@@ -35,19 +35,28 @@ export class ThongTinDangKiemComponent extends AppComponentBase implements After
     soXe: string;
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
-    isDuyet: boolean;
+    isDuyet: boolean = false;
+    currentUser: string;
+    thongtindangkiems: ThongTinDangKiemDto[] = [];
 
     constructor(
         injector: Injector,
         private _dangkiemxeService: ThongTinDangKiemServiceProxy,
         private _activatedRoute: ActivatedRoute,
-        private _isDuyet: CheckServiceProxy
+        private _isDuyet: CheckServiceProxy,
+        private _user: UserSevicrServiceProxy
     ) {
         super(injector);
         this.soXe = "";
         this.thongtinxeDto.soXe = "";
         this._isDuyet.isDuyet().subscribe(result => {
             this.isDuyet = result;
+        })
+        _user.getUser().subscribe(result => {
+            this.currentUser = result;
+            if (this.currentUser == "admin") {
+                this.isDuyet = true;
+            }
         })
     }
 
@@ -110,8 +119,22 @@ export class ThongTinDangKiemComponent extends AppComponentBase implements After
                 this.primengTableHelper.getSkipCount(this.paginator, event),
             ).subscribe(result => {
 
-                this.primengTableHelper.totalRecordsCount = result.totalCount;
-                this.primengTableHelper.records = result.items;
+                result.items.map(item => {
+                    if (item.createdBy == this.currentUser || item.trangThaiDuyet == "Đã duyệt") {
+                        this.thongtindangkiems.push(item);
+                    }
+                })
+                if (this.isDuyet) {
+                    this.primengTableHelper.totalRecordsCount = result.items.length;
+                    this.primengTableHelper.records = result.items;
+
+                }
+                else {
+                    this.primengTableHelper.totalRecordsCount = this.thongtindangkiems.length;
+                    this.primengTableHelper.records = this.thongtindangkiems;
+
+                }
+
 
             });
         }

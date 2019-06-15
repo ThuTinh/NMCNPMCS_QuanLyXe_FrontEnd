@@ -1,4 +1,5 @@
 export class ThongTinXeViewDTO {
+    createBy: string;
     soXe: string;
     donViSuDung: string;
     loaiXe: string;

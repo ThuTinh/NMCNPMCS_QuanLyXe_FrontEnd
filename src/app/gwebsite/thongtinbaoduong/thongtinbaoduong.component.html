@@ -10,11 +10,6 @@
                     {{l("Thông tin bảo dưỡng")}}
                 </span>
             </div>
-            <div class="col-xs-6 text-right">
-                <button (click)="createThongTinBaoDuong()"
-                    *ngIf="isGranted('Pages.Administration.ThongTinBaoDuong.Create')" class="btn btn-primary"><i
-                        class="fa fa-plus"></i> {{l("Thêm mới thông tin bảo dưỡng")}}</button>
-            </div>
         </div>
     </div>
 
@@ -177,12 +172,14 @@
                                     <td style="width: 170px;">
                                         <button
                                             class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-                                            (click)="createOrEditModal.show(record.id)" title="{{l('Edit')}}" *ngIf='record.trangThaiDuyet!="Đã duyệt" || isDuyet'>
+                                            (click)="createOrEditModal.show(record.id)" title="{{l('Edit')}}"
+                                            *ngIf='record.trangThaiDuyet!="Đã duyệt" || isDuyet'>
                                             <i class="fa fa-edit" [attr.aria-label]="l('Edit')"></i>
                                         </button>
 
                                         <button
                                             class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+                                            *ngIf='record.trangThaiDuyet!="Đã duyệt" || isDuyet'
                                             (click)="deleteThongTinBaoDuong(record.id)" title="{{l('Delete')}}">
                                             <i class="fa fa-times" [attr.aria-label]="l('Delete')"></i>
                                         </button>

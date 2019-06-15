@@ -1,5 +1,5 @@
 
-import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy, ThongTinBaoDuongServiceProxy, ThongTinDangKiemServiceProxy, ThietBiKemTheoServiceProxy, ThongTinSuaChuaServiceProxy, CheckServiceProxy } from './../../shared/service-proxies/service-proxies';
+import { CustomerServiceProxy, TaiSanServiceProxy, ModelServiceProxy, NhaCungCapServiceProxy, ThongTinXeServiceProxy, QuanLyVanHanhDto, QuanLyVanHanhServiceProxy, ThongTinBaoHiemServiceProxy, PhiDuongBoServiceProxy, ThongTinBaoDuongServiceProxy, ThongTinDangKiemServiceProxy, ThietBiKemTheoServiceProxy, ThongTinSuaChuaServiceProxy, CheckServiceProxy, UserSevicrServiceProxy } from './../../shared/service-proxies/service-proxies';
 
 import { ViewDemoModelModalComponent } from './demo-model/view-demo-model-modal.component';
 import { NgModule } from '@angular/core';
@@ -107,7 +107,8 @@ import { ChiTietXeComponent } from './chitietxe/chitietxe.component';
         ThietBiKemTheoServiceProxy,
         ThongTinSuaChuaServiceProxy,
         CheckServiceProxy,
-        ThietBiKemTheoServiceProxy
+        ThietBiKemTheoServiceProxy,
+        UserSevicrServiceProxy
 
     ]
 })

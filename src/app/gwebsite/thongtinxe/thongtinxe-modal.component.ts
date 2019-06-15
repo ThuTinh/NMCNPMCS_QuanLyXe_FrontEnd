@@ -119,25 +119,25 @@ export class ThongTinXeModalComponent extends AppComponentBase implements AfterV
             this.thongtinxes = [];
             result.items.map(item => {
 
+                if (item.trangThaiDuyet == "Đã duyệt") {
+                    var thongtinxe = new ThongTinXeViewDTO();
+                    thongtinxe.trangThaiDuyet = item.trangThaiDuyet;
+                    thongtinxe.mucDichSuDung = item.mucDichSuDung;
+                    thongtinxe.soXe = item.soXe;
+                    thongtinxe.donViSuDung = item.donViSuDung;
+                    console.log("Ne" + item.donViSuDung);
+                    thongtinxe.namSanXuat = item.namSanXuat;
+                    thongtinxe.model = item.model;
+                    thongtinxe.maTaiSan = item.maTaiSan;
+                    this.lsSoXe.push(item.soXe);
+                    console.log("kkk", item.model);
+                    this._modelService.getModelForView(item.model).subscribe(result => {
+                        thongtinxe.loaiXe = result.loaiXe;
+                        thongtinxe.hangSanXuat = result.hangSanXuat;
+                    });
+                    this.thongtinxes.push(thongtinxe);
+                }
 
-                var thongtinxe = new ThongTinXeViewDTO();
-                thongtinxe.trangThaiDuyet = item.trangThaiDuyet;
-                thongtinxe.mucDichSuDung = item.mucDichSuDung;
-                thongtinxe.soXe = item.soXe;
-                thongtinxe.donViSuDung = item.donViSuDung;
-                console.log("Ne" + item.donViSuDung);
-                thongtinxe.namSanXuat = item.namSanXuat;
-                thongtinxe.model = item.model;
-                thongtinxe.maTaiSan = item.maTaiSan;
-                this.lsSoXe.push(item.soXe);
-                console.log("kkk", item.model);
-                this._modelService.getModelForView(item.model).subscribe(result => {
-                    thongtinxe.loaiXe = result.loaiXe;
-
-                    thongtinxe.hangSanXuat = result.hangSanXuat;
-
-                });
-                this.thongtinxes.push(thongtinxe);
 
 
             });

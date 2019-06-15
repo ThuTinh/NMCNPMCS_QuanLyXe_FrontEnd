@@ -52,7 +52,7 @@
                                     <div class="form-group">
                                         <label>Thông tin mô tả </label>
                                         <input [disabled]="true" #thongTinMoTaInput="ngModel" class="form-control"
-                                            type="text" name="thongTinMoTa" [(ngModel)]="taisan.thongTinMoTa" required
+                                            type="text" name="thongTinMoTa" [(ngModel)]="taisan.thongTinMoTa"
                                             maxlength="64">
                                         <validation-messages [formCtrl]="thongTinMoTaInput"></validation-messages>
                                     </div>
@@ -68,7 +68,7 @@
                                     <div class="form-group">
                                         <label>Đơn vị sử dụng </label>
                                         <input [disabled]="true" #donViSuDungInput="ngModel" class="form-control"
-                                            type="text" name="donViSuDung " [(ngModel)]="taisan.donViSuDung" required
+                                            type="text" name="donViSuDung " [(ngModel)]="taisan.donViSuDung"
                                             maxlength="64">
                                         <validation-messages [formCtrl]="donViSuDungInput"></validation-messages>
                                     </div>
@@ -90,7 +90,7 @@
                                         <label>Tình trạng khấu hao </label>
                                         <input [disabled]="true" #tinhTrangKhauHaoInput="ngModel" class="form-control"
                                             type="text" name="tinhTrangKhauHao" [(ngModel)]="taisan.tinhTrangKhauHao"
-                                            required maxlength="64">
+                                            maxlength="64">
                                         <validation-messages [formCtrl]="tinhTrangKhauHaoInput"></validation-messages>
                                     </div>
                                 </div>
@@ -131,13 +131,13 @@
                                     <div class="form-group">
                                         <label>Loại xe </label>
                                         <input #loaixeInput="ngModel" [disabled]="true" class="form-control" type="text"
-                                            name="loaiXe" [(ngModel)]="model.loaiXe" required maxlength="64">
+                                            name="loaiXe" [(ngModel)]="model.loaiXe" maxlength="64">
                                         <validation-messages [formCtrl]="loaixeInput"></validation-messages>
                                     </div>
                                     <div class="form-group">
                                         <label>Hãng sản xuất </label>
                                         <input [disabled]="true" #hangsanxuatInput="ngModel" class="form-control"
-                                            type="text" name="hangSanXuat" [(ngModel)]="model.hangSanXuat" required
+                                            type="text" name="hangSanXuat" [(ngModel)]="model.hangSanXuat"
                                             maxlength="64">
                                         <validation-messages [formCtrl]="hangsanxuatInput"></validation-messages>
                                     </div>
@@ -180,13 +180,12 @@
                                     <div class="form-group">
                                         <label>Mục đích sử dụng</label>
                                         <input #mucdichsudungInput="ngModel" class="form-control" type="text"
-                                            name="mucDichSuDung" [(ngModel)]="thongtinxe.mucDichSuDung" required
-                                            maxlength="64">
+                                            name="mucDichSuDung" [(ngModel)]="thongtinxe.mucDichSuDung" maxlength="64">
                                         <validation-messages [formCtrl]="mucdichsudungInput"></validation-messages>
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày đăng kí ban đầu</label>
-                                        <p-calendar #ngaydangkibandauInput="ngModel" class="form-control"
+                                        <p-calendar #ngaydangkibandauInput="ngModel" class="form-control" required
                                             [showIcon]="true" [(ngModel)]="ngaydangkibandau" name="ngaydangkibandau">
                                         </p-calendar>
                                         <validation-messages [formCtrl]="ngaydangkibandauInput"></validation-messages>
@@ -194,7 +193,7 @@
                                     <div class="form-group">
                                         <label>Số máy</label>
                                         <input #somayInput="ngModel" class="form-control" type="text" name="soMay"
-                                            [(ngModel)]="thongtinxe.soMay" required maxlength="64">
+                                            [(ngModel)]="thongtinxe.soMay" maxlength="64">
                                         <validation-messages [formCtrl]="somayInput"></validation-messages>
                                     </div>
                                 </div>
@@ -202,76 +201,71 @@
                                     <div class="form-group">
                                         <label>Số sườn</label>
                                         <input #soSuonInput="ngModel" class="form-control" type="text" name="soSuon"
-                                            [(ngModel)]="thongtinxe.soSuon" required maxlength="64">
+                                            [(ngModel)]="thongtinxe.soSuon" maxlength="64">
                                         <validation-messages [formCtrl]="soSuonInput"></validation-messages>
                                     </div>
                                     <div class="form-group">
                                         <label>Cỡ lốp sử dụng</label>
                                         <input #colopsudungInput="ngModel" class="form-control" type="text"
-                                            name="coLopSuDung" [(ngModel)]="thongtinxe.coLopSuDung" required
-                                            maxlength="64">
+                                            name="coLopSuDung" [(ngModel)]="thongtinxe.coLopSuDung" maxlength="64">
                                         <validation-messages [formCtrl]="colopsudungInput"></validation-messages>
                                     </div>
                                     <div class="form-group">
                                         <label>Kiểu động cơ</label>
                                         <input #kieudongcoInput="ngModel" class="form-control" type="text"
-                                            name="kieuDongCo" [(ngModel)]="thongtinxe.kieuDongCo" required
-                                            maxlength="64">
+                                            name="kieuDongCo" [(ngModel)]="thongtinxe.kieuDongCo" maxlength="64">
                                         <validation-messages [formCtrl]="kieudongcoInput"></validation-messages>
                                     </div>
                                     <div class="form-group">
                                         <label>Loại hộp số</label>
                                         <input #loaihopsoInput="ngModel" class="form-control" type="text"
-                                            name="loaiHopSo" [(ngModel)]="thongtinxe.loaiHopSo" required maxlength="64">
+                                            name="loaiHopSo" [(ngModel)]="thongtinxe.loaiHopSo" maxlength="64">
                                         <validation-messages [formCtrl]="loaihopsoInput"></validation-messages>
                                     </div>
                                     <div class="form-group">
                                         <label>Thể tích động cơ </label>
                                         <input #thetichdongcoInput="ngModel" class="form-control" type="text"
-                                            name="theTichDongCo" [(ngModel)]="thongtinxe.theTichDongCo" required
-                                            maxlength="64">
+                                            name="theTichDongCo" [(ngModel)]="thongtinxe.theTichDongCo" maxlength="64">
                                         <validation-messages [formCtrl]="thetichdongcoInput"></validation-messages>
                                     </div>
                                     <div class="form-group">
                                         <label>Chiều dài </label>
                                         <input #chieudaiInput="ngModel" class="form-control" type="text" name="chieuDai"
-                                            [(ngModel)]="thongtinxe.chieuDai" required maxlength="64">
+                                            [(ngModel)]="thongtinxe.chieuDai" maxlength="64">
                                         <validation-messages [formCtrl]="chieudaiInput"></validation-messages>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Chiều cao </label>
                                         <input #chieucaoInput="ngModel" class="form-control" type="text" name="chieuCao"
-                                            [(ngModel)]="thongtinxe.chieuCao" required maxlength="64">
+                                            [(ngModel)]="thongtinxe.chieuCao" maxlength="64">
                                         <validation-messages [formCtrl]="chieucaoInput"></validation-messages>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Chiều ngang </label>
                                         <input #chieungangInput="ngModel" class="form-control" type="text"
-                                            name="chieuNgang" [(ngModel)]="thongtinxe.chieuNgang" required
-                                            maxlength="64">
+                                            name="chieuNgang" [(ngModel)]="thongtinxe.chieuNgang" maxlength="64">
                                         <validation-messages [formCtrl]="chieungangInput"></validation-messages>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Đơn vị sử dụng </label>
                                         <input #donvisudungInput="ngModel" class="form-control" type="text"
-                                            name="donViSuDung" [(ngModel)]="thongtinxe.donViSuDung" required
-                                            maxlength="64">
+                                            name="donViSuDung" [(ngModel)]="thongtinxe.donViSuDung" maxlength="64">
                                         <validation-messages [formCtrl]="donvisudungInput"></validation-messages>
                                     </div>
                                     <div class="form-group">
                                         <label>Tên chủ phương tiện </label>
                                         <input #tenchuphuongtienInput="ngModel" class="form-control" type="text"
-                                            name="tenChuPhuongTien" [(ngModel)]="thongtinxe.tenChuPhuongTien" required
+                                            name="tenChuPhuongTien" [(ngModel)]="thongtinxe.tenChuPhuongTien"
                                             maxlength="64">
                                         <validation-messages [formCtrl]="tenchuphuongtienInput"></validation-messages>
                                     </div>
                                     <div class="form-group" *ngIf="isDuyet">
                                         <label class="mr-3">Trạng thái duyệt:
                                             <input value="Đã duyệt" [checked]="check" type="checkbox"
-                                                name="trangThaiDuyet" [(ngModel)]="check" required maxlength="64"> Đã
+                                                name="trangThaiDuyet" [(ngModel)]="check" maxlength="64"> Đã
                                             duyệt
                                         </label>
 
@@ -280,7 +274,7 @@
                                     <div class="form-group" *ngIf="!isDuyet">
                                         <label class="mr-3">Trạng thái duyệt:
                                             <input value="Đã duyệt" [checked]="check" type="checkbox" [disabled]="true"
-                                                name="trangThaiDuyet" [(ngModel)]="check" required maxlength="64"> Đã
+                                                name="trangThaiDuyet" [(ngModel)]="check" maxlength="64"> Đã
                                             duyệt
                                         </label>
                                         <!-- <p-checkbox *ngIf='thongtinxe.trangThaiDuyet=== "Đã duyệt"' [(ngModel)]="check"
@@ -364,7 +358,8 @@
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default"
                         (click)="close()">{{l("Cancel")}}</button>
-                    <button class="btn btn-info" (click)="save()"><i class="fa fa-save"></i>
+                    <button class="btn btn-info" (click)="save()" [disabled]="editForm.invalid"><i
+                            class="fa fa-save"></i>
                         <span>{{l("Save")}}</span></button>
                 </div>
             </form>

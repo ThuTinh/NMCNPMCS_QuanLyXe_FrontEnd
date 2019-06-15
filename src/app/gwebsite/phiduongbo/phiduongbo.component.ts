@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { PhiDuongBoServiceProxy, ThongTinXeForViewDto, ModelForViewDto } from '@shared/service-proxies/service-proxies';
+import { PhiDuongBoServiceProxy, ThongTinXeForViewDto, ModelForViewDto, PhiDuongBoDTO, UserSevicrServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditPhiDuongBoModalComponent } from './create-or-edit-phiDuongBo-modal.component';
 import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
 import { ThongTinXeModalComponent } from '../thongtinxe/thongtinxe-modal.component';
@@ -34,14 +34,24 @@ export class PhiDuongBoComponent extends AppComponentBase implements AfterViewIn
     thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
     soXe: string;
     model: ModelForViewDto = new ModelForViewDto();
+    phiduongbos: PhiDuongBoDTO[] = [];
+    curentUser: string;
+    isDuyet: boolean = false;
+
 
 
     constructor(
         injector: Injector,
         private _phiDuongBoService: PhiDuongBoServiceProxy,
         private _activatedRoute: ActivatedRoute,
+        private _user: UserSevicrServiceProxy
     ) {
         super(injector);
+        _user.getUser().subscribe(result => {
+            this.curentUser = result;
+            if (this.curentUser == "admin")
+                this.isDuyet = true;
+        })
     }
 
     /**
@@ -86,8 +96,20 @@ export class PhiDuongBoComponent extends AppComponentBase implements AfterViewIn
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
             ).subscribe(result => {
-                this.primengTableHelper.totalRecordsCount = result.totalCount;
-                this.primengTableHelper.records = result.items;
+                result.items.map(item => {
+                    if (item.ghiChu == "Đã duyệt" || item.createdBy == this.curentUser) {
+                        this.phiduongbos.push(item);
+                    }
+                })
+                if (this.isDuyet) {
+                    this.primengTableHelper.totalRecordsCount = result.items.length;
+                    this.primengTableHelper.records = result.items;
+                }
+                else {
+                    this.primengTableHelper.totalRecordsCount = this.phiduongbos.length;
+                    this.primengTableHelper.records = this.phiduongbos;
+                }
+
 
             });
 

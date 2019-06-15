@@ -52,14 +52,15 @@ export class CreateOrEditDangKiemXeModalComponent extends AppComponentBase {
         this.saving = false;
         this._thongtinxeService.getThongTinSeForEdit(this.soXe).subscribe(kq => {
             this.thongtinxe = kq;
-            if (this.thongtinxe.trangThaiDuyet === "Đã duyệt")
-                this.check = true;
+
             this._modelService.getModelForEdit(kq.model).subscribe(kq1 => {
                 this.model = kq1;
             })
             this._dangkiemxeService.getThongTinDangKiemForEdit(Id).subscribe(result => {
                 this.dangkiemxe = result;
                 if (Id != -1) {
+                    if (this.dangkiemxe.trangThaiDuyet === "Đã duyệt")
+                        this.check = true;
                     if (this.ngayDangKiem != undefined)
                         this.ngayDangKiem = result.ngayDangKiem.toDate();
                     if (this.ngayHetHanDangKiem != undefined)
@@ -80,7 +81,9 @@ export class CreateOrEditDangKiemXeModalComponent extends AppComponentBase {
         this.modal.show();
     }
 
-    save(): void {
+    save(a): void {
+        console.log(a);
+
 
         if (this.check)
             this.dangkiemxe.trangThaiDuyet = "Đã duyệt";
@@ -89,8 +92,18 @@ export class CreateOrEditDangKiemXeModalComponent extends AppComponentBase {
         this.dangkiemxe.soXe = this.soXe;
         if (this.ngayDangKiem != null)
             this.dangkiemxe.ngayDangKiem = moment(this.ngayDangKiem);
-        if (this.ngayHetHanDangKiem != null)
+        if (this.ngayHetHanDangKiem != null) {
             this.dangkiemxe.ngayHetHanDangKiem = moment(this.ngayHetHanDangKiem);
+
+        }
+        let year = this.ngayHetHanDangKiem.getFullYear();
+        let month = this.ngayHetHanDangKiem.getMonth() + 1;
+        let date = this.ngayHetHanDangKiem.getDate();
+        this._thongtinxeService.addDangKiemJob(this.soXe, year, month, date).subscribe(resutl => {
+
+        })
+
+
         let input = this.dangkiemxe;
         // console.log("ahihihi", this.dangkiemxe.coQuanDangKiem);
         this.saving = true;

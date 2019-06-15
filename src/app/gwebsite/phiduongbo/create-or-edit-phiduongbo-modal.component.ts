@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Injector, Output, ViewChild, Input } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { PhiDuongBoServiceProxy, PhiDuongBoInput, ThongTinXeInput, ModelInput, ModelServiceProxy, ThongTinXeServiceProxy } from "@shared/service-proxies/service-proxies";
+import { PhiDuongBoServiceProxy, PhiDuongBoInput, ThongTinXeInput, ModelInput, ModelServiceProxy, ThongTinXeServiceProxy, CheckServiceProxy } from "@shared/service-proxies/service-proxies";
 import * as moment from 'moment';
 
 
@@ -30,6 +30,9 @@ export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
     ngayCapNhap: Date = new Date();
     ngayHetHan: Date;
     ngayDongPhi: Date;
+    check: boolean = false;
+    isDuyet: boolean;
+    currentUser: string;
     @Input() soXe: string;
 
     constructor(
@@ -37,11 +40,13 @@ export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
         private _phiDuongBoService: PhiDuongBoServiceProxy,
         private _thongtinxeService: ThongTinXeServiceProxy,
         private _modelService: ModelServiceProxy,
+        private _isDuyet: CheckServiceProxy
     ) {
         super(injector);
-        // this.ngayCapNhap = new Date();
-        // this.ngayDongPhi = new Date();
-        // this.ngayHetHan = new Date();
+        _isDuyet.isDuyet().subscribe(result => {
+            this.isDuyet = result;
+        })
+
     }
 
     show(phiDuongBoId?: number | null | undefined): void {
@@ -54,6 +59,8 @@ export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
             this._phiDuongBoService.getPhiDuongBoForEdit(phiDuongBoId).subscribe(result => {
                 this.phiDuongBo = result;
                 if (phiDuongBoId != -1) {
+                    if (this.phiDuongBo.ghiChu === "Đã duyệt")
+                        this.check = true;
 
                     // if (result.ngayCapNhat != undefined)
                     //     this.ngayCapNhap = result.ngayCapNhat.toDate()
@@ -69,9 +76,19 @@ export class CreateOrEditPhiDuongBoModalComponent extends AppComponentBase {
     }
     save(): void {
 
+        if (this.check)
+            this.phiDuongBo.ghiChu = "Đã duyệt";
+        else
+            this.phiDuongBo.ghiChu = "Chưa duyệt";
         this.phiDuongBo.ngayCapNhat = moment(this.ngayCapNhap);
         this.phiDuongBo.ngayDongPhi = moment(this.ngayDongPhi);
         this.phiDuongBo.ngayHetHanDongPhi = moment(this.ngayHetHan);
+        let year = this.ngayHetHan.getFullYear();
+        let month = this.ngayHetHan.getMonth() + 1;
+        let date = this.ngayHetHan.getDate();
+        this._thongtinxeService.addPhiDuongBoJob(this.soXe, year, month, date).subscribe(result => {
+
+        })
         this.phiDuongBo.soXe = this.soXe;
         let input = this.phiDuongBo;
         this.saving = true;

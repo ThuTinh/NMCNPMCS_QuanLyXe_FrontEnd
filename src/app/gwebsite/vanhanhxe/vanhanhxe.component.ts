@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, QuanLyVanHanhServiceProxy, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, QuanLyVanHanhServiceProxy, CheckServiceProxy, UserSevicrServiceProxy, QuanLyVanHanhDto } from '@shared/service-proxies/service-proxies';
 import { ViewVanHanhXeModalComponent } from './view-vanhanhxe-modal.component';
 import { CreateOrEditVanHanhXeModalComponent } from './create-or-edit-vanhanhxe-modal.component';
 import { ThongTinXeViewDTO } from '../thongtinxe/dto/ThongTinXeViewDTO';
@@ -37,18 +37,28 @@ export class VanHanhXeComponent extends AppComponentBase implements AfterViewIni
     soXe: string;
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxeDto: ThongTinXeViewDTO = new ThongTinXeViewDTO();
-    isDuyet: boolean;
+    isDuyet: boolean = false;
+    currentUser: string;
+    vanhanhxes: QuanLyVanHanhDto[] = [];
 
     constructor(
         injector: Injector,
         private _vanhanhxeService: QuanLyVanHanhServiceProxy,
         private _activatedRoute: ActivatedRoute,
-        private _isDuyet: CheckServiceProxy
+        private _isDuyet: CheckServiceProxy,
+        private _user: UserSevicrServiceProxy
     ) {
         super(injector);
-        _isDuyet.isDuyet().subscribe(result => {
-            this.isDuyet = result;
+        // _isDuyet.isDuyet().subscribe(result => {
+        //     this.isDuyet = result;
+        // })
+        _user.getUser().subscribe(result => {
+            this.currentUser = result;
+            if (this.currentUser == "admin")
+                this.isDuyet = true;
         })
+
+
     }
 
 
@@ -115,9 +125,23 @@ export class VanHanhXeComponent extends AppComponentBase implements AfterViewIni
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
             ).subscribe(result => {
+                result.items.map(item => {
+                    if (item.trangThaiDaDuyet == "Đã duyệt" || this.currentUser == item.createdBy) {
+                        this.vanhanhxes.push(item);
+                    }
 
-                this.primengTableHelper.totalRecordsCount = result.totalCount;
-                this.primengTableHelper.records = result.items;
+                })
+                if (this.isDuyet) {
+                    this.primengTableHelper.totalRecordsCount = result.items.length;
+                    this.primengTableHelper.records = result.items;
+
+                }
+                else {
+                    this.primengTableHelper.totalRecordsCount = this.vanhanhxes.length;
+                    this.primengTableHelper.records = this.vanhanhxes;
+
+                }
+
 
                 console.log("test", result.items);
 

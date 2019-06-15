@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, CheckServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ThongTinXeServiceProxy, ModelServiceProxy, ModelForViewDto, CheckServiceProxy, UserServiceProxy, UserSevicrServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditThongTinXeModalComponent } from './create-or-edit-thongtinxe-modal.component';
 import { ViewThongTinXeModalComponent } from './view-thongtinxe-modal.component'
 import { ThongTinXeViewDTO } from './dto/ThongTinXeViewDTO';
@@ -36,7 +36,9 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
     model: ModelForViewDto = new ModelForViewDto();
     thongtinxes: ThongTinXeViewDTO[] = [];
     filter: ThongTinXeFilter = new ThongTinXeFilter();
-    isDuyet: boolean;
+    isDuyet: boolean = false;
+    currentUser: string;
+
 
 
 
@@ -45,7 +47,10 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
         private _thongtinxeService: ThongTinXeServiceProxy,
         private _modelService: ModelServiceProxy,
         private _activatedRoute: ActivatedRoute,
-        private _isDuyet: CheckServiceProxy
+        private _isDuyet: CheckServiceProxy,
+        private _user: UserSevicrServiceProxy
+
+
 
     ) {
         super(injector);
@@ -54,9 +59,16 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
         this.filter.model = null;
         this.filter.namSanXuat = null;
         this.filter.trangThaiDuyet = null;
-        _isDuyet.isDuyet().subscribe(result => {
-            this.isDuyet = result;
+        // _isDuyet.isDuyet().subscribe(result => {
+        //     this.isDuyet = result;
+        // })
+        _user.getUser().subscribe(result => {
+            this.currentUser = result;
+            if (this.currentUser == "admin")
+                this.isDuyet = true;
+
         })
+
 
     }
 
@@ -122,30 +134,38 @@ export class ThongTinXeComponent extends AppComponentBase implements AfterViewIn
             this.thongtinxes = [];
             result.items.map(item => {
 
+                if ((item.trangThaiDuyet == "Đã duyệt" || item.createdBy == this.currentUser)) {
+                    var thongtinxe = new ThongTinXeViewDTO();
+                    thongtinxe.createBy = item.createdBy;
+                    console.log("tt" + item.soXe + item.createdBy);
+                    thongtinxe.trangThaiDuyet = item.trangThaiDuyet;
+                    thongtinxe.mucDichSuDung = item.mucDichSuDung;
+                    thongtinxe.soXe = item.soXe;
+                    thongtinxe.donViSuDung = item.donViSuDung;
+                    console.log("Ne" + item.donViSuDung);
+                    thongtinxe.namSanXuat = item.namSanXuat;
+                    thongtinxe.model = item.model;
+                    thongtinxe.maTaiSan = item.maTaiSan;
+                    console.log("kkk", item.model);
+                    this._modelService.getModelForView(item.model).subscribe(result => {
+                        thongtinxe.loaiXe = result.loaiXe;
 
-                var thongtinxe = new ThongTinXeViewDTO();
-                thongtinxe.trangThaiDuyet = item.trangThaiDuyet;
-                thongtinxe.mucDichSuDung = item.mucDichSuDung;
-                thongtinxe.soXe = item.soXe;
-                thongtinxe.donViSuDung = item.donViSuDung;
-                console.log("Ne" + item.donViSuDung);
-                thongtinxe.namSanXuat = item.namSanXuat;
-                thongtinxe.model = item.model;
-                thongtinxe.maTaiSan = item.maTaiSan;
-                console.log("kkk", item.model);
-                this._modelService.getModelForView(item.model).subscribe(result => {
-                    thongtinxe.loaiXe = result.loaiXe;
+                        thongtinxe.hangSanXuat = result.hangSanXuat;
 
-                    thongtinxe.hangSanXuat = result.hangSanXuat;
-
-                });
-                this.thongtinxes.push(thongtinxe);
-
+                    });
+                    this.thongtinxes.push(thongtinxe);
+                }
 
             });
-            this.primengTableHelper.totalRecordsCount = this.thongtinxes.length;
+            if (this.isDuyet) {
+                this.primengTableHelper.totalRecordsCount = result.items.length;
+                this.primengTableHelper.records = result.items;
+            }
+            else {
+                this.primengTableHelper.totalRecordsCount = this.thongtinxes.length;
+                this.primengTableHelper.records = this.thongtinxes;
+            }
 
-            this.primengTableHelper.records = this.thongtinxes;
             this.primengTableHelper.hideLoadingIndicator();
             this.filter.soXe = null;
             this.filter.mucDichSuDung = null;

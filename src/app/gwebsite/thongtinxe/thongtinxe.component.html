@@ -123,7 +123,8 @@
                                 <tr>
                                     <td>
                                         <span class="ui-column-title">Số xe</span>
-                                        <span title="{{record.soXe}}">{{truncateString(record.soXe)}}</span>
+                                        <span title="{{record.soXe}}">{{truncateString(record.soXe)}}
+                                        </span>
                                     </td>
                                     <td>
                                         <span class="ui-column-title">Đơn vị sử dụng</span>
@@ -166,7 +167,8 @@
 
                                             <button
                                                 class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-                                                (click)="deleteThongTinXe(record.soXe)" title="{{l('Delete')}}">
+                                                (click)="deleteThongTinXe(record.soXe)" title="{{l('Delete')}}"
+                                                *ngIf='record.trangThaiDuyet!="Đã duyệt" || isDuyet'>
                                                 <i class="fa fa-times" [attr.aria-label]="l('Delete')"></i>
                                             </button>
 

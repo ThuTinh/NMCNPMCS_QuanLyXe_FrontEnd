@@ -19,13 +19,13 @@
                             <div class="form-group">
                                 <label>Số Xe </label>
                                 <input #soxeInput="ngModel" class="form-control" type="text" name="soXe"
-                                    [disabled]="true" [(ngModel)]="thongtinxe.soXe " required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="thongtinxe.soXe " maxlength="64">
                                 <validation-messages [formCtrl]="soxeInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Loại xe </label>
                                 <input #loaixeInput="ngModel" class="form-control" type="text" name="loaiXe"
-                                    [disabled]="true" [(ngModel)]="model.loaiXe " required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="model.loaiXe " maxlength="64">
                                 <validation-messages [formCtrl]="loaixeInput"></validation-messages>
                             </div>
                             <div class="form-group">
@@ -37,27 +37,27 @@
                             <div class="form-group">
                                 <label>Nước sản xuất </label>
                                 <input #nuocsanxuatInput="ngModel" class="form-control" type="text" name="nuocSanXuat"
-                                    [disabled]="true" [(ngModel)]="thongtinxe.nuocSanXuat" required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="thongtinxe.nuocSanXuat" maxlength="64">
                                 <validation-messages [formCtrl]="nuocsanxuatInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Loại nhiên liệu </label>
                                 <input #loaiNhienLieuInput="ngModel" class="form-control" type="text"
                                     name="loaiNhienLieu" [disabled]="true" [(ngModel)]="thongtinxe.loaiNhienLieu"
-                                    required maxlength="64">
+                                    maxlength="64">
                                 <validation-messages [formCtrl]="loaiNhienLieuInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Đơn vị sử dụng </label>
                                 <input #donViSuDungInput="ngModel" class="form-control" type="text" name="donViSuDung"
-                                    [disabled]="true" [(ngModel)]="thongtinxe.donViSuDung" required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="thongtinxe.donViSuDung" maxlength="64">
                                 <validation-messages [formCtrl]="donViSuDungInput"></validation-messages>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Ngày bảo dưỡng </label>
-                                <p-calendar #ngayBaoDuongInput="ngModel" class="form-control" [showIcon]="true"
+                                <p-calendar #ngayBaoDuongInput="ngModel" class="form-control" [showIcon]="true" required
                                     [(ngModel)]="ngayBaoDuong" name="ngayBaoDuong">
                                 </p-calendar>
                                 <validation-messages [formCtrl]="ngayBaoDuongInput"></validation-messages>
@@ -68,7 +68,7 @@
                             <div class="form-group">
                                 <label>Ngày bảo dưỡng tiếp theo </label>
                                 <p-calendar #ngayBaoDuongTiepTheoInput="ngModel" class="form-control" [showIcon]="true"
-                                    [(ngModel)]="ngayBaoDuongTiepTheo" name="ngayBaoDuongTiepTheo">
+                                    required [(ngModel)]="ngayBaoDuongTiepTheo" name="ngayBaoDuongTiepTheo">
                                 </p-calendar>
                                 <validation-messages [formCtrl]="ngayBaoDuongTiepTheoInput"></validation-messages>
                                 <!-- <input #ngayBaoDuongTiepTheoInput="ngModel" class="form-control" type="date"
@@ -99,14 +99,14 @@
                             <div class="form-group" *ngIf="isDuyet">
                                 <label class="mr-3">Trạng thái duyệt:
                                     <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet"
-                                        [(ngModel)]="check" required maxlength="64"> Đã
+                                        [(ngModel)]="check" maxlength="64"> Đã
                                     duyệt
                                 </label>
                             </div>
-                             <div class="form-group" *ngIf="!isDuyet">
+                            <div class="form-group" *ngIf="!isDuyet">
                                 <label class="mr-3">Trạng thái duyệt:
-                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet" [disabled] = "true"
-                                        [(ngModel)]="check" required maxlength="64"> Đã
+                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet"
+                                        [disabled]="true" [(ngModel)]="check" maxlength="64"> Đã
                                     duyệt
                                 </label>
                             </div>
@@ -116,8 +116,8 @@
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default"
                         (click)="close()">{{l("Cancel")}}</button>
-                    <button type="submit" class="btn btn-primary" [buttonBusy]="saving"
-                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                    <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid"><i
+                            class="fa fa-save"></i>
                         <span>{{l("Save")}}</span></button>
                 </div>
             </form>

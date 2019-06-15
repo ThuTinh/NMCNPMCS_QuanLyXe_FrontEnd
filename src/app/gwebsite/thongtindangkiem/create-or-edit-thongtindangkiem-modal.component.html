@@ -19,32 +19,32 @@
                             <div class="form-group">
                                 <label>Loại xe </label>
                                 <input #loaixeInput="ngModel" class="form-control" type="text" name="loaiXe"
-                                    [disabled]="true" [(ngModel)]="model.loaiXe " required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="model.loaiXe " maxlength="64">
                                 <validation-messages [formCtrl]="loaixeInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Model </label>
                                 <input #modelInput="ngModel" class="form-control" type="text" name="model"
-                                    [disabled]="true" [(ngModel)]="thongtinxe.model" required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="thongtinxe.model" maxlength="64">
                                 <validation-messages [formCtrl]="modelInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Nước sản xuất </label>
                                 <input #nuocsanxuatInput="ngModel" class="form-control" type="text" name="nuocSanXuat"
-                                    [disabled]="true" [(ngModel)]="thongtinxe.nuocSanXuat" required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="thongtinxe.nuocSanXuat" maxlength="64">
                                 <validation-messages [formCtrl]="nuocsanxuatInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Loại nhiên liệu </label>
                                 <input #loaiNhienLieuInput="ngModel" class="form-control" type="text"
                                     name="loaiNhienLieu" [disabled]="true" [(ngModel)]="thongtinxe.loaiNhienLieu"
-                                    required maxlength="64">
+                                    maxlength="64">
                                 <validation-messages [formCtrl]="loaiNhienLieuInput"></validation-messages>
                             </div>
                             <div class="form-group">
                                 <label>Đơn vị sử dụng </label>
                                 <input #donViSuDungInput="ngModel" class="form-control" type="text" name="donViSuDung"
-                                    [disabled]="true" [(ngModel)]="thongtinxe.donViSuDung" required maxlength="64">
+                                    [disabled]="true" [(ngModel)]="thongtinxe.donViSuDung" maxlength="64">
                                 <validation-messages [formCtrl]="donViSuDungInput"></validation-messages>
                             </div>
 
@@ -64,7 +64,7 @@
                                 <validation-messages [formCtrl]="ngayMuaDangKiemInput"></validation-messages> -->
                             <div>
                                 <p>Ngày đăng kiểm </p>
-                                <p-calendar class="form-group" [showIcon]="true" [(ngModel)]="ngayDangKiem"
+                                <p-calendar class="form-group" [showIcon]="true" [(ngModel)]="ngayDangKiem" required
                                     name="ngayDangKiem">
                                 </p-calendar>
 
@@ -73,7 +73,7 @@
                             <div>
                                 <p>Ngày hết hạn đăng kiểm </p>
                                 <p-calendar class="form-group" [showIcon]="true" [(ngModel)]="ngayHetHanDangKiem"
-                                    name="ngayHetHanDangKiem">
+                                    required name="ngayHetHanDangKiem">
                                 </p-calendar>
                             </div>
                             <div class="form-group">
@@ -83,7 +83,7 @@
                                 <!-- <validation-messages [formCtrl]="thoiHanDangKiemInput"></validation-messages> -->
                             </div>
                             <div class="form-group">
-                                <label>cơ quan bảo hiểm </label>
+                                <label>Cơ quan bảo hiểm </label>
                                 <input #coQuanDangKiemInput="ngModel" class="form-control" type="text"
                                     name="coQuanDangKiem" required [(ngModel)]="dangkiemxe.coQuanDangKiem"
                                     maxlength="64">
@@ -120,21 +120,21 @@
                             <div class="form-group" *ngIf="isDuyet">
                                 <label class="mr-3">Trạng thái duyệt:
                                     <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet"
-                                        [(ngModel)]="check" required maxlength="64"> Đã
+                                        [(ngModel)]="check" maxlength="64"> Đã
                                     duyệt
                                 </label>
                             </div>
                             <div class="form-group" *ngIf="!isDuyet">
                                 <label class="mr-3">Trạng thái duyệt:
-                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet" [(ngModel)]="check" required [disabled] = "true"
-                                        maxlength="64"> Đã
+                                    <input value="Đã duyệt" [checked]="check" type="checkbox" name="trangThaiDuyet"
+                                        [(ngModel)]="check" [disabled]="true" maxlength="64"> Đã
                                     duyệt
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label>Ghi chú </label>
                                 <input #ghiChuInput="ngModel" class="form-control" type="text" name="ghiChu"
-                                    [(ngModel)]="dangkiemxe.ghiChu" required maxlength="64">
+                                    [(ngModel)]="dangkiemxe.ghiChu" maxlength="64">
                                 <validation-messages [formCtrl]="ghiChuInput"></validation-messages>
                             </div>
                         </div>
@@ -148,7 +148,8 @@
             <div class="modal-footer">
                 <button [disabled]="saving" type="button" class="btn btn-default"
                     (click)="close()">{{l("Cancel")}}</button>
-                <button (click)="save()" class="btn btn-info"><i class="fa fa-save"></i>
+                <button (click)="save(editForm)" class="btn btn-info" [disabled]="editForm.invalid"><i
+                        class="fa fa-save"></i>
                     <span>{{l("Save")}}</span></button>
             </div>
         </div>

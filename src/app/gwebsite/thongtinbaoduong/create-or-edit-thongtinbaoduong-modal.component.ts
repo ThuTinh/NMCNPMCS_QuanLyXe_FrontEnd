@@ -30,8 +30,6 @@ export class CreateOrEditThongTinBaoDuongModalComponent extends AppComponentBase
     model: ModelInput = new ModelInput();
     check: boolean = false;
     isDuyet: boolean;
-
-
     thongtinbaoduong: ThongTinBaoDuongInput = new ThongTinBaoDuongInput();
 
     constructor(
@@ -61,25 +59,23 @@ export class CreateOrEditThongTinBaoDuongModalComponent extends AppComponentBase
         this.saving = false;
         this._thongtinxeService.getThongTinSeForEdit(this.soXe).subscribe(kq => {
             this.thongtinxe = kq;
-            if (this.thongtinxe.trangThaiDuyet === "Đã duyệt")
-                this.check = true;
+
             this._modelService.getModelForEdit(kq.model).subscribe(kq1 => {
                 this.model = kq1;
             })
             this._thongtinbaoduongService.getThongTinBaoDuongForEdit(thongtinbaoduongId).subscribe(result => {
                 this.thongtinbaoduong = result;
                 if (thongtinbaoduongId != -1) {
+                    if (this.thongtinbaoduong.trangThaiDuyet === "Đã duyệt")
+                        this.check = true;
+
                     this.ngayBaoDuong = result.ngayBaoDuong.toDate();
                     this.ngayBaoDuongTiepTheo = result.ngayBaoDuongTiepTheo.toDate();
                     console.log("testNgayBaoDuong", this.ngayBaoDuong);
                 }
-
             })
         })
         this.modal.show();
-
-
-
 
     }
 
@@ -91,6 +87,13 @@ export class CreateOrEditThongTinBaoDuongModalComponent extends AppComponentBase
         this.thongtinbaoduong.soXe = this.soXe;
         this.thongtinbaoduong.ngayBaoDuong = moment(this.ngayBaoDuong);
         this.thongtinbaoduong.ngayBaoDuongTiepTheo = moment(this.ngayBaoDuongTiepTheo);
+        let year = this.ngayBaoDuongTiepTheo.getFullYear();
+        let month = this.ngayBaoDuongTiepTheo.getMonth() + 1;
+        let day = this.ngayBaoDuongTiepTheo.getDate();
+        console.log("Năm tháng ngày", year + "-" + month + "-" + day);
+        this._thongtinxeService.addBaoDuongJob(this.soXe, year, month, day).subscribe(result => {
+
+        });
         let input = this.thongtinbaoduong;
         console.log(input);
         this.saving = true;
